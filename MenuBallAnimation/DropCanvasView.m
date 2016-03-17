@@ -64,16 +64,16 @@
 /***********************
  角度说明
  
- 90度
- |
- |
- |
- |
+             90度
+             |
+             |
+             |
+             |
  0度  ----------------  180度
- |
+             |
  －30或者330  |
- |
- |
+             |
+             |
  270 度
  
  **************************/
@@ -103,6 +103,14 @@
 
     CGPoint bezierControlPoint1 = [dropView convertPoint:dropView.bezierControlPoint1 toView:self];
     CGPoint bezierControlPoint2 = [dropView convertPoint:dropView.bezierControlPoint2 toView:self];
+    
+    PointMath *point1 = [[PointMath alloc] initWithPoint:bezierControlPoint1 inView:self];
+    point1.radius = [NSNumber numberWithFloat:6.0];
+    [_assisArray addObject:point1];
+    
+    PointMath *point2 = [[PointMath alloc] initWithPoint:bezierControlPoint2 inView:self];
+    point2.radius = [NSNumber numberWithFloat:6.0];
+    [_assisArray addObject:point2];
     
     /******    MainDrop和SmallDrop 相交   ******/
     
@@ -375,16 +383,26 @@
         
         if ([tempAssis isKindOfClass:[PointMath class]]) {
             PointMath *pointMath = (PointMath *)tempAssis;
-            CGPoint point = [pointMath.InView convertPoint:pointMath.point toView:self];
-            [self drawPoint:point];
+            [self drawPoint:pointMath];
         }
     }
 }
 
 //  画点
-- (void)drawPoint:(CGPoint)point
+- (void)drawPoint:(PointMath *)pointMath
 {
+    CGPoint point = [pointMath.InView convertPoint:pointMath.point toView:self];
     CGFloat point_width = 10;
+    
+    if (pointMath.radius) {
+        point_width = [pointMath.radius floatValue];
+    }
+    
+    if (pointMath.color) {
+        [pointMath.color setFill];
+    }else{
+        [[UIColor blackColor] setFill];
+    }
     
     //1.获取图形上下文
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -392,7 +410,6 @@
     CGContextAddEllipseInRect(context, CGRectMake(point.x - point_width/2, point.y - point_width/2, point_width, point_width));
     CGContextSetLineWidth(context, 2);
     
-    [[UIColor blackColor] setFill];
     CGContextFillPath(context);
 }
 

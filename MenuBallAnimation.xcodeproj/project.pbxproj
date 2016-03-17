@@ -20,7 +20,6 @@
 		091381061C9AEF890091E305 /* CircleMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 091381041C9AEF890091E305 /* CircleMath.m */; };
 		0913810D1C9AF0380091E305 /* DropCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 091381081C9AF0380091E305 /* DropCanvasView.m */; };
 		0913810E1C9AF0380091E305 /* DropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0913810A1C9AF0380091E305 /* DropView.m */; };
-		0913810F1C9AF0380091E305 /* PointView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0913810C1C9AF0380091E305 /* PointView.m */; };
 		091381121C9AF7500091E305 /* PointMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 091381111C9AF7500091E305 /* PointMath.m */; };
 		AF445A9F7261112CFA0404D8 /* libPods-MenuBallAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 113C46E53EF92D52E6113FFC /* libPods-MenuBallAnimation.a */; };
 /* End PBXBuildFile section */
@@ -70,8 +69,6 @@
 		091381081C9AF0380091E305 /* DropCanvasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropCanvasView.m; sourceTree = "<group>"; };
 		091381091C9AF0380091E305 /* DropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropView.h; sourceTree = "<group>"; };
 		0913810A1C9AF0380091E305 /* DropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropView.m; sourceTree = "<group>"; };
-		0913810B1C9AF0380091E305 /* PointView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointView.h; sourceTree = "<group>"; };
-		0913810C1C9AF0380091E305 /* PointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PointView.m; sourceTree = "<group>"; };
 		091381101C9AF7500091E305 /* PointMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointMath.h; sourceTree = "<group>"; };
 		091381111C9AF7500091E305 /* PointMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PointMath.m; sourceTree = "<group>"; };
 		113C46E53EF92D52E6113FFC /* libPods-MenuBallAnimation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MenuBallAnimation.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -140,8 +137,6 @@
 				091381081C9AF0380091E305 /* DropCanvasView.m */,
 				091381091C9AF0380091E305 /* DropView.h */,
 				0913810A1C9AF0380091E305 /* DropView.m */,
-				0913810B1C9AF0380091E305 /* PointView.h */,
-				0913810C1C9AF0380091E305 /* PointView.m */,
 				091381101C9AF7500091E305 /* PointMath.h */,
 				091381111C9AF7500091E305 /* PointMath.m */,
 				091381011C9AEF890091E305 /* LineMath.h */,
@@ -387,7 +382,6 @@
 			files = (
 				091380FF1C9AE0F80091E305 /* MenuBallView.m in Sources */,
 				091380CF1C9ADEDA0091E305 /* ViewController.m in Sources */,
-				0913810F1C9AF0380091E305 /* PointView.m in Sources */,
 				091380CC1C9ADEDA0091E305 /* AppDelegate.m in Sources */,
 				091381121C9AF7500091E305 /* PointMath.m in Sources */,
 				091380C91C9ADEDA0091E305 /* main.m in Sources */,

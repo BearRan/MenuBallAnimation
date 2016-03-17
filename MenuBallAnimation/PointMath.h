@@ -12,6 +12,8 @@
 
 @property (assign, nonatomic) CGPoint   point;
 @property (strong, nonatomic) UIView    *InView;
+@property (strong, nonatomic) NSNumber  *radius;
+@property (strong, nonatomic) UIColor   *color;
 
 - (instancetype)initWithPoint:(CGPoint)point inView:(UIView *)inView;
 
