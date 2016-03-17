@@ -1,0 +1,20 @@
+//
+//  PrefixHeader.pch
+//  GuoDongTest
+//
+//  Created by apple on 16/2/5.
+//  Copyright © 2016年 apple. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import "BearConstants.h"
+#import "BearTextField.h"
+#import "UILabel+BearSet.h"
+#import "UITextField+BearSet.h"
+#import "UIView+BearSet.h"
+
+#import "AppDelegate.h"
+
+#endif /* PrefixHeader_pch */

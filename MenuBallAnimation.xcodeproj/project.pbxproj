@@ -1,0 +1,614 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		091380C91C9ADEDA0091E305 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 091380C81C9ADEDA0091E305 /* main.m */; };
+		091380CC1C9ADEDA0091E305 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 091380CB1C9ADEDA0091E305 /* AppDelegate.m */; };
+		091380CF1C9ADEDA0091E305 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 091380CE1C9ADEDA0091E305 /* ViewController.m */; };
+		091380D21C9ADEDA0091E305 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 091380D01C9ADEDA0091E305 /* Main.storyboard */; };
+		091380D41C9ADEDA0091E305 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 091380D31C9ADEDA0091E305 /* Assets.xcassets */; };
+		091380D71C9ADEDA0091E305 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 091380D51C9ADEDA0091E305 /* LaunchScreen.storyboard */; };
+		091380E21C9ADEDA0091E305 /* MenuBallAnimationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 091380E11C9ADEDA0091E305 /* MenuBallAnimationTests.m */; };
+		091380ED1C9ADEDA0091E305 /* MenuBallAnimationUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 091380EC1C9ADEDA0091E305 /* MenuBallAnimationUITests.m */; };
+		091380FF1C9AE0F80091E305 /* MenuBallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 091380FE1C9AE0F80091E305 /* MenuBallView.m */; };
+		AF445A9F7261112CFA0404D8 /* libPods-MenuBallAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 113C46E53EF92D52E6113FFC /* libPods-MenuBallAnimation.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		091380DE1C9ADEDA0091E305 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 091380BC1C9ADED90091E305 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 091380C31C9ADED90091E305;
+			remoteInfo = MenuBallAnimation;
+		};
+		091380E91C9ADEDA0091E305 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 091380BC1C9ADED90091E305 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 091380C31C9ADED90091E305;
+			remoteInfo = MenuBallAnimation;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		091380C41C9ADED90091E305 /* MenuBallAnimation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuBallAnimation.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		091380C81C9ADEDA0091E305 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		091380CA1C9ADEDA0091E305 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		091380CB1C9ADEDA0091E305 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		091380CD1C9ADEDA0091E305 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		091380CE1C9ADEDA0091E305 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		091380D11C9ADEDA0091E305 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		091380D31C9ADEDA0091E305 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		091380D61C9ADEDA0091E305 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		091380D81C9ADEDA0091E305 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		091380DD1C9ADEDA0091E305 /* MenuBallAnimationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MenuBallAnimationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		091380E11C9ADEDA0091E305 /* MenuBallAnimationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MenuBallAnimationTests.m; sourceTree = "<group>"; };
+		091380E31C9ADEDA0091E305 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		091380E81C9ADEDA0091E305 /* MenuBallAnimationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MenuBallAnimationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		091380EC1C9ADEDA0091E305 /* MenuBallAnimationUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MenuBallAnimationUITests.m; sourceTree = "<group>"; };
+		091380EE1C9ADEDA0091E305 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		091380FD1C9AE0F80091E305 /* MenuBallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuBallView.h; sourceTree = "<group>"; };
+		091380FE1C9AE0F80091E305 /* MenuBallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuBallView.m; sourceTree = "<group>"; };
+		091381001C9AEA940091E305 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		113C46E53EF92D52E6113FFC /* libPods-MenuBallAnimation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MenuBallAnimation.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FAC5AE0128CFE1CCAA6DD5B /* Pods-MenuBallAnimation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuBallAnimation.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MenuBallAnimation/Pods-MenuBallAnimation.debug.xcconfig"; sourceTree = "<group>"; };
+		BEF936BDC406E6BF25368528 /* Pods-MenuBallAnimation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuBallAnimation.release.xcconfig"; path = "Pods/Target Support Files/Pods-MenuBallAnimation/Pods-MenuBallAnimation.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		091380C11C9ADED90091E305 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF445A9F7261112CFA0404D8 /* libPods-MenuBallAnimation.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		091380DA1C9ADEDA0091E305 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		091380E51C9ADEDA0091E305 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		091380BB1C9ADED90091E305 = {
+			isa = PBXGroup;
+			children = (
+				091380C61C9ADED90091E305 /* MenuBallAnimation */,
+				091380E01C9ADEDA0091E305 /* MenuBallAnimationTests */,
+				091380EB1C9ADEDA0091E305 /* MenuBallAnimationUITests */,
+				091380C51C9ADED90091E305 /* Products */,
+				E63F8B80C236C582DBE8A2A6 /* Pods */,
+				748D3936CA1EF22938DCFAA9 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		091380C51C9ADED90091E305 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				091380C41C9ADED90091E305 /* MenuBallAnimation.app */,
+				091380DD1C9ADEDA0091E305 /* MenuBallAnimationTests.xctest */,
+				091380E81C9ADEDA0091E305 /* MenuBallAnimationUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		091380C61C9ADED90091E305 /* MenuBallAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				091380CA1C9ADEDA0091E305 /* AppDelegate.h */,
+				091380CB1C9ADEDA0091E305 /* AppDelegate.m */,
+				091380CD1C9ADEDA0091E305 /* ViewController.h */,
+				091380CE1C9ADEDA0091E305 /* ViewController.m */,
+				091380FD1C9AE0F80091E305 /* MenuBallView.h */,
+				091380FE1C9AE0F80091E305 /* MenuBallView.m */,
+				091381001C9AEA940091E305 /* PrefixHeader.pch */,
+				091380D01C9ADEDA0091E305 /* Main.storyboard */,
+				091380D31C9ADEDA0091E305 /* Assets.xcassets */,
+				091380D51C9ADEDA0091E305 /* LaunchScreen.storyboard */,
+				091380D81C9ADEDA0091E305 /* Info.plist */,
+				091380C71C9ADEDA0091E305 /* Supporting Files */,
+			);
+			path = MenuBallAnimation;
+			sourceTree = "<group>";
+		};
+		091380C71C9ADEDA0091E305 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				091380C81C9ADEDA0091E305 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		091380E01C9ADEDA0091E305 /* MenuBallAnimationTests */ = {
+			isa = PBXGroup;
+			children = (
+				091380E11C9ADEDA0091E305 /* MenuBallAnimationTests.m */,
+				091380E31C9ADEDA0091E305 /* Info.plist */,
+			);
+			path = MenuBallAnimationTests;
+			sourceTree = "<group>";
+		};
+		091380EB1C9ADEDA0091E305 /* MenuBallAnimationUITests */ = {
+			isa = PBXGroup;
+			children = (
+				091380EC1C9ADEDA0091E305 /* MenuBallAnimationUITests.m */,
+				091380EE1C9ADEDA0091E305 /* Info.plist */,
+			);
+			path = MenuBallAnimationUITests;
+			sourceTree = "<group>";
+		};
+		748D3936CA1EF22938DCFAA9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				113C46E53EF92D52E6113FFC /* libPods-MenuBallAnimation.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E63F8B80C236C582DBE8A2A6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7FAC5AE0128CFE1CCAA6DD5B /* Pods-MenuBallAnimation.debug.xcconfig */,
+				BEF936BDC406E6BF25368528 /* Pods-MenuBallAnimation.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		091380C31C9ADED90091E305 /* MenuBallAnimation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 091380F11C9ADEDA0091E305 /* Build configuration list for PBXNativeTarget "MenuBallAnimation" */;
+			buildPhases = (
+				E5E3BA1244E1E0EDA0B75015 /* Check Pods Manifest.lock */,
+				091380C01C9ADED90091E305 /* Sources */,
+				091380C11C9ADED90091E305 /* Frameworks */,
+				091380C21C9ADED90091E305 /* Resources */,
+				B744F851856C442CE06CDB6A /* Embed Pods Frameworks */,
+				4B01EFD60E75DF6792EF30ED /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MenuBallAnimation;
+			productName = MenuBallAnimation;
+			productReference = 091380C41C9ADED90091E305 /* MenuBallAnimation.app */;
+			productType = "com.apple.product-type.application";
+		};
+		091380DC1C9ADEDA0091E305 /* MenuBallAnimationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 091380F41C9ADEDA0091E305 /* Build configuration list for PBXNativeTarget "MenuBallAnimationTests" */;
+			buildPhases = (
+				091380D91C9ADEDA0091E305 /* Sources */,
+				091380DA1C9ADEDA0091E305 /* Frameworks */,
+				091380DB1C9ADEDA0091E305 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				091380DF1C9ADEDA0091E305 /* PBXTargetDependency */,
+			);
+			name = MenuBallAnimationTests;
+			productName = MenuBallAnimationTests;
+			productReference = 091380DD1C9ADEDA0091E305 /* MenuBallAnimationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		091380E71C9ADEDA0091E305 /* MenuBallAnimationUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 091380F71C9ADEDA0091E305 /* Build configuration list for PBXNativeTarget "MenuBallAnimationUITests" */;
+			buildPhases = (
+				091380E41C9ADEDA0091E305 /* Sources */,
+				091380E51C9ADEDA0091E305 /* Frameworks */,
+				091380E61C9ADEDA0091E305 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				091380EA1C9ADEDA0091E305 /* PBXTargetDependency */,
+			);
+			name = MenuBallAnimationUITests;
+			productName = MenuBallAnimationUITests;
+			productReference = 091380E81C9ADEDA0091E305 /* MenuBallAnimationUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		091380BC1C9ADED90091E305 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = Bear;
+				TargetAttributes = {
+					091380C31C9ADED90091E305 = {
+						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = VT6HKJNGDV;
+					};
+					091380DC1C9ADEDA0091E305 = {
+						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = VT6HKJNGDV;
+						TestTargetID = 091380C31C9ADED90091E305;
+					};
+					091380E71C9ADEDA0091E305 = {
+						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = VT6HKJNGDV;
+						TestTargetID = 091380C31C9ADED90091E305;
+					};
+				};
+			};
+			buildConfigurationList = 091380BF1C9ADED90091E305 /* Build configuration list for PBXProject "MenuBallAnimation" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 091380BB1C9ADED90091E305;
+			productRefGroup = 091380C51C9ADED90091E305 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				091380C31C9ADED90091E305 /* MenuBallAnimation */,
+				091380DC1C9ADEDA0091E305 /* MenuBallAnimationTests */,
+				091380E71C9ADEDA0091E305 /* MenuBallAnimationUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		091380C21C9ADED90091E305 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				091380D71C9ADEDA0091E305 /* LaunchScreen.storyboard in Resources */,
+				091380D41C9ADEDA0091E305 /* Assets.xcassets in Resources */,
+				091380D21C9ADEDA0091E305 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		091380DB1C9ADEDA0091E305 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		091380E61C9ADEDA0091E305 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4B01EFD60E75DF6792EF30ED /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MenuBallAnimation/Pods-MenuBallAnimation-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B744F851856C442CE06CDB6A /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MenuBallAnimation/Pods-MenuBallAnimation-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E5E3BA1244E1E0EDA0B75015 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		091380C01C9ADED90091E305 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				091380FF1C9AE0F80091E305 /* MenuBallView.m in Sources */,
+				091380CF1C9ADEDA0091E305 /* ViewController.m in Sources */,
+				091380CC1C9ADEDA0091E305 /* AppDelegate.m in Sources */,
+				091380C91C9ADEDA0091E305 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		091380D91C9ADEDA0091E305 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				091380E21C9ADEDA0091E305 /* MenuBallAnimationTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		091380E41C9ADEDA0091E305 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				091380ED1C9ADEDA0091E305 /* MenuBallAnimationUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		091380DF1C9ADEDA0091E305 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 091380C31C9ADED90091E305 /* MenuBallAnimation */;
+			targetProxy = 091380DE1C9ADEDA0091E305 /* PBXContainerItemProxy */;
+		};
+		091380EA1C9ADEDA0091E305 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 091380C31C9ADED90091E305 /* MenuBallAnimation */;
+			targetProxy = 091380E91C9ADEDA0091E305 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		091380D01C9ADEDA0091E305 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				091380D11C9ADEDA0091E305 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		091380D51C9ADEDA0091E305 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				091380D61C9ADEDA0091E305 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		091380EF1C9ADEDA0091E305 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		091380F01C9ADEDA0091E305 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		091380F21C9ADEDA0091E305 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7FAC5AE0128CFE1CCAA6DD5B /* Pods-MenuBallAnimation.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/MenuBallAnimation/PrefixHeader.pch";
+				INFOPLIST_FILE = MenuBallAnimation/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = BearWorkSpace.MenuBallAnimation;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		091380F31C9ADEDA0091E305 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BEF936BDC406E6BF25368528 /* Pods-MenuBallAnimation.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/MenuBallAnimation/PrefixHeader.pch";
+				INFOPLIST_FILE = MenuBallAnimation/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = BearWorkSpace.MenuBallAnimation;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		091380F51C9ADEDA0091E305 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = MenuBallAnimationTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = BearWorkSpace.MenuBallAnimationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MenuBallAnimation.app/MenuBallAnimation";
+			};
+			name = Debug;
+		};
+		091380F61C9ADEDA0091E305 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = MenuBallAnimationTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = BearWorkSpace.MenuBallAnimationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MenuBallAnimation.app/MenuBallAnimation";
+			};
+			name = Release;
+		};
+		091380F81C9ADEDA0091E305 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = MenuBallAnimationUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = BearWorkSpace.MenuBallAnimationUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = MenuBallAnimation;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		091380F91C9ADEDA0091E305 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = MenuBallAnimationUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = BearWorkSpace.MenuBallAnimationUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = MenuBallAnimation;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		091380BF1C9ADED90091E305 /* Build configuration list for PBXProject "MenuBallAnimation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				091380EF1C9ADEDA0091E305 /* Debug */,
+				091380F01C9ADEDA0091E305 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		091380F11C9ADEDA0091E305 /* Build configuration list for PBXNativeTarget "MenuBallAnimation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				091380F21C9ADEDA0091E305 /* Debug */,
+				091380F31C9ADEDA0091E305 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		091380F41C9ADEDA0091E305 /* Build configuration list for PBXNativeTarget "MenuBallAnimationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				091380F51C9ADEDA0091E305 /* Debug */,
+				091380F61C9ADEDA0091E305 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		091380F71C9ADEDA0091E305 /* Build configuration list for PBXNativeTarget "MenuBallAnimationUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				091380F81C9ADEDA0091E305 /* Debug */,
+				091380F91C9ADEDA0091E305 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 091380BC1C9ADED90091E305 /* Project object */;
+}

@@ -1,0 +1,559 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		12E55B84DA91F979C86F20A772B12F7B /* BearTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F71FA0C421434F59BF6C7D3094D2867 /* BearTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3458633288718B623038FCBA1B421896 /* BearSkill-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5240B4E72B9C90E4B7BB18A95A09F297 /* BearSkill-dummy.m */; };
+		3634F4B8A01F31176784D54864DD1249 /* UIView+BearSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AAAEDBFDBE86AB150E320A9634EECC6 /* UIView+BearSet.m */; };
+		67432060501A9B9B302F33D0C8D95A21 /* UIView+BearSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 934749626588F65B580AD87C63354F7C /* UIView+BearSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		68BFF3FE2433031E9FA0AC5104E5B8AB /* UITextField+BearSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A1818986DAF191EFD7965524676A7BD /* UITextField+BearSet.m */; };
+		738663831CE17A8450B7155366012334 /* Pods-MenuBallAnimation-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EE7BCF6F1CC35EA4AB6CA87A4237E8B /* Pods-MenuBallAnimation-dummy.m */; };
+		82BA55688CC0A0F2CD8712FE5BFF3381 /* UILabel+BearSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EBA01ED4C33C907161DADCA99784B6F /* UILabel+BearSet.m */; };
+		8F884235168661470A5EE2F452A8A722 /* BearTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8C649C81092990934F03E7FE311F0A /* BearTextField.m */; };
+		A96BFF22D9A568B2F03423FAE8F331B1 /* UITextField+BearSet.h in Headers */ = {isa = PBXBuildFile; fileRef = D7DCF1B94E65E9DC19023D6C8AB40828 /* UITextField+BearSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CBF769E5246607DA4CA1DFFE96AAB74B /* UILabel+BearSet.h in Headers */ = {isa = PBXBuildFile; fileRef = DF3819E08C605C0213A7CFE97D05C394 /* UILabel+BearSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E052B9E8DF0470A62111D83A65086CDB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		E3DAAAEACF77094EB30CF202EA12C466 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		E7A908B9CA6226E990B5FF4EE5CDF5D5 /* BearConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = F470C16C6654DF8068727598359E7A1C /* BearConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F1103EF9D29D799C35D6387E93E7BDA5 /* BearConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEC1CC5C812597C029B3300FBD7849D /* BearConstants.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		14F01490F73A5D41B3D9B29DE0FA6A8B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1954C1775FD6F9638F07D5F25F284726;
+			remoteInfo = BearSkill;
+		};
+		2842717C5511FDC8F6951145B8A23817 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5FCBDF5B98A43DB574F7E9509C78B964;
+			remoteInfo = "BearSkill-BearSkill";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0A1818986DAF191EFD7965524676A7BD /* UITextField+BearSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UITextField+BearSet.m"; path = "Pod/Classes/UITextField+BearSet.m"; sourceTree = "<group>"; };
+		0AAAEDBFDBE86AB150E320A9634EECC6 /* UIView+BearSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+BearSet.m"; path = "Pod/Classes/UIView+BearSet.m"; sourceTree = "<group>"; };
+		1837DB2EF7DE628945645182FBA2191E /* BearSkill.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BearSkill.xcconfig; sourceTree = "<group>"; };
+		1EE7BCF6F1CC35EA4AB6CA87A4237E8B /* Pods-MenuBallAnimation-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MenuBallAnimation-dummy.m"; sourceTree = "<group>"; };
+		235A290017A8BCC97926433771E2E540 /* libBearSkill.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBearSkill.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		46E819E64E702ECC111A12365CE9A838 /* Pods-MenuBallAnimation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MenuBallAnimation.release.xcconfig"; sourceTree = "<group>"; };
+		4FF2C52279F816EA067379B3F7A4FC09 /* Pods-MenuBallAnimation-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MenuBallAnimation-acknowledgements.markdown"; sourceTree = "<group>"; };
+		5240B4E72B9C90E4B7BB18A95A09F297 /* BearSkill-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "BearSkill-dummy.m"; sourceTree = "<group>"; };
+		53CE9A97CC45AF2015F7DF35227E493D /* Pods-MenuBallAnimation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MenuBallAnimation.debug.xcconfig"; sourceTree = "<group>"; };
+		6EBA01ED4C33C907161DADCA99784B6F /* UILabel+BearSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UILabel+BearSet.m"; path = "Pod/Classes/UILabel+BearSet.m"; sourceTree = "<group>"; };
+		77533C8B0A1804CD2C9AA77590292A3E /* libPods-MenuBallAnimation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MenuBallAnimation.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C8C649C81092990934F03E7FE311F0A /* BearTextField.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BearTextField.m; path = Pod/Classes/BearTextField.m; sourceTree = "<group>"; };
+		8F71FA0C421434F59BF6C7D3094D2867 /* BearTextField.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BearTextField.h; path = Pod/Classes/BearTextField.h; sourceTree = "<group>"; };
+		934749626588F65B580AD87C63354F7C /* UIView+BearSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+BearSet.h"; path = "Pod/Classes/UIView+BearSet.h"; sourceTree = "<group>"; };
+		96643295929CA0D8DCA3B6578CC0C91D /* Pods-MenuBallAnimation-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MenuBallAnimation-resources.sh"; sourceTree = "<group>"; };
+		986206098FEA136D46AFB0D8C774E269 /* BearSkill-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BearSkill-prefix.pch"; sourceTree = "<group>"; };
+		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		BFEC1CC5C812597C029B3300FBD7849D /* BearConstants.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BearConstants.m; path = Pod/Classes/BearConstants.m; sourceTree = "<group>"; };
+		D7DCF1B94E65E9DC19023D6C8AB40828 /* UITextField+BearSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UITextField+BearSet.h"; path = "Pod/Classes/UITextField+BearSet.h"; sourceTree = "<group>"; };
+		DF3819E08C605C0213A7CFE97D05C394 /* UILabel+BearSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UILabel+BearSet.h"; path = "Pod/Classes/UILabel+BearSet.h"; sourceTree = "<group>"; };
+		E745123900FC148B0F362DADC8BD9AB9 /* Pods-MenuBallAnimation-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MenuBallAnimation-frameworks.sh"; sourceTree = "<group>"; };
+		F44737C153EE30D223EC68DC2CB5EAEC /* BearSkill.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BearSkill.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F470C16C6654DF8068727598359E7A1C /* BearConstants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BearConstants.h; path = Pod/Classes/BearConstants.h; sourceTree = "<group>"; };
+		F742A7D22F6BC5965EAA4C598E0C72A1 /* Pods-MenuBallAnimation-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MenuBallAnimation-acknowledgements.plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2829D3A7CF56A7D440429050BD28966E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4648A1D5FDEED5911F06CEA3F8752AB6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E3DAAAEACF77094EB30CF202EA12C466 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F7B63663A01DBC6F4E707BA8D906A319 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E052B9E8DF0470A62111D83A65086CDB /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		114815E367745F4A5D0706598F3A8148 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				1837DB2EF7DE628945645182FBA2191E /* BearSkill.xcconfig */,
+				5240B4E72B9C90E4B7BB18A95A09F297 /* BearSkill-dummy.m */,
+				986206098FEA136D46AFB0D8C774E269 /* BearSkill-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/BearSkill";
+			sourceTree = "<group>";
+		};
+		26636F348319724262608BD50D820F92 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F8AB99DB83C7BBD9C202EF50DC94032E /* BearSkill */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		2B52141977570188AA739443181988F4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F44737C153EE30D223EC68DC2CB5EAEC /* BearSkill.bundle */,
+				235A290017A8BCC97926433771E2E540 /* libBearSkill.a */,
+				77533C8B0A1804CD2C9AA77590292A3E /* libPods-MenuBallAnimation.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		78E25B2F2D535B29E0429324B78428DA /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				F030C4A9703843BB483DDE1EF7B9F925 /* Pods-MenuBallAnimation */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				26636F348319724262608BD50D820F92 /* Pods */,
+				2B52141977570188AA739443181988F4 /* Products */,
+				78E25B2F2D535B29E0429324B78428DA /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		F030C4A9703843BB483DDE1EF7B9F925 /* Pods-MenuBallAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				4FF2C52279F816EA067379B3F7A4FC09 /* Pods-MenuBallAnimation-acknowledgements.markdown */,
+				F742A7D22F6BC5965EAA4C598E0C72A1 /* Pods-MenuBallAnimation-acknowledgements.plist */,
+				1EE7BCF6F1CC35EA4AB6CA87A4237E8B /* Pods-MenuBallAnimation-dummy.m */,
+				E745123900FC148B0F362DADC8BD9AB9 /* Pods-MenuBallAnimation-frameworks.sh */,
+				96643295929CA0D8DCA3B6578CC0C91D /* Pods-MenuBallAnimation-resources.sh */,
+				53CE9A97CC45AF2015F7DF35227E493D /* Pods-MenuBallAnimation.debug.xcconfig */,
+				46E819E64E702ECC111A12365CE9A838 /* Pods-MenuBallAnimation.release.xcconfig */,
+			);
+			name = "Pods-MenuBallAnimation";
+			path = "Target Support Files/Pods-MenuBallAnimation";
+			sourceTree = "<group>";
+		};
+		F8AB99DB83C7BBD9C202EF50DC94032E /* BearSkill */ = {
+			isa = PBXGroup;
+			children = (
+				F470C16C6654DF8068727598359E7A1C /* BearConstants.h */,
+				BFEC1CC5C812597C029B3300FBD7849D /* BearConstants.m */,
+				8F71FA0C421434F59BF6C7D3094D2867 /* BearTextField.h */,
+				8C8C649C81092990934F03E7FE311F0A /* BearTextField.m */,
+				DF3819E08C605C0213A7CFE97D05C394 /* UILabel+BearSet.h */,
+				6EBA01ED4C33C907161DADCA99784B6F /* UILabel+BearSet.m */,
+				D7DCF1B94E65E9DC19023D6C8AB40828 /* UITextField+BearSet.h */,
+				0A1818986DAF191EFD7965524676A7BD /* UITextField+BearSet.m */,
+				934749626588F65B580AD87C63354F7C /* UIView+BearSet.h */,
+				0AAAEDBFDBE86AB150E320A9634EECC6 /* UIView+BearSet.m */,
+				114815E367745F4A5D0706598F3A8148 /* Support Files */,
+			);
+			path = BearSkill;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		4E3C2F6C87CCF9FF631B604C9B28CDFA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7A908B9CA6226E990B5FF4EE5CDF5D5 /* BearConstants.h in Headers */,
+				12E55B84DA91F979C86F20A772B12F7B /* BearTextField.h in Headers */,
+				CBF769E5246607DA4CA1DFFE96AAB74B /* UILabel+BearSet.h in Headers */,
+				A96BFF22D9A568B2F03423FAE8F331B1 /* UITextField+BearSet.h in Headers */,
+				67432060501A9B9B302F33D0C8D95A21 /* UIView+BearSet.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		1954C1775FD6F9638F07D5F25F284726 /* BearSkill */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0EE7CEC794F3DDD0FBA43BEF27CF3E35 /* Build configuration list for PBXNativeTarget "BearSkill" */;
+			buildPhases = (
+				95ECE825C62B398990DBACC552FB55BC /* Sources */,
+				4648A1D5FDEED5911F06CEA3F8752AB6 /* Frameworks */,
+				4E3C2F6C87CCF9FF631B604C9B28CDFA /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E146A04C55D42823D72FADC6263EC116 /* PBXTargetDependency */,
+			);
+			name = BearSkill;
+			productName = BearSkill;
+			productReference = 235A290017A8BCC97926433771E2E540 /* libBearSkill.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		5FCBDF5B98A43DB574F7E9509C78B964 /* BearSkill-BearSkill */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2D8DCEE7F57564ED3B93234D17C1A4C2 /* Build configuration list for PBXNativeTarget "BearSkill-BearSkill" */;
+			buildPhases = (
+				0BF21C2BEFD3796D81311B3258D594B0 /* Sources */,
+				2829D3A7CF56A7D440429050BD28966E /* Frameworks */,
+				B415A62DED1B81659E83F84172B4BCAB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "BearSkill-BearSkill";
+			productName = "BearSkill-BearSkill";
+			productReference = F44737C153EE30D223EC68DC2CB5EAEC /* BearSkill.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+		9F58094E1B676E51204E8CA1EB33D471 /* Pods-MenuBallAnimation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 019BE585ED54BC679BCCEF763C633598 /* Build configuration list for PBXNativeTarget "Pods-MenuBallAnimation" */;
+			buildPhases = (
+				EE2F62C8E2E02181CB57A6A303C46BEA /* Sources */,
+				F7B63663A01DBC6F4E707BA8D906A319 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4BBA8A5476728CC8F51BD22B0CEB314C /* PBXTargetDependency */,
+			);
+			name = "Pods-MenuBallAnimation";
+			productName = "Pods-MenuBallAnimation";
+			productReference = 77533C8B0A1804CD2C9AA77590292A3E /* libPods-MenuBallAnimation.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 2B52141977570188AA739443181988F4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1954C1775FD6F9638F07D5F25F284726 /* BearSkill */,
+				5FCBDF5B98A43DB574F7E9509C78B964 /* BearSkill-BearSkill */,
+				9F58094E1B676E51204E8CA1EB33D471 /* Pods-MenuBallAnimation */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B415A62DED1B81659E83F84172B4BCAB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0BF21C2BEFD3796D81311B3258D594B0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		95ECE825C62B398990DBACC552FB55BC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1103EF9D29D799C35D6387E93E7BDA5 /* BearConstants.m in Sources */,
+				3458633288718B623038FCBA1B421896 /* BearSkill-dummy.m in Sources */,
+				8F884235168661470A5EE2F452A8A722 /* BearTextField.m in Sources */,
+				82BA55688CC0A0F2CD8712FE5BFF3381 /* UILabel+BearSet.m in Sources */,
+				68BFF3FE2433031E9FA0AC5104E5B8AB /* UITextField+BearSet.m in Sources */,
+				3634F4B8A01F31176784D54864DD1249 /* UIView+BearSet.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE2F62C8E2E02181CB57A6A303C46BEA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				738663831CE17A8450B7155366012334 /* Pods-MenuBallAnimation-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4BBA8A5476728CC8F51BD22B0CEB314C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = BearSkill;
+			target = 1954C1775FD6F9638F07D5F25F284726 /* BearSkill */;
+			targetProxy = 14F01490F73A5D41B3D9B29DE0FA6A8B /* PBXContainerItemProxy */;
+		};
+		E146A04C55D42823D72FADC6263EC116 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "BearSkill-BearSkill";
+			target = 5FCBDF5B98A43DB574F7E9509C78B964 /* BearSkill-BearSkill */;
+			targetProxy = 2842717C5511FDC8F6951145B8A23817 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		055AE208BC628F0438E620633A47862F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1837DB2EF7DE628945645182FBA2191E /* BearSkill.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/BearSkill/BearSkill-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		2555DA1BB3A93C0502C6F2F5C4B35C65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 46E819E64E702ECC111A12365CE9A838 /* Pods-MenuBallAnimation.release.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		5B931B68E693BD6A5B939972077749FA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 53CE9A97CC45AF2015F7DF35227E493D /* Pods-MenuBallAnimation.debug.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		7400579DAACCF1B11AFB995A0BE4CA50 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1837DB2EF7DE628945645182FBA2191E /* BearSkill.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				PRODUCT_NAME = BearSkill;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		7835B91A3C7F9BDFAA6EFC902B022434 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1837DB2EF7DE628945645182FBA2191E /* BearSkill.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				PRODUCT_NAME = BearSkill;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		8D1534490D941DCA47C62AC4314182AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		C5A18280E9321A9268D1C80B7DA43967 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CC2642CF4E3D53FA93E493FBD01DA7AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1837DB2EF7DE628945645182FBA2191E /* BearSkill.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/BearSkill/BearSkill-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		019BE585ED54BC679BCCEF763C633598 /* Build configuration list for PBXNativeTarget "Pods-MenuBallAnimation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B931B68E693BD6A5B939972077749FA /* Debug */,
+				2555DA1BB3A93C0502C6F2F5C4B35C65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0EE7CEC794F3DDD0FBA43BEF27CF3E35 /* Build configuration list for PBXNativeTarget "BearSkill" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				055AE208BC628F0438E620633A47862F /* Debug */,
+				CC2642CF4E3D53FA93E493FBD01DA7AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D8DCEE7F57564ED3B93234D17C1A4C2 /* Build configuration list for PBXNativeTarget "BearSkill-BearSkill" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7835B91A3C7F9BDFAA6EFC902B022434 /* Debug */,
+				7400579DAACCF1B11AFB995A0BE4CA50 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D1534490D941DCA47C62AC4314182AF /* Debug */,
+				C5A18280E9321A9268D1C80B7DA43967 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}
