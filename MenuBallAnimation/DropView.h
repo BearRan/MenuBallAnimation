@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PointView.h"
 #import "DropCanvasView.h"
 #import "CircleMath.h"
 #import "LineMath.h"

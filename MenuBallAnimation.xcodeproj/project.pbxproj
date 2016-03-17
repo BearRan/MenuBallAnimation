@@ -21,6 +21,7 @@
 		0913810D1C9AF0380091E305 /* DropCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 091381081C9AF0380091E305 /* DropCanvasView.m */; };
 		0913810E1C9AF0380091E305 /* DropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0913810A1C9AF0380091E305 /* DropView.m */; };
 		0913810F1C9AF0380091E305 /* PointView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0913810C1C9AF0380091E305 /* PointView.m */; };
+		091381121C9AF7500091E305 /* PointMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 091381111C9AF7500091E305 /* PointMath.m */; };
 		AF445A9F7261112CFA0404D8 /* libPods-MenuBallAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 113C46E53EF92D52E6113FFC /* libPods-MenuBallAnimation.a */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,8 @@
 		0913810A1C9AF0380091E305 /* DropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropView.m; sourceTree = "<group>"; };
 		0913810B1C9AF0380091E305 /* PointView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointView.h; sourceTree = "<group>"; };
 		0913810C1C9AF0380091E305 /* PointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PointView.m; sourceTree = "<group>"; };
+		091381101C9AF7500091E305 /* PointMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointMath.h; sourceTree = "<group>"; };
+		091381111C9AF7500091E305 /* PointMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PointMath.m; sourceTree = "<group>"; };
 		113C46E53EF92D52E6113FFC /* libPods-MenuBallAnimation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MenuBallAnimation.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FAC5AE0128CFE1CCAA6DD5B /* Pods-MenuBallAnimation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuBallAnimation.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MenuBallAnimation/Pods-MenuBallAnimation.debug.xcconfig"; sourceTree = "<group>"; };
 		BEF936BDC406E6BF25368528 /* Pods-MenuBallAnimation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuBallAnimation.release.xcconfig"; path = "Pods/Target Support Files/Pods-MenuBallAnimation/Pods-MenuBallAnimation.release.xcconfig"; sourceTree = "<group>"; };
@@ -139,6 +142,8 @@
 				0913810A1C9AF0380091E305 /* DropView.m */,
 				0913810B1C9AF0380091E305 /* PointView.h */,
 				0913810C1C9AF0380091E305 /* PointView.m */,
+				091381101C9AF7500091E305 /* PointMath.h */,
+				091381111C9AF7500091E305 /* PointMath.m */,
 				091381011C9AEF890091E305 /* LineMath.h */,
 				091381021C9AEF890091E305 /* LineMath.m */,
 				091381031C9AEF890091E305 /* CircleMath.h */,
@@ -384,6 +389,7 @@
 				091380CF1C9ADEDA0091E305 /* ViewController.m in Sources */,
 				0913810F1C9AF0380091E305 /* PointView.m in Sources */,
 				091380CC1C9ADEDA0091E305 /* AppDelegate.m in Sources */,
+				091381121C9AF7500091E305 /* PointMath.m in Sources */,
 				091380C91C9ADEDA0091E305 /* main.m in Sources */,
 				091381051C9AEF890091E305 /* LineMath.m in Sources */,
 				0913810E1C9AF0380091E305 /* DropView.m in Sources */,

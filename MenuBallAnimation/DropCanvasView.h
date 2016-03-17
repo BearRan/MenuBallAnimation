@@ -10,6 +10,6 @@
 
 @interface DropCanvasView : UIView
 
-@property (strong, nonatomic) NSMutableArray    *lineArray;
+@property (strong, nonatomic) NSMutableArray    *assisArray;
 
 @end

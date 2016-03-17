@@ -7,11 +7,11 @@
 //
 
 #import "DropView.h"
+#import "PointMath.h"
 
 @interface DropView()
 
 @property (strong, nonatomic) CADisplayLink *displayLink;
-@property (strong, nonatomic) PointView     *centerPointView;
 
 @end
 
@@ -26,25 +26,23 @@
         self = nil;
     }
     
-//    self.backgroundColor = [UIColor clearColor];
-    self.layer.cornerRadius = self.width/2;
-    self.backgroundColor = [[UIColor orangeColor] colorWithAlphaComponent:0.5];
     [self createDropView];
-    [self createCenterPointView];
     
     if (createSmallDrop == YES) {
         [self createSmallDropView];
         [self createPanGesture];
     }
     
-    self.layer.masksToBounds = NO;
-    self.clipsToBounds = NO;
-    
     return self;
 }
 
 - (void)createDropView
 {
+    self.backgroundColor = [[UIColor orangeColor] colorWithAlphaComponent:0.5];
+    self.layer.cornerRadius = self.width/2;
+    self.layer.masksToBounds = NO;
+    self.clipsToBounds = NO;
+    
     _circleMath = [[CircleMath alloc] initWithCenterPoint:CGPointMake(self.width/2, self.height/2) radius:self.width/2 inView:self];
     
     _bezierPath = [UIBezierPath bezierPath];
@@ -59,12 +57,6 @@
     _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(calucateCoordinate)];
     [_displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     _displayLink.paused = YES;
-}
-
-- (void)createCenterPointView
-{
-    _centerPointView = [[PointView alloc] initWithPoint:CGPointMake(self.width/2, self.height/2)];
-    [self addSubview:_centerPointView];
 }
 
 - (void)createSmallDropView
@@ -111,12 +103,20 @@
 //  计算坐标
 - (void)calucateCoordinate
 {
-    [_dropSuperView.lineArray removeAllObjects];
+    [_dropSuperView.assisArray removeAllObjects];
+    
+    
+    PointMath *mainCenterPoint = [[PointMath alloc] initWithPoint:CGPointMake(self.width/2, self.height/2) inView:self];
+    [_dropSuperView.assisArray addObject:mainCenterPoint];
+    
+    PointMath *smallCenterPoint = [[PointMath alloc] initWithPoint:_smallDrop.center inView:self];
+    [_dropSuperView.assisArray addObject:smallCenterPoint];
+    
     
     //  两点间的连线
     CALayer *smallDrop_layer = _smallDrop.layer.presentationLayer;
     _lineCenter2Center = [[LineMath alloc] initWithPoint1:_circleMath.centerPoint point2:smallDrop_layer.position inView:self];
-//    [_dropSuperView.lineArray addObject:_lineCenter2Center];
+//    [_dropSuperView.assisArray addObject:_lineCenter2Center];
     
     
     CGPoint mainDrop_center = CGPointMake(self.width/2, self.height/2);
@@ -207,7 +207,7 @@
     
     //  大圆圆心到_lineCenter2Center和切线交点的连线
     LineMath *line1  = [[LineMath alloc] initWithPoint1:_circleMath.centerPoint point2:acrossPoint inView:self];
-    [_dropSuperView.lineArray addObject:line1];
+    [_dropSuperView.assisArray addObject:line1];
     
     
     /******     两圆的切线       ******/
@@ -226,7 +226,7 @@
     line_Tangent1.point1 = acrossPoint;
     line_Tangent1.point2 = acrossPointStruct_Tangent1.point1;
     line_Tangent1.InView = self;
-    [_dropSuperView.lineArray addObject:line_Tangent1];
+    [_dropSuperView.assisArray addObject:line_Tangent1];
     
     
     //  经过大圆圆心的线，并与切线1垂直
@@ -243,7 +243,7 @@
     
     AcrossPointStruct acrossPointStruct_Tangent1_PerBiseToMainDrop = [self calucateCircleAndLineAcrossPoint_withCircle:_circleMath withLine:line_Tangent1_PerBiseToMainDrop];
     LineMath *tempLine1 = [[LineMath alloc] initWithPoint1:acrossPointStruct_Tangent1_PerBiseToMainDrop.point1 point2:_circleMath.centerPoint inView:self];
-    [_dropSuperView.lineArray addObject:tempLine1];
+    [_dropSuperView.assisArray addObject:tempLine1];
     
     //  经过小圆圆心的线，并与切线1垂直
     LineMath *line_Tangent1_PerBiseToSmallDrop = [[LineMath alloc] init];
@@ -259,7 +259,7 @@
     
     AcrossPointStruct acrossPointStruct_Tangent1_PerBiseToSmallDrop = [self calucateCircleAndLineAcrossPoint_withCircle:_smallDrop.circleMath withLine:line_Tangent1_PerBiseToSmallDrop];
 //    LineMath *tempLine2 = [[LineMath alloc] initWithPoint1:acrossPointStruct_Tangent1_PerBiseToSmallDrop.point1 point2:smallDrop_layer.position inView:self];
-//    [_dropSuperView.lineArray addObject:tempLine2];
+//    [_dropSuperView.assisArray addObject:tempLine2];
     
     
     /*** 切线2 ***/
@@ -272,7 +272,7 @@
     line_Tangent2.point1 = acrossPoint;
     line_Tangent2.point2 = acrossPointStruct_Tangent2.point1;
     line_Tangent2.InView = self;
-    [_dropSuperView.lineArray addObject:line_Tangent2];
+    [_dropSuperView.assisArray addObject:line_Tangent2];
     
     
     //  经过大圆圆心的线，并与切线2垂直
@@ -289,7 +289,7 @@
     
     AcrossPointStruct acrossPointStruct_Tangent2_PerBiseToMainDrop = [self calucateCircleAndLineAcrossPoint_withCircle:_circleMath withLine:line_Tangent2_PerBiseToMainDrop];
     LineMath *tempLine3 = [[LineMath alloc] initWithPoint1:acrossPointStruct_Tangent2_PerBiseToMainDrop.point2 point2:_circleMath.centerPoint inView:self];
-    [_dropSuperView.lineArray addObject:tempLine3];
+    [_dropSuperView.assisArray addObject:tempLine3];
     
     //  经过小圆圆心的线，并与切线2垂直
     LineMath *line_Tangent2_PerBiseToSmallDrop = [[LineMath alloc] init];
@@ -305,7 +305,7 @@
     
     AcrossPointStruct acrossPointStruct_Tangent2_PerBiseToSmallDrop = [self calucateCircleAndLineAcrossPoint_withCircle:_smallDrop.circleMath withLine:line_Tangent2_PerBiseToSmallDrop];
 //    LineMath *tempLine4 = [[LineMath alloc] initWithPoint1:acrossPointStruct_Tangent2_PerBiseToSmallDrop.point2 point2:smallDrop_layer.position inView:self];
-//    [_dropSuperView.lineArray addObject:tempLine4];
+//    [_dropSuperView.assisArray addObject:tempLine4];
     
     
     /******     计算贝赛尔需要的交点      ******/
@@ -321,10 +321,10 @@
     LineMath *line_P3_P2_4Center = [[LineMath alloc] initWithPoint1:point3 point2:point_2_4Center inView:self];
     LineMath *line_P1_P2_4Center = [[LineMath alloc] initWithPoint1:point1 point2:point_2_4Center inView:self];
     
-    [_dropSuperView.lineArray addObject:line_P1_P4];
-    [_dropSuperView.lineArray addObject:line_P2_P3];
-    [_dropSuperView.lineArray addObject:line_P3_P2_4Center];
-    [_dropSuperView.lineArray addObject:line_P1_P2_4Center];
+    [_dropSuperView.assisArray addObject:line_P1_P4];
+    [_dropSuperView.assisArray addObject:line_P2_P3];
+    [_dropSuperView.assisArray addObject:line_P3_P2_4Center];
+    [_dropSuperView.assisArray addObject:line_P1_P2_4Center];
     
     
     _bezierControlPoint1 = [LineMath calucateAcrossPointBetweenLine1:line_P1_P4 withLine2:line_P3_P2_4Center];
@@ -337,37 +337,37 @@
     
     
     
-    //  计算圆心连线的垂线与圆的交点1,贝塞尔绘制点两侧(大圆)
-    LineMath *line_P2_MainCenter = [[LineMath alloc] initWithPoint1:point2 point2:_circleMath.centerPoint inView:self];
-    AcrossPointStruct acrossPointStruct1 = [self calucateEdgePoint_LeftANDRight_WithCircleMath:_circleMath withOriginLine:line_P2_MainCenter needPoint1:YES];
-    _edge_point1_left = acrossPointStruct1.point1;
-    _edge_point1_right = acrossPointStruct1.point2;
-    
-    
-    LineMath *line_P4_MainCenter = [[LineMath alloc] initWithPoint1:_circleMath.centerPoint point2:point4 inView:self];
-    AcrossPointStruct acrossPointStruct2= [self calucateEdgePoint_LeftANDRight_WithCircleMath:_circleMath withOriginLine:line_P4_MainCenter needPoint1:NO];
-    _edge_point2_left = acrossPointStruct2.point1;
-    _edge_point2_right = acrossPointStruct2.point2;
+//    //  计算圆心连线的垂线与圆的交点1,贝塞尔绘制点两侧(大圆)
+//    LineMath *line_P2_MainCenter = [[LineMath alloc] initWithPoint1:point2 point2:_circleMath.centerPoint inView:self];
+//    AcrossPointStruct acrossPointStruct1 = [self calucateEdgePoint_LeftANDRight_WithCircleMath:_circleMath withOriginLine:line_P2_MainCenter needPoint1:YES];
+//    _edge_point1_left = acrossPointStruct1.point1;
+//    _edge_point1_right = acrossPointStruct1.point2;
+//    
+//    
+//    LineMath *line_P4_MainCenter = [[LineMath alloc] initWithPoint1:_circleMath.centerPoint point2:point4 inView:self];
+//    AcrossPointStruct acrossPointStruct2= [self calucateEdgePoint_LeftANDRight_WithCircleMath:_circleMath withOriginLine:line_P4_MainCenter needPoint1:NO];
+//    _edge_point2_left = acrossPointStruct2.point1;
+//    _edge_point2_right = acrossPointStruct2.point2;
     
 
     
-    //  计算圆心连线的垂线与圆的交点1,贝塞尔绘制点两侧(小圆)
-    LineMath *line_P1_SmallCenter = [[LineMath alloc] initWithPoint1:point1 point2:smallDrop_layer.position inView:self];
-    AcrossPointStruct acrossPointStruct3 = [self calucateEdgePoint_LeftANDRight_WithCircleMath:_smallDrop.circleMath withOriginLine:line_P1_SmallCenter needPoint1:YES];
-    _smallDrop.edge_point1_left = acrossPointStruct3.point1;
-    _smallDrop.edge_point1_right = acrossPointStruct3.point2;
-    
-    LineMath *tempLine7 = [[LineMath alloc] initWithPoint1:point1 point2:smallDrop_layer.position inView:self];
-    [_dropSuperView.lineArray addObject:tempLine7];
+//    //  计算圆心连线的垂线与圆的交点1,贝塞尔绘制点两侧(小圆)
+//    LineMath *line_P1_SmallCenter = [[LineMath alloc] initWithPoint1:point1 point2:smallDrop_layer.position inView:self];
+//    AcrossPointStruct acrossPointStruct3 = [self calucateEdgePoint_LeftANDRight_WithCircleMath:_smallDrop.circleMath withOriginLine:line_P1_SmallCenter needPoint1:YES];
+//    _smallDrop.edge_point1_left = acrossPointStruct3.point1;
+//    _smallDrop.edge_point1_right = acrossPointStruct3.point2;
+//    
+//    LineMath *tempLine7 = [[LineMath alloc] initWithPoint1:point1 point2:smallDrop_layer.position inView:self];
+//    [_dropSuperView.assisArray addObject:tempLine7];
 
     
-    LineMath *line_P3_SmallCenter = [[LineMath alloc] initWithPoint1:point3 point2:smallDrop_layer.position inView:self];
-    AcrossPointStruct acrossPointStruct4= [self calucateEdgePoint_LeftANDRight_WithCircleMath:_smallDrop.circleMath withOriginLine:line_P3_SmallCenter needPoint1:NO];
-    _smallDrop.edge_point2_left = acrossPointStruct4.point1;
-    _smallDrop.edge_point2_right = acrossPointStruct4.point2;
-    
-    LineMath *tempLine11 = [[LineMath alloc] initWithPoint1:point3 point2:smallDrop_layer.position inView:self];
-    [_dropSuperView.lineArray addObject:tempLine11];
+//    LineMath *line_P3_SmallCenter = [[LineMath alloc] initWithPoint1:point3 point2:smallDrop_layer.position inView:self];
+//    AcrossPointStruct acrossPointStruct4= [self calucateEdgePoint_LeftANDRight_WithCircleMath:_smallDrop.circleMath withOriginLine:line_P3_SmallCenter needPoint1:NO];
+//    _smallDrop.edge_point2_left = acrossPointStruct4.point1;
+//    _smallDrop.edge_point2_right = acrossPointStruct4.point2;
+//    
+//    LineMath *tempLine11 = [[LineMath alloc] initWithPoint1:point3 point2:smallDrop_layer.position inView:self];
+//    [_dropSuperView.assisArray addObject:tempLine11];
 }
 
 //  计算圆心连线的垂线与圆的交点1,贝塞尔绘制点两侧（edge_point1_left，edge_point1_right）
@@ -416,7 +416,7 @@
     AcrossPointStruct acrossPointStruct1 = [self calucateCircleAndLineAcrossPoint_withCircle:tempCircle1 withLine:perBiseLine];
     
 //    LineMath *tempLine11 = [[LineMath alloc] initWithPoint1:acrossPointStruct1.point1 point2:acrossPointStruct1.point2 inView:self];
-//    [_dropSuperView.lineArray addObject:tempLine11];
+//    [_dropSuperView.assisArray addObject:tempLine11];
     
     return acrossPointStruct1;
 }
@@ -446,7 +446,7 @@
     dropView.edge_point2 = acrossPointStruct.point2;
     
     LineMath *perBiseLine_BigDrop_result = [[LineMath alloc] initWithPoint1:acrossPointStruct.point1 point2:acrossPointStruct.point2 inView:self];
-    [_dropSuperView.lineArray addObject:perBiseLine_BigDrop_result];
+    [_dropSuperView.assisArray addObject:perBiseLine_BigDrop_result];
 }
 
 
@@ -509,7 +509,7 @@
     y_o = _lineCenter2Center.k * x_o + _lineCenter2Center.b;
 
     LineMath *tempLine = [[LineMath alloc] initWithPoint1:CGPointMake(self.width/2, self.height/2) point2:CGPointMake(x_o, y_o) inView:self];
-    [_dropSuperView.lineArray addObject:tempLine];
+    [_dropSuperView.assisArray addObject:tempLine];
     
     //  Center2Centerde的垂线 VerticalLine
     LineMath *verLine = [[LineMath alloc] init];
@@ -533,7 +533,7 @@
     _smallDrop.edge_point1 = verLine.point1;
     _smallDrop.edge_point2 = verLine.point2;
     
-    [_dropSuperView.lineArray addObject:verLine];
+    [_dropSuperView.assisArray addObject:verLine];
 }
 
 
