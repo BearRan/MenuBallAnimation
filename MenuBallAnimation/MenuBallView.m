@@ -50,6 +50,7 @@
     _subBtn1.backgroundColor = [UIColor redColor];
     _subBtn1.layer.cornerRadius = subBtn_width/2;
     [self addSubview:_subBtn1];
+    
 }
 
 - (void)testBtn
