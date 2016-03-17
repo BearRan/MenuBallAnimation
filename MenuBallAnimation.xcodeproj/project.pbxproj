@@ -16,6 +16,8 @@
 		091380E21C9ADEDA0091E305 /* MenuBallAnimationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 091380E11C9ADEDA0091E305 /* MenuBallAnimationTests.m */; };
 		091380ED1C9ADEDA0091E305 /* MenuBallAnimationUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 091380EC1C9ADEDA0091E305 /* MenuBallAnimationUITests.m */; };
 		091380FF1C9AE0F80091E305 /* MenuBallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 091380FE1C9AE0F80091E305 /* MenuBallView.m */; };
+		091381051C9AEF890091E305 /* LineMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 091381021C9AEF890091E305 /* LineMath.m */; };
+		091381061C9AEF890091E305 /* CircleMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 091381041C9AEF890091E305 /* CircleMath.m */; };
 		AF445A9F7261112CFA0404D8 /* libPods-MenuBallAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 113C46E53EF92D52E6113FFC /* libPods-MenuBallAnimation.a */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +58,10 @@
 		091380FD1C9AE0F80091E305 /* MenuBallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuBallView.h; sourceTree = "<group>"; };
 		091380FE1C9AE0F80091E305 /* MenuBallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuBallView.m; sourceTree = "<group>"; };
 		091381001C9AEA940091E305 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		091381011C9AEF890091E305 /* LineMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineMath.h; sourceTree = "<group>"; };
+		091381021C9AEF890091E305 /* LineMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineMath.m; sourceTree = "<group>"; };
+		091381031C9AEF890091E305 /* CircleMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleMath.h; sourceTree = "<group>"; };
+		091381041C9AEF890091E305 /* CircleMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleMath.m; sourceTree = "<group>"; };
 		113C46E53EF92D52E6113FFC /* libPods-MenuBallAnimation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MenuBallAnimation.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FAC5AE0128CFE1CCAA6DD5B /* Pods-MenuBallAnimation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuBallAnimation.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MenuBallAnimation/Pods-MenuBallAnimation.debug.xcconfig"; sourceTree = "<group>"; };
 		BEF936BDC406E6BF25368528 /* Pods-MenuBallAnimation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuBallAnimation.release.xcconfig"; path = "Pods/Target Support Files/Pods-MenuBallAnimation/Pods-MenuBallAnimation.release.xcconfig"; sourceTree = "<group>"; };
@@ -118,6 +124,10 @@
 				091380CE1C9ADEDA0091E305 /* ViewController.m */,
 				091380FD1C9AE0F80091E305 /* MenuBallView.h */,
 				091380FE1C9AE0F80091E305 /* MenuBallView.m */,
+				091381011C9AEF890091E305 /* LineMath.h */,
+				091381021C9AEF890091E305 /* LineMath.m */,
+				091381031C9AEF890091E305 /* CircleMath.h */,
+				091381041C9AEF890091E305 /* CircleMath.m */,
 				091381001C9AEA940091E305 /* PrefixHeader.pch */,
 				091380D01C9ADEDA0091E305 /* Main.storyboard */,
 				091380D31C9ADEDA0091E305 /* Assets.xcassets */,
@@ -359,6 +369,8 @@
 				091380CF1C9ADEDA0091E305 /* ViewController.m in Sources */,
 				091380CC1C9ADEDA0091E305 /* AppDelegate.m in Sources */,
 				091380C91C9ADEDA0091E305 /* main.m in Sources */,
+				091381051C9AEF890091E305 /* LineMath.m in Sources */,
+				091381061C9AEF890091E305 /* CircleMath.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
