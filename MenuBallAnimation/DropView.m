@@ -325,13 +325,40 @@
         [_dropSuperView.assisArray addObject:line_P3_P2_4Center];
         [_dropSuperView.assisArray addObject:line_P1_P2_4Center];
         
-        
+        //  源计算出的控制点
         _bezierControlPoint1 = [LineMath calucateAcrossPointBetweenLine1:line_P1_P4 withLine2:line_P3_P2_4Center];
         _bezierControlPoint2 = [LineMath calucateAcrossPointBetweenLine1:line_P2_P3 withLine2:line_P1_P2_4Center];
         _edge_point1 = point2;
         _edge_point2 = point4;
         _smallDrop.edge_point1 = point1;
         _smallDrop.edge_point2 = point3;
+        
+        //  controlPointReduceRatio 控制点缩小比例
+        //  radiusAll               大圆半径＋小圆半径
+        //  twoControlPointDistance 两控制点距离
+        //  startReduceDistance     开始减小控制点距离的阈值（该值为两圆心距离所用）
+        //  deltaCenterDistance     两圆心距离和阈值距离测差值（为负值时开始减小距离）
+        CGFloat controlPointReduceRatio = 0.005;
+        CGFloat radiusAll = _circleMath.radius + _smallDrop.circleMath.radius;
+        CGFloat twoControlPointDistance = [LineMath calucateDistanceBetweenPoint1:_bezierControlPoint1 withPoint2:_bezierControlPoint2];
+        CGFloat startReduceDistance = radiusAll * 0.8f;
+        CGFloat deltaCenterDistance = startReduceDistance - centerPointDistance;
+        
+        BOOL res1 = deltaCenterDistance < 0;
+        BOOL res2 = twoControlPointDistance > 5;
+        if (res1 && res2) {
+            NSLog(@"开始缩小");
+            
+            CGFloat distanceRatio = deltaCenterDistance/startReduceDistance;
+            NSLog(@"tempRatio:%f", distanceRatio);
+            
+            TwoPointStruct twoPointStruct = [DropView PointBetweenPoint1:_bezierControlPoint1 point2:_bezierControlPoint2 ToPointRatio:distanceRatio];
+            _bezierControlPoint1 = twoPointStruct.point1;
+            _bezierControlPoint2 = twoPointStruct.point2;
+        }else{
+            NSLog(@"还未缩小");
+        }
+        
         
         
         
