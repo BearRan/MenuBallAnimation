@@ -334,6 +334,17 @@
     _smallDrop.edge_point1 = point1;
     _smallDrop.edge_point2 = point3;
     
+
+    
+    //  DropView和贝塞尔曲线衔接平滑曲线 控制点
+    [self SetBezierSmoothControlPointWithDropView:self withAssisLine:line_P1_P4 withStartPoint:point4];
+    [self SetBezierSmoothControlPointWithDropView:self withAssisLine:line_P2_P3 withStartPoint:point2];
+    [self SetBezierSmoothControlPointWithDropView:_smallDrop withAssisLine:line_P1_P4 withStartPoint:point1];
+    [self SetBezierSmoothControlPointWithDropView:_smallDrop withAssisLine:line_P2_P3 withStartPoint:point3];
+    
+    
+    
+    
     
     
     
@@ -368,6 +379,39 @@
 //    
 //    LineMath *tempLine11 = [[LineMath alloc] initWithPoint1:point3 point2:smallDrop_layer.position inView:self];
 //    [_dropSuperView.assisArray addObject:tempLine11];
+}
+
+//  绘制园与贝塞尔曲线交接的平滑控制点
+- (void)SetBezierSmoothControlPointWithDropView:(DropView *)dropView
+                                  withAssisLine:(LineMath *)assisLine
+                                 withStartPoint:(CGPoint)startPoint
+{
+    //  两圆切点，对角的切点连线和圆的交点
+    CGPoint tempControlPoint;
+    AcrossPointStruct acrossPointStruct = [self calucateCircleAndLineAcrossPoint_withCircle:dropView.circleMath withLine:assisLine];
+    if ([DropView JudgeEqualWithPoint1:acrossPointStruct.point1 point2:startPoint]) {
+        tempControlPoint = acrossPointStruct.point2;
+    }else{
+        tempControlPoint = acrossPointStruct.point1;
+    }
+    
+    if ([DropView JudgeEqualWithPoint1:dropView.edge_point1 point2:startPoint])
+    {
+        dropView.bezierControlPoint1_1 = tempControlPoint;
+    }
+    else if ([DropView JudgeEqualWithPoint1:dropView.edge_point2 point2:startPoint])
+    {
+        dropView.bezierControlPoint2_1 = tempControlPoint;
+    }
+    else
+    {
+        return;
+    }
+    
+    PointMath *pointMath = [[PointMath alloc] initWithPoint:tempControlPoint inView:self];
+    [_dropSuperView.assisArray addObject:pointMath];
+    
+    
 }
 
 //  计算圆心连线的垂线与圆的交点1,贝塞尔绘制点两侧（edge_point1_left，edge_point1_right）
@@ -626,6 +670,24 @@
     return acrossPointStruct;
 }
 
+//  计算两点连线的垂直平分线
+- (LineMath *)PerBaseLine_Point1:(CGPoint)point1 Point2:(CGPoint)point2
+{
+    LineMath *originMathLine = [[LineMath alloc] initWithPoint1:point1 point2:point2 inView:self];
+    
+    LineMath *perBiseLine = [[LineMath alloc] init];
+    CGFloat angle = atan(originMathLine.k);
+    angle += M_PI/2;
+    if (angle > M_PI/2) {
+        angle -= M_PI;
+    }else if (angle < - M_PI/2){
+        angle += M_PI;
+    }
+    perBiseLine.k = tan(angle);
+    perBiseLine.b = point1.y - perBiseLine.k * point1.x;
+    
+    return perBiseLine;
+}
 
 /** 判断点所处象限
  *
@@ -668,6 +730,18 @@
             quadrantFourth();
         }
     }
+}
+
++ (BOOL)JudgeEqualWithPoint1:(CGPoint)point1 point2:(CGPoint)point2
+{
+    BOOL res1 = ((int)point1.x == (int)point2.x);
+    BOOL res2 = ((int)point1.y == (int)point2.y);
+    
+    if (res1 && res2) {
+        return YES;
+    }
+    
+    return NO;
 }
 
 @end

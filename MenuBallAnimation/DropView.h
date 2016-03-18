@@ -27,14 +27,18 @@ typedef enum {
 
 @property (strong, nonatomic) LineMath      *lineCenter2Center; //圆心的连线
 @property (strong, nonatomic) CircleMath    *circleMath;        //圆的方程
+
 @property (assign, nonatomic) CGPoint       edge_point1;        //圆心连线的垂线与圆的交点1
 @property (assign, nonatomic) CGPoint       edge_point1_left;   //圆心连线的垂线与圆的交点1,贝塞尔绘制点左侧
 @property (assign, nonatomic) CGPoint       edge_point1_right;  //圆心连线的垂线与圆的交点1,贝塞尔绘制点右侧
 @property (assign, nonatomic) CGPoint       edge_point2;        //圆心连线的垂线与圆的交点2
 @property (assign, nonatomic) CGPoint       edge_point2_left;   //圆心连线的垂线与圆的交点2,贝塞尔绘制点左侧
 @property (assign, nonatomic) CGPoint       edge_point2_right;  //圆心连线的垂线与圆的交点2,贝塞尔绘制点右侧
+
 @property (assign, nonatomic) CGPoint       bezierControlPoint1;//贝赛尔曲线控制点1（P3，P4中间）
+@property (assign, nonatomic) CGPoint       bezierControlPoint1_1;//贝赛尔曲线控制点1（P3，P4中间）
 @property (assign, nonatomic) CGPoint       bezierControlPoint2;//贝赛尔曲线控制点2（P1，P2中间）
+@property (assign, nonatomic) CGPoint       bezierControlPoint2_1;//贝赛尔曲线控制点2（P1，P2中间）
 
 @property (strong, nonatomic) DropView          *smallDrop;
 @property (assign, nonatomic) DropCanvasView    *dropSuperView;
@@ -61,5 +65,7 @@ typedef enum {
                             quadrantSecond:(void (^)())quadrantSecond
                              quadrantThird:(void (^)())quadrantThird
                             quadrantFourth:(void (^)())quadrantFourth;
+
++ (BOOL)JudgeEqualWithPoint1:(CGPoint)point1 point2:(CGPoint)point2;
 
 @end
