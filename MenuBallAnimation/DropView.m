@@ -138,24 +138,6 @@
         _smallDropQuadrant = kQuadrant_Fourth;
     }
     
-    
-    CGFloat centerPointDistance = [LineMath calucateDistanceBetweenPoint1:_circleMath.centerPoint withPoint2:smallDrop_layer.position];
-    
-//    //  两圆无重叠
-//    if (centerPointDistance > _circleMath.radius + _smallDrop.circleMath.radius) {
-//        
-//        //  bigDrop与lineCenter2Center的垂直平分线的交点
-//        [self calucateCircleAndPerBiseLinePoint_withCircle:self.circleMath withDropView:self];
-//        
-//        //  smallDrop与lineCenter2Center的垂直平分线的交点
-//        [self calucateCircleAndPerBiseLinePoint_withCircle:self.smallDrop.circleMath withDropView:self.smallDrop];
-//    }
-//    //  两圆有重叠
-//    else{
-//        NSLog(@"两圆有重叠");
-//        [self calucateCircleWithCircleAcrossPoint];
-//    }
-    
     [self calucateTangentLine];
     
     [_dropSuperView setNeedsDisplay];
@@ -308,77 +290,102 @@
 //    [_dropSuperView.assisArray addObject:tempLine4];
     
     
-    /******     计算贝赛尔需要的交点      ******/
-    CGPoint point1 = acrossPointStruct_Tangent1_PerBiseToSmallDrop.point1;
-    CGPoint point2 = acrossPointStruct_Tangent1_PerBiseToMainDrop.point1;
-    CGPoint point3 = acrossPointStruct_Tangent2_PerBiseToSmallDrop.point2;
-    CGPoint point4 = acrossPointStruct_Tangent2_PerBiseToMainDrop.point2;
-    CGPoint point_2_4Center = [LineMath calucateCenterPointBetweenPoint1:point2 withPoint2:point4];
-    CGPoint point_1_3Center = [LineMath calucateCenterPointBetweenPoint1:point1 withPoint2:point3];
-    
-    LineMath *line_P1_P4 = [[LineMath alloc] initWithPoint1:point1 point2:point4 inView:self];
-    LineMath *line_P2_P3 = [[LineMath alloc] initWithPoint1:point2 point2:point3 inView:self];
-    LineMath *line_P3_P2_4Center = [[LineMath alloc] initWithPoint1:point3 point2:point_2_4Center inView:self];
-    LineMath *line_P1_P2_4Center = [[LineMath alloc] initWithPoint1:point1 point2:point_2_4Center inView:self];
-    
-    [_dropSuperView.assisArray addObject:line_P1_P4];
-    [_dropSuperView.assisArray addObject:line_P2_P3];
-    [_dropSuperView.assisArray addObject:line_P3_P2_4Center];
-    [_dropSuperView.assisArray addObject:line_P1_P2_4Center];
-    
-    
-    _bezierControlPoint1 = [LineMath calucateAcrossPointBetweenLine1:line_P1_P4 withLine2:line_P3_P2_4Center];
-    _bezierControlPoint2 = [LineMath calucateAcrossPointBetweenLine1:line_P2_P3 withLine2:line_P1_P2_4Center];
-    _edge_point1 = point2;
-    _edge_point2 = point4;
-    _smallDrop.edge_point1 = point1;
-    _smallDrop.edge_point2 = point3;
-    
-
-    
-    //  DropView和贝塞尔曲线衔接平滑曲线 控制点
-    [self SetBezierSmoothControlPointWithDropView:self withAssisLine:line_P1_P4 withStartPoint:point4];
-    [self SetBezierSmoothControlPointWithDropView:self withAssisLine:line_P2_P3 withStartPoint:point2];
-    [self SetBezierSmoothControlPointWithDropView:_smallDrop withAssisLine:line_P1_P4 withStartPoint:point1];
-    [self SetBezierSmoothControlPointWithDropView:_smallDrop withAssisLine:line_P2_P3 withStartPoint:point3];
     
     
     
     
     
+    CGFloat centerPointDistance = [LineMath calucateDistanceBetweenPoint1:_circleMath.centerPoint withPoint2:smallDrop_layer.position];
     
-    
-//    //  计算圆心连线的垂线与圆的交点1,贝塞尔绘制点两侧(大圆)
-//    LineMath *line_P2_MainCenter = [[LineMath alloc] initWithPoint1:point2 point2:_circleMath.centerPoint inView:self];
-//    AcrossPointStruct acrossPointStruct1 = [self calucateEdgePoint_LeftANDRight_WithCircleMath:_circleMath withOriginLine:line_P2_MainCenter needPoint1:YES];
-//    _edge_point1_left = acrossPointStruct1.point1;
-//    _edge_point1_right = acrossPointStruct1.point2;
-//    
-//    
-//    LineMath *line_P4_MainCenter = [[LineMath alloc] initWithPoint1:_circleMath.centerPoint point2:point4 inView:self];
-//    AcrossPointStruct acrossPointStruct2= [self calucateEdgePoint_LeftANDRight_WithCircleMath:_circleMath withOriginLine:line_P4_MainCenter needPoint1:NO];
-//    _edge_point2_left = acrossPointStruct2.point1;
-//    _edge_point2_right = acrossPointStruct2.point2;
-    
-
-    
-//    //  计算圆心连线的垂线与圆的交点1,贝塞尔绘制点两侧(小圆)
-//    LineMath *line_P1_SmallCenter = [[LineMath alloc] initWithPoint1:point1 point2:smallDrop_layer.position inView:self];
-//    AcrossPointStruct acrossPointStruct3 = [self calucateEdgePoint_LeftANDRight_WithCircleMath:_smallDrop.circleMath withOriginLine:line_P1_SmallCenter needPoint1:YES];
-//    _smallDrop.edge_point1_left = acrossPointStruct3.point1;
-//    _smallDrop.edge_point1_right = acrossPointStruct3.point2;
-//    
-//    LineMath *tempLine7 = [[LineMath alloc] initWithPoint1:point1 point2:smallDrop_layer.position inView:self];
-//    [_dropSuperView.assisArray addObject:tempLine7];
-
-    
-//    LineMath *line_P3_SmallCenter = [[LineMath alloc] initWithPoint1:point3 point2:smallDrop_layer.position inView:self];
-//    AcrossPointStruct acrossPointStruct4= [self calucateEdgePoint_LeftANDRight_WithCircleMath:_smallDrop.circleMath withOriginLine:line_P3_SmallCenter needPoint1:NO];
-//    _smallDrop.edge_point2_left = acrossPointStruct4.point1;
-//    _smallDrop.edge_point2_right = acrossPointStruct4.point2;
-//    
-//    LineMath *tempLine11 = [[LineMath alloc] initWithPoint1:point3 point2:smallDrop_layer.position inView:self];
-//    [_dropSuperView.assisArray addObject:tempLine11];
+    //  两圆无重叠
+    if (centerPointDistance > _circleMath.radius + _smallDrop.circleMath.radius) {
+        
+        //  bigDrop与lineCenter2Center的垂直平分线的交点
+        //        [self calucateCircleAndPerBiseLinePoint_withCircle:self.circleMath withDropView:self];
+        
+        //  smallDrop与lineCenter2Center的垂直平分线的交点
+        //        [self calucateCircleAndPerBiseLinePoint_withCircle:self.smallDrop.circleMath withDropView:self.smallDrop];
+        
+        
+        /******     计算贝赛尔需要的交点      ******/
+        CGPoint point1 = acrossPointStruct_Tangent1_PerBiseToSmallDrop.point1;
+        CGPoint point2 = acrossPointStruct_Tangent1_PerBiseToMainDrop.point1;
+        CGPoint point3 = acrossPointStruct_Tangent2_PerBiseToSmallDrop.point2;
+        CGPoint point4 = acrossPointStruct_Tangent2_PerBiseToMainDrop.point2;
+        CGPoint point_2_4Center = [LineMath calucateCenterPointBetweenPoint1:point2 withPoint2:point4];
+        CGPoint point_1_3Center = [LineMath calucateCenterPointBetweenPoint1:point1 withPoint2:point3];
+        
+        LineMath *line_P1_P4 = [[LineMath alloc] initWithPoint1:point1 point2:point4 inView:self];
+        LineMath *line_P2_P3 = [[LineMath alloc] initWithPoint1:point2 point2:point3 inView:self];
+        LineMath *line_P3_P2_4Center = [[LineMath alloc] initWithPoint1:point3 point2:point_2_4Center inView:self];
+        LineMath *line_P1_P2_4Center = [[LineMath alloc] initWithPoint1:point1 point2:point_2_4Center inView:self];
+        
+        [_dropSuperView.assisArray addObject:line_P1_P4];
+        [_dropSuperView.assisArray addObject:line_P2_P3];
+        [_dropSuperView.assisArray addObject:line_P3_P2_4Center];
+        [_dropSuperView.assisArray addObject:line_P1_P2_4Center];
+        
+        
+        _bezierControlPoint1 = [LineMath calucateAcrossPointBetweenLine1:line_P1_P4 withLine2:line_P3_P2_4Center];
+        _bezierControlPoint2 = [LineMath calucateAcrossPointBetweenLine1:line_P2_P3 withLine2:line_P1_P2_4Center];
+        _edge_point1 = point2;
+        _edge_point2 = point4;
+        _smallDrop.edge_point1 = point1;
+        _smallDrop.edge_point2 = point3;
+        
+        
+        
+        //  DropView和贝塞尔曲线衔接平滑曲线 控制点
+        [self SetBezierSmoothControlPointWithDropView:self withAssisLine:line_P1_P4 withStartPoint:point4];
+        [self SetBezierSmoothControlPointWithDropView:self withAssisLine:line_P2_P3 withStartPoint:point2];
+        [self SetBezierSmoothControlPointWithDropView:_smallDrop withAssisLine:line_P1_P4 withStartPoint:point1];
+        [self SetBezierSmoothControlPointWithDropView:_smallDrop withAssisLine:line_P2_P3 withStartPoint:point3];
+        
+        
+        
+        
+        
+        
+        
+        //    //  计算圆心连线的垂线与圆的交点1,贝塞尔绘制点两侧(大圆)
+        //    LineMath *line_P2_MainCenter = [[LineMath alloc] initWithPoint1:point2 point2:_circleMath.centerPoint inView:self];
+        //    AcrossPointStruct acrossPointStruct1 = [self calucateEdgePoint_LeftANDRight_WithCircleMath:_circleMath withOriginLine:line_P2_MainCenter needPoint1:YES];
+        //    _edge_point1_left = acrossPointStruct1.point1;
+        //    _edge_point1_right = acrossPointStruct1.point2;
+        //
+        //
+        //    LineMath *line_P4_MainCenter = [[LineMath alloc] initWithPoint1:_circleMath.centerPoint point2:point4 inView:self];
+        //    AcrossPointStruct acrossPointStruct2= [self calucateEdgePoint_LeftANDRight_WithCircleMath:_circleMath withOriginLine:line_P4_MainCenter needPoint1:NO];
+        //    _edge_point2_left = acrossPointStruct2.point1;
+        //    _edge_point2_right = acrossPointStruct2.point2;
+        
+        
+        
+        //    //  计算圆心连线的垂线与圆的交点1,贝塞尔绘制点两侧(小圆)
+        //    LineMath *line_P1_SmallCenter = [[LineMath alloc] initWithPoint1:point1 point2:smallDrop_layer.position inView:self];
+        //    AcrossPointStruct acrossPointStruct3 = [self calucateEdgePoint_LeftANDRight_WithCircleMath:_smallDrop.circleMath withOriginLine:line_P1_SmallCenter needPoint1:YES];
+        //    _smallDrop.edge_point1_left = acrossPointStruct3.point1;
+        //    _smallDrop.edge_point1_right = acrossPointStruct3.point2;
+        //
+        //    LineMath *tempLine7 = [[LineMath alloc] initWithPoint1:point1 point2:smallDrop_layer.position inView:self];
+        //    [_dropSuperView.assisArray addObject:tempLine7];
+        
+        
+        //    LineMath *line_P3_SmallCenter = [[LineMath alloc] initWithPoint1:point3 point2:smallDrop_layer.position inView:self];
+        //    AcrossPointStruct acrossPointStruct4= [self calucateEdgePoint_LeftANDRight_WithCircleMath:_smallDrop.circleMath withOriginLine:line_P3_SmallCenter needPoint1:NO];
+        //    _smallDrop.edge_point2_left = acrossPointStruct4.point1;
+        //    _smallDrop.edge_point2_right = acrossPointStruct4.point2;
+        //    
+        //    LineMath *tempLine11 = [[LineMath alloc] initWithPoint1:point3 point2:smallDrop_layer.position inView:self];
+        //    [_dropSuperView.assisArray addObject:tempLine11];
+        
+        
+    }
+    //  两圆有重叠
+    else{
+        NSLog(@"两圆有重叠");
+        [self calucateCircleWithCircleAcrossPoint];
+    }
 }
 
 //  绘制园与贝塞尔曲线交接的平滑控制点
@@ -596,11 +603,11 @@
     verLine.point1 = acrossPointStruct.point1;
     verLine.point2 = acrossPointStruct.point2;
     
-    _edge_point1 = verLine.point1;
-    _edge_point2 = verLine.point2;
+    _bezierControlPoint1 = verLine.point2;
+    _bezierControlPoint2 = verLine.point1;
     
-    _smallDrop.edge_point1 = verLine.point1;
-    _smallDrop.edge_point2 = verLine.point2;
+    _smallDrop.bezierControlPoint1 = verLine.point1;
+    _smallDrop.bezierControlPoint2 = verLine.point2;
     
     [_dropSuperView.assisArray addObject:verLine];
 }
@@ -687,9 +694,9 @@
         }
         
     }else if (delta == 0){
-        NSLog(@"圆与直线 一个交点");
+//        NSLog(@"圆与直线 一个交点");
     }else{
-        NSLog(@"圆与直线 无交点");
+//        NSLog(@"圆与直线 无交点");
     }
     
     return acrossPointStruct;
