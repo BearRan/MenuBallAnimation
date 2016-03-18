@@ -777,6 +777,38 @@
     return NO;
 }
 
+/** 根据两点和比例计算其他点
+ *
+ *  point1,point2   两源点
+ *  ratio           距两个端点距离占线段总长度的比例
+ *  twoPointStruct  最终返回的两点的结构体
+ *  注：ratio小于0.5的情况下，
+ *      twoPointStruct.point1靠近point1
+ *      twoPointStruct.point2靠近point2
+ *      反之亦然
+ */
++ (TwoPointStruct)PointBetweenPoint1:(CGPoint)point1 point2:(CGPoint)point2 ToPointRatio:(CGFloat)ratio
+{
+    TwoPointStruct twoPointStruct;
+    
+    CGFloat xAll = point1.x + point2.x;
+    CGFloat yAll = point1.y + point2.y;
+    
+    CGFloat xDis = point2.x - point1.x;
+    CGFloat yDis = point2.y - point1.y;
+    
+    CGFloat xRes1 = (xAll - xDis * ratio)/2.0f;
+    CGFloat yRes1 = (yAll - yDis * ratio)/2.0f;
+    
+    CGFloat xRes2 = (xAll + xDis * ratio)/2.0f;
+    CGFloat yRes2 = (yAll + yDis * ratio)/2.0f;
+    
+    twoPointStruct.point1 = CGPointMake(xRes1, yRes1);
+    twoPointStruct.point2 = CGPointMake(xRes2, yRes2);
+    
+    return twoPointStruct;
+}
+
 @end
 
 

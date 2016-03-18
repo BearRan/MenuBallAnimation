@@ -16,6 +16,11 @@ typedef struct {
     CGPoint point2;
 }AcrossPointStruct;
 
+typedef struct {
+    CGPoint point1;
+    CGPoint point2;
+}TwoPointStruct;
+
 typedef enum {
     kQuadrant_First,
     kQuadrant_Second,
