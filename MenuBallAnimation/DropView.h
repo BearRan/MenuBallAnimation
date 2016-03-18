@@ -35,10 +35,12 @@ typedef enum {
 @property (assign, nonatomic) CGPoint       edge_point2_left;   //圆心连线的垂线与圆的交点2,贝塞尔绘制点左侧
 @property (assign, nonatomic) CGPoint       edge_point2_right;  //圆心连线的垂线与圆的交点2,贝塞尔绘制点右侧
 
-@property (assign, nonatomic) CGPoint       bezierControlPoint1;//贝赛尔曲线控制点1（P3，P4中间）
-@property (assign, nonatomic) CGPoint       bezierControlPoint1_1;//贝赛尔曲线控制点1（P3，P4中间）
-@property (assign, nonatomic) CGPoint       bezierControlPoint2;//贝赛尔曲线控制点2（P1，P2中间）
-@property (assign, nonatomic) CGPoint       bezierControlPoint2_1;//贝赛尔曲线控制点2（P1，P2中间）
+@property (assign, nonatomic) CGPoint       bezierControlPoint1;    //贝赛尔曲线控制点1（P3，P4中间）
+@property (assign, nonatomic) CGPoint       bezierControlPoint1_1;  //贝赛尔曲线控制点1（P3，P4中间）
+@property (assign, nonatomic) CGPoint       bezierControlPoint1_1C; //贝赛尔曲线控制点1（P3，P4中间,平滑作用）
+@property (assign, nonatomic) CGPoint       bezierControlPoint2;    //贝赛尔曲线控制点2（P1，P2中间）
+@property (assign, nonatomic) CGPoint       bezierControlPoint2_1;  //贝赛尔曲线控制点2（P1，P2中间）
+@property (assign, nonatomic) CGPoint       bezierControlPoint2_1C; //贝赛尔曲线控制点2（P1，P2中间,平滑作用）
 
 @property (strong, nonatomic) DropView          *smallDrop;
 @property (assign, nonatomic) DropCanvasView    *dropSuperView;

@@ -386,32 +386,57 @@
                                   withAssisLine:(LineMath *)assisLine
                                  withStartPoint:(CGPoint)startPoint
 {
-    //  两圆切点，对角的切点连线和圆的交点
-    CGPoint tempControlPoint;
+    //  两圆切点，对角的切点连线L1和圆的交点acrossPoint
+    CGPoint acrossPoint;
     AcrossPointStruct acrossPointStruct = [self calucateCircleAndLineAcrossPoint_withCircle:dropView.circleMath withLine:assisLine];
     if ([DropView JudgeEqualWithPoint1:acrossPointStruct.point1 point2:startPoint]) {
-        tempControlPoint = acrossPointStruct.point2;
+        acrossPoint = acrossPointStruct.point2;
     }else{
-        tempControlPoint = acrossPointStruct.point1;
+        acrossPoint = acrossPointStruct.point1;
     }
     
+    PointMath *pointMath = [[PointMath alloc] initWithPoint:acrossPoint inView:self];
+    [_dropSuperView.assisArray addObject:pointMath];
+    
+    
+    //  交点acrossPoint和L1的垂直平分线linePerBase
+    LineMath *linePerBase = [self PerBaseLine_Point1:acrossPoint Point2:startPoint];
+    AcrossPointStruct acrossPointStruct2 = [self calucateCircleAndLineAcrossPoint_withCircle:dropView.circleMath withLine:linePerBase];
+    
+    LineMath *tempLine = [[LineMath alloc] initWithPoint1:acrossPointStruct2.point1 point2:acrossPointStruct2.point2 inView:self];
+    [_dropSuperView.assisArray addObject:tempLine];
+    
+    
+    //  直线linePerBase和Circle的交点acrossPoint2
+    CGPoint acrossPoint2;
+    CGPoint centerPoint = [LineMath calucateCenterPointBetweenPoint1:acrossPoint withPoint2:startPoint];
+    CGFloat distance1 = [LineMath calucateDistanceBetweenPoint1:acrossPointStruct2.point1 withPoint2:centerPoint];
+    CGFloat distance2 = [LineMath calucateDistanceBetweenPoint1:acrossPointStruct2.point2 withPoint2:centerPoint];
+    if (distance1 < distance2) {
+        acrossPoint2 = acrossPointStruct2.point1;
+    }else{
+        acrossPoint2 = acrossPointStruct2.point2;
+    }
+    
+    PointMath *acrossPoint2_Math = [[PointMath alloc] initWithPoint:acrossPoint2 inView:self];
+    [_dropSuperView.assisArray addObject:acrossPoint2_Math];
+    
+    
+    //  将计算出的控制贝塞尔点赋值给本类
     if ([DropView JudgeEqualWithPoint1:dropView.edge_point1 point2:startPoint])
     {
-        dropView.bezierControlPoint1_1 = tempControlPoint;
+        dropView.bezierControlPoint1_1 = acrossPoint;
+        dropView.bezierControlPoint1_1C = acrossPoint2;
     }
     else if ([DropView JudgeEqualWithPoint1:dropView.edge_point2 point2:startPoint])
     {
-        dropView.bezierControlPoint2_1 = tempControlPoint;
+        dropView.bezierControlPoint2_1 = acrossPoint;
+        dropView.bezierControlPoint2_1C = acrossPoint2;
     }
     else
     {
         return;
     }
-    
-    PointMath *pointMath = [[PointMath alloc] initWithPoint:tempControlPoint inView:self];
-    [_dropSuperView.assisArray addObject:pointMath];
-    
-    
 }
 
 //  计算圆心连线的垂线与圆的交点1,贝塞尔绘制点两侧（edge_point1_left，edge_point1_right）
@@ -674,6 +699,7 @@
 - (LineMath *)PerBaseLine_Point1:(CGPoint)point1 Point2:(CGPoint)point2
 {
     LineMath *originMathLine = [[LineMath alloc] initWithPoint1:point1 point2:point2 inView:self];
+    CGPoint centerPoint = [LineMath calucateCenterPointBetweenPoint1:point1 withPoint2:point2];
     
     LineMath *perBiseLine = [[LineMath alloc] init];
     CGFloat angle = atan(originMathLine.k);
@@ -684,7 +710,7 @@
         angle += M_PI;
     }
     perBiseLine.k = tan(angle);
-    perBiseLine.b = point1.y - perBiseLine.k * point1.x;
+    perBiseLine.b = centerPoint.y - perBiseLine.k * centerPoint.x;
     
     return perBiseLine;
 }
