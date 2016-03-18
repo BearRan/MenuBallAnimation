@@ -395,8 +395,8 @@
         acrossPoint = acrossPointStruct.point1;
     }
     
-    PointMath *pointMath = [[PointMath alloc] initWithPoint:acrossPoint inView:self];
-    [_dropSuperView.assisArray addObject:pointMath];
+//    PointMath *pointMath = [[PointMath alloc] initWithPoint:acrossPoint inView:self];
+//    [_dropSuperView.assisArray addObject:pointMath];
     
     
     //  交点acrossPoint和L1的垂直平分线linePerBase
@@ -418,8 +418,8 @@
         acrossPoint2 = acrossPointStruct2.point2;
     }
     
-    PointMath *acrossPoint2_Math = [[PointMath alloc] initWithPoint:acrossPoint2 inView:self];
-    [_dropSuperView.assisArray addObject:acrossPoint2_Math];
+//    PointMath *acrossPoint2_Math = [[PointMath alloc] initWithPoint:acrossPoint2 inView:self];
+//    [_dropSuperView.assisArray addObject:acrossPoint2_Math];
     
     
     //  将计算出的控制贝塞尔点赋值给本类
