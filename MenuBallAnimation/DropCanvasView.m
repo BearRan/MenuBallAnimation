@@ -55,7 +55,7 @@
     
     [self drawDrop1View:_mainDrop];
 //    [self drawDropView:_mainDrop];
-//    [self drawAssistantLine];
+    [self drawAssistantLine];
 }
 
 
@@ -177,70 +177,146 @@
         nil;
     }];
     
-    [dropView.bezierPath addArcWithCenter:mainDrop_center radius:dropView.circleMath.radius startAngle:angleLine_MainP1 endAngle:angleLine_MainP2 clockwise:YES];
-    
-    //  MainDrop右侧贝塞尔圆滑过渡曲线
-//    [dropView.bezierPath addQuadCurveToPoint:bezierControlPoint1 controlPoint:MbezierControlPoint2_1];
-//    [dropView.bezierPath addCurveToPoint:SbezierControlPoint2_1 controlPoint1:MbezierControlPoint2_1 controlPoint2:bezierControlPoint1];
-    
-    //  MainDrop右侧到SmallDrop右侧的贝塞尔曲线
-//    LineMath *tempLine = [[LineMath alloc] initWithPoint1:mainEdgePoint2 point2:smallEdgePoint2 inView:self];
-//    [_assisArray addObject:tempLine];
-//    [dropView.bezierPath moveToPoint:MbezierControlPoint2_1];
-    [dropView.bezierPath addQuadCurveToPoint:SbezierControlPoint2_1C controlPoint:bezierControlPoint1];
-    
-    //  SmallDrop右侧被塞尔圆滑过渡曲线
-//    [dropView.bezierPath addCurveToPoint:SbezierControlPoint2_1C controlPoint1:bezierControlPoint1 controlPoint2:SbezierControlPoint2_1];
-////    [dropView.bezierPath moveToPoint:bezierControlPoint1];
-////    [dropView.bezierPath addQuadCurveToPoint:SbezierControlPoint2_1C controlPoint:SbezierControlPoint2_1];
-//    PointMath *tempPointMath = [[PointMath alloc] initWithPoint:bezierControlPoint1 inView:self];
-//    [_assisArray addObject:tempPointMath];
-//    
-//    PointMath *tempPointMath1 = [[PointMath alloc] initWithPoint:SbezierControlPoint2_1C inView:self];
-//    [_assisArray addObject:tempPointMath1];
-    
-    //  SmallDrop半圆
-    LineMath *lineP1_SmallCenter = [[LineMath alloc] initWithPoint1:SbezierControlPoint1_1C point2:smallDrop_center inView:self];
-    LineMath *lineP2_SmallCenter = [[LineMath alloc] initWithPoint1:SbezierControlPoint2_1C point2:smallDrop_center inView:self];
-    
-    __block CGFloat angleLine_SmallP1 = atan(lineP1_SmallCenter.k);
-    __block CGFloat angleLine_SmallP2 = atan(lineP2_SmallCenter.k);
-    
-    //  两圆焦点和圆心连线的line的 斜率矫正
-    [DropView eventInDiffQuadrantWithCenterPoint:smallDrop_center withParaPoint:smallEdgePoint1 quadrantFirst:^{
-        nil;
-    } quadrantSecond:^{
-        angleLine_SmallP1 -= M_PI;
-    } quadrantThird:^{
-        angleLine_SmallP1 -= M_PI;
-    } quadrantFourth:^{
-        nil;
-    }];
-    
-    [DropView eventInDiffQuadrantWithCenterPoint:smallDrop_center withParaPoint:smallEdgePoint2 quadrantFirst:^{
-        nil;
-    } quadrantSecond:^{
-        angleLine_SmallP2-= M_PI;
-    } quadrantThird:^{
-        angleLine_SmallP2 -= M_PI;
-    } quadrantFourth:^{
-        nil;
-    }];
-    
-    [dropView.bezierPath addArcWithCenter:smallDrop_center radius:dropView.smallDrop.circleMath.radius startAngle:angleLine_SmallP2 endAngle:angleLine_SmallP1 clockwise:YES];
-    
-    
-    //  SmallDrop左侧贝塞尔圆滑过渡曲线
-//    LineMath *tempLine3 = [[LineMath alloc] initWithPoint1:smallEdgePoint1 point2:smallEdgePoint1 inView:self];
-//    [_assisArray addObject:tempLine3];
-//    
-//    [dropView.bezierPath addQuadCurveToPoint:smallEdgePoint1 controlPoint:smallEdgePoint1];
-    
-    //  SmallDrop左侧到MainDrop左侧的被塞尔曲线
-    LineMath *tempLine4 = [[LineMath alloc] initWithPoint1:smallEdgePoint1 point2:mainEdgePoint1 inView:self];
-    [_assisArray addObject:tempLine4];
-    
-    [dropView.bezierPath addQuadCurveToPoint:MbezierControlPoint1_1C controlPoint:bezierControlPoint2];
+    //  连体绘制
+    if (dropView.drawSingle == NO) {
+        [dropView.bezierPath addArcWithCenter:mainDrop_center radius:dropView.circleMath.radius startAngle:angleLine_MainP1 endAngle:angleLine_MainP2 clockwise:YES];
+        
+        //  MainDrop右侧贝塞尔圆滑过渡曲线
+        //    [dropView.bezierPath addQuadCurveToPoint:bezierControlPoint1 controlPoint:MbezierControlPoint2_1];
+        //    [dropView.bezierPath addCurveToPoint:SbezierControlPoint2_1 controlPoint1:MbezierControlPoint2_1 controlPoint2:bezierControlPoint1];
+        
+        //  MainDrop右侧到SmallDrop右侧的贝塞尔曲线
+        //    LineMath *tempLine = [[LineMath alloc] initWithPoint1:mainEdgePoint2 point2:smallEdgePoint2 inView:self];
+        //    [_assisArray addObject:tempLine];
+        //    [dropView.bezierPath moveToPoint:MbezierControlPoint2_1];
+        [dropView.bezierPath addQuadCurveToPoint:SbezierControlPoint2_1C controlPoint:bezierControlPoint1];
+        //    [dropView.bezierPath addCurveToPoint:SbezierControlPoint2_1C controlPoint1:MbezierControlPoint2_1 controlPoint2:bezierControlPoint1];
+        
+        PointMath *pointMath1 = [[PointMath alloc] initWithPoint:MbezierControlPoint2_1 inView:self];
+        [_assisArray addObject:pointMath1];
+        
+        //  SmallDrop右侧被塞尔圆滑过渡曲线
+        //    [dropView.bezierPath addCurveToPoint:SbezierControlPoint2_1C controlPoint1:bezierControlPoint1 controlPoint2:SbezierControlPoint2_1];
+        ////    [dropView.bezierPath moveToPoint:bezierControlPoint1];
+        ////    [dropView.bezierPath addQuadCurveToPoint:SbezierControlPoint2_1C controlPoint:SbezierControlPoint2_1];
+        //    PointMath *tempPointMath = [[PointMath alloc] initWithPoint:bezierControlPoint1 inView:self];
+        //    [_assisArray addObject:tempPointMath];
+        //
+        //    PointMath *tempPointMath1 = [[PointMath alloc] initWithPoint:SbezierControlPoint2_1C inView:self];
+        //    [_assisArray addObject:tempPointMath1];
+        
+        //  SmallDrop半圆
+        LineMath *lineP1_SmallCenter = [[LineMath alloc] initWithPoint1:SbezierControlPoint1_1C point2:smallDrop_center inView:self];
+        LineMath *lineP2_SmallCenter = [[LineMath alloc] initWithPoint1:SbezierControlPoint2_1C point2:smallDrop_center inView:self];
+        
+        __block CGFloat angleLine_SmallP1 = atan(lineP1_SmallCenter.k);
+        __block CGFloat angleLine_SmallP2 = atan(lineP2_SmallCenter.k);
+        
+        //  两圆焦点和圆心连线的line的 斜率矫正
+        [DropView eventInDiffQuadrantWithCenterPoint:smallDrop_center withParaPoint:smallEdgePoint1 quadrantFirst:^{
+            nil;
+        } quadrantSecond:^{
+            angleLine_SmallP1 -= M_PI;
+        } quadrantThird:^{
+            angleLine_SmallP1 -= M_PI;
+        } quadrantFourth:^{
+            nil;
+        }];
+        
+        [DropView eventInDiffQuadrantWithCenterPoint:smallDrop_center withParaPoint:smallEdgePoint2 quadrantFirst:^{
+            nil;
+        } quadrantSecond:^{
+            angleLine_SmallP2-= M_PI;
+        } quadrantThird:^{
+            angleLine_SmallP2 -= M_PI;
+        } quadrantFourth:^{
+            nil;
+        }];
+        
+        [dropView.bezierPath addArcWithCenter:smallDrop_center radius:dropView.smallDrop.circleMath.radius startAngle:angleLine_SmallP2 endAngle:angleLine_SmallP1 clockwise:YES];
+        
+        
+        //  SmallDrop左侧贝塞尔圆滑过渡曲线
+        //    LineMath *tempLine3 = [[LineMath alloc] initWithPoint1:smallEdgePoint1 point2:smallEdgePoint1 inView:self];
+        //    [_assisArray addObject:tempLine3];
+        //
+        //    [dropView.bezierPath addQuadCurveToPoint:smallEdgePoint1 controlPoint:smallEdgePoint1];
+        
+        //  SmallDrop左侧到MainDrop左侧的被塞尔曲线
+        LineMath *tempLine4 = [[LineMath alloc] initWithPoint1:smallEdgePoint1 point2:mainEdgePoint1 inView:self];
+        [_assisArray addObject:tempLine4];
+        
+        [dropView.bezierPath addQuadCurveToPoint:MbezierControlPoint1_1C controlPoint:bezierControlPoint2];
+    }
+    //  单独绘制
+    else{
+        
+        //  MainDrop Main
+        [dropView.bezierPath addArcWithCenter:mainDrop_center radius:dropView.circleMath.radius startAngle:angleLine_MainP1 endAngle:angleLine_MainP2 clockwise:YES];
+        
+        //  MainDrop右侧到断开接点的贝塞尔曲线
+        //    LineMath *tempLine = [[LineMath alloc] initWithPoint1:mainEdgePoint2 point2:smallEdgePoint2 inView:self];
+        //    [_assisArray addObject:tempLine];
+        //    [dropView.bezierPath moveToPoint:MbezierControlPoint2_1];
+        [dropView.bezierPath addQuadCurveToPoint:SbezierControlPoint2_1C controlPoint:bezierControlPoint1];
+        //    [dropView.bezierPath addCurveToPoint:SbezierControlPoint2_1C controlPoint1:MbezierControlPoint2_1 controlPoint2:bezierControlPoint1];
+        
+        PointMath *pointMath1 = [[PointMath alloc] initWithPoint:MbezierControlPoint2_1 inView:self];
+        [_assisArray addObject:pointMath1];
+        
+        //  SmallDrop右侧被塞尔圆滑过渡曲线
+        //    [dropView.bezierPath addCurveToPoint:SbezierControlPoint2_1C controlPoint1:bezierControlPoint1 controlPoint2:SbezierControlPoint2_1];
+        ////    [dropView.bezierPath moveToPoint:bezierControlPoint1];
+        ////    [dropView.bezierPath addQuadCurveToPoint:SbezierControlPoint2_1C controlPoint:SbezierControlPoint2_1];
+        //    PointMath *tempPointMath = [[PointMath alloc] initWithPoint:bezierControlPoint1 inView:self];
+        //    [_assisArray addObject:tempPointMath];
+        //
+        //    PointMath *tempPointMath1 = [[PointMath alloc] initWithPoint:SbezierControlPoint2_1C inView:self];
+        //    [_assisArray addObject:tempPointMath1];
+        
+        //  SmallDrop半圆
+        LineMath *lineP1_SmallCenter = [[LineMath alloc] initWithPoint1:SbezierControlPoint1_1C point2:smallDrop_center inView:self];
+        LineMath *lineP2_SmallCenter = [[LineMath alloc] initWithPoint1:SbezierControlPoint2_1C point2:smallDrop_center inView:self];
+        
+        __block CGFloat angleLine_SmallP1 = atan(lineP1_SmallCenter.k);
+        __block CGFloat angleLine_SmallP2 = atan(lineP2_SmallCenter.k);
+        
+        //  两圆焦点和圆心连线的line的 斜率矫正
+        [DropView eventInDiffQuadrantWithCenterPoint:smallDrop_center withParaPoint:smallEdgePoint1 quadrantFirst:^{
+            nil;
+        } quadrantSecond:^{
+            angleLine_SmallP1 -= M_PI;
+        } quadrantThird:^{
+            angleLine_SmallP1 -= M_PI;
+        } quadrantFourth:^{
+            nil;
+        }];
+        
+        [DropView eventInDiffQuadrantWithCenterPoint:smallDrop_center withParaPoint:smallEdgePoint2 quadrantFirst:^{
+            nil;
+        } quadrantSecond:^{
+            angleLine_SmallP2-= M_PI;
+        } quadrantThird:^{
+            angleLine_SmallP2 -= M_PI;
+        } quadrantFourth:^{
+            nil;
+        }];
+        
+        [dropView.bezierPath addArcWithCenter:smallDrop_center radius:dropView.smallDrop.circleMath.radius startAngle:angleLine_SmallP2 endAngle:angleLine_SmallP1 clockwise:YES];
+        
+        
+        //  SmallDrop左侧贝塞尔圆滑过渡曲线
+        //    LineMath *tempLine3 = [[LineMath alloc] initWithPoint1:smallEdgePoint1 point2:smallEdgePoint1 inView:self];
+        //    [_assisArray addObject:tempLine3];
+        //
+        //    [dropView.bezierPath addQuadCurveToPoint:smallEdgePoint1 controlPoint:smallEdgePoint1];
+        
+        //  SmallDrop左侧到MainDrop左侧的被塞尔曲线
+        LineMath *tempLine4 = [[LineMath alloc] initWithPoint1:smallEdgePoint1 point2:mainEdgePoint1 inView:self];
+        [_assisArray addObject:tempLine4];
+        
+        [dropView.bezierPath addQuadCurveToPoint:MbezierControlPoint1_1C controlPoint:bezierControlPoint2];
+    }
     
     
     dropView.dropShapLayer.path = dropView.bezierPath.CGPath;

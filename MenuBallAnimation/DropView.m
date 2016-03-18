@@ -9,6 +9,34 @@
 #import "DropView.h"
 #import "PointMath.h"
 
+
+
+@implementation TwoLineClass
+
+- (instancetype)initWithTwoLineMath_line1:(LineMath *)line1 line2:(LineMath *)line2
+{
+    self = [super init];
+    if (!self) {
+        self = nil;
+    }
+    
+    _lineMath1 = line1;
+    _lineMath2 = line2;
+    
+    return self;
+}
+
+@end
+
+
+
+
+
+
+
+
+
+
 @interface DropView()
 
 @property (strong, nonatomic) CADisplayLink *displayLink;
@@ -143,6 +171,12 @@
     [_dropSuperView setNeedsDisplay];
 }
 
+
+//  计算点到圆心的两天切线
+- (TwoLineClass *)calucateTangentLine_pointMath:(PointMath *)pointMath circleMath:(CircleMath *)circleMath
+{
+    
+}
 
 #pragma mark - 计算两圆的切线
 /** 计算两圆的切线
@@ -338,19 +372,30 @@
         //  twoControlPointDistance 两控制点距离
         //  startReduceDistance     开始减小控制点距离的阈值（该值为两圆心距离所用）
         //  deltaCenterDistance     两圆心距离和阈值距离测差值（为负值时开始减小距离）
+        //  distanceRatio           间距比例
         CGFloat controlPointReduceRatio = 0.005;
         CGFloat radiusAll = _circleMath.radius + _smallDrop.circleMath.radius;
         CGFloat twoControlPointDistance = [LineMath calucateDistanceBetweenPoint1:_bezierControlPoint1 withPoint2:_bezierControlPoint2];
         CGFloat startReduceDistance = radiusAll * 0.8f;
         CGFloat deltaCenterDistance = startReduceDistance - centerPointDistance;
+        CGFloat distanceRatio = deltaCenterDistance/startReduceDistance;
         
         BOOL res1 = deltaCenterDistance < 0;
         BOOL res2 = twoControlPointDistance > 5;
+        NSLog(@"tempRatio:%f", distanceRatio);
+        
+        _drawSingle = NO;
+        _smallDrop.drawSingle = NO;
+        
+        //  贝塞尔曲线变细
         if (res1 && res2) {
             NSLog(@"开始缩小");
             
-            CGFloat distanceRatio = deltaCenterDistance/startReduceDistance;
-            NSLog(@"tempRatio:%f", distanceRatio);
+            if (distanceRatio < -2.5) {
+                distanceRatio = -2.5;
+                _drawSingle = YES;
+                _smallDrop.drawSingle = YES;
+            }
             
             TwoPointStruct twoPointStruct = [DropView PointBetweenPoint1:_bezierControlPoint1 point2:_bezierControlPoint2 ToPointRatio:distanceRatio];
             _bezierControlPoint1 = twoPointStruct.point1;

@@ -11,6 +11,22 @@
 #import "CircleMath.h"
 #import "LineMath.h"
 
+
+
+
+
+@interface TwoLineClass : NSObject
+
+@property (strong, nonatomic) LineMath *lineMath1;
+@property (strong, nonatomic) LineMath *lineMath2;
+
+@end
+
+
+
+
+
+
 typedef struct {
     CGPoint point1;
     CGPoint point2;
@@ -53,6 +69,7 @@ typedef enum {
 
 @property (strong, nonatomic) CAShapeLayer  *dropShapLayer;
 @property (strong, nonatomic) UIBezierPath  *bezierPath;
+@property (assign, nonatomic) BOOL          drawSingle;
 
 - (instancetype)initWithFrame:(CGRect)frame createSmallDrop:(BOOL)createSmallDrop;
 
