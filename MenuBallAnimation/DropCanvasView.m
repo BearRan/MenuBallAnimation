@@ -165,7 +165,10 @@
             
             //两圆完全相离
         case kCircleSeparateEntire:
-            
+        {
+            [dropView.bezierPath addArcWithCenter:mainDrop_center radius:dropView.circleMath.radius startAngle:0 endAngle:M_PI * 2 clockwise:YES];
+            [dropView.bezierPath addArcWithCenter:smallDrop_center radius:dropView.smallDrop.circleMath.radius startAngle:0 endAngle:M_PI * 2 clockwise:YES];
+        }
             break;
             
             //两圆相离，变形
@@ -314,7 +317,9 @@
             break;
             
             //两圆内含
-        case kCircleContain:
+        case kCircleContain:{
+            [dropView.bezierPath addArcWithCenter:mainDrop_center radius:dropView.circleMath.radius startAngle:0 endAngle:M_PI * 2 clockwise:YES];
+        }
             
             break;
             
