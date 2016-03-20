@@ -166,14 +166,179 @@
         _smallDropQuadrant = kQuadrant_Fourth;
     }
     
-    [self calucateTangentLine];
-//    [self calucateTangentLine_mainDrop:self smallDrop:_smallDrop];
+    
+    
+    
+    TwoLineClass *twoTangentLine = [self calucateTangentLine_mainDrop:self smallDrop:_smallDrop];
+    LineMath *line_Tangent1 = twoTangentLine.lineMath1;
+    LineMath *line_Tangent2 = twoTangentLine.lineMath2;
+    
+    
+    //  经过大圆圆心的线，并与切线1垂直
+    LineMath *line_Tangent1_PerBiseToMainDrop = [[LineMath alloc] init];
+    CGFloat angle_Tangent1_PerBiseToMainDrop = atan(line_Tangent1.k);
+    angle_Tangent1_PerBiseToMainDrop += M_PI/2;
+    if (angle_Tangent1_PerBiseToMainDrop > M_PI) {
+        angle_Tangent1_PerBiseToMainDrop -= M_PI;
+    }else if (angle_Tangent1_PerBiseToMainDrop < - M_PI){
+        angle_Tangent1_PerBiseToMainDrop += M_PI;
+    }
+    line_Tangent1_PerBiseToMainDrop.k = tan(angle_Tangent1_PerBiseToMainDrop);
+    line_Tangent1_PerBiseToMainDrop.b = _circleMath.centerPoint.y - line_Tangent1_PerBiseToMainDrop.k * _circleMath.centerPoint.x;
+    
+    AcrossPointStruct acrossPointStruct_Tangent1_PerBiseToMainDrop = [self calucateCircleAndLineAcrossPoint_withCircle:_circleMath withLine:line_Tangent1_PerBiseToMainDrop];
+    LineMath *tempLine1 = [[LineMath alloc] initWithPoint1:acrossPointStruct_Tangent1_PerBiseToMainDrop.point1 point2:_circleMath.centerPoint inView:self];
+    [_dropSuperView.assisArray addObject:tempLine1];
+    
+    //  经过小圆圆心的线，并与切线1垂直
+    LineMath *line_Tangent1_PerBiseToSmallDrop = [[LineMath alloc] init];
+    CGFloat angle_Tangent1_PerBiseToSmallDrop = atan(line_Tangent1.k);
+    angle_Tangent1_PerBiseToSmallDrop += M_PI/2;
+    if (angle_Tangent1_PerBiseToSmallDrop > M_PI) {
+        angle_Tangent1_PerBiseToSmallDrop -= M_PI;
+    }else if (angle_Tangent1_PerBiseToSmallDrop < - M_PI){
+        angle_Tangent1_PerBiseToSmallDrop += M_PI;
+    }
+    line_Tangent1_PerBiseToSmallDrop.k = tan(angle_Tangent1_PerBiseToSmallDrop);
+    line_Tangent1_PerBiseToSmallDrop.b = smallDrop_layer.position.y - line_Tangent1_PerBiseToSmallDrop.k * smallDrop_layer.position.x;
+    
+    AcrossPointStruct acrossPointStruct_Tangent1_PerBiseToSmallDrop = [self calucateCircleAndLineAcrossPoint_withCircle:_smallDrop.circleMath withLine:line_Tangent1_PerBiseToSmallDrop];
+    
+    
+    //  经过大圆圆心的线，并与切线2垂直
+    LineMath *line_Tangent2_PerBiseToMainDrop = [[LineMath alloc] init];
+    CGFloat angle_Tangent2_PerBiseToMainDrop = atan(line_Tangent2.k);
+    angle_Tangent2_PerBiseToMainDrop += M_PI/2;
+    if (angle_Tangent2_PerBiseToMainDrop > M_PI) {
+        angle_Tangent2_PerBiseToMainDrop -= M_PI;
+    }else if (angle_Tangent2_PerBiseToMainDrop < - M_PI){
+        angle_Tangent2_PerBiseToMainDrop += M_PI;
+    }
+    line_Tangent2_PerBiseToMainDrop.k = tan(angle_Tangent2_PerBiseToMainDrop);
+    line_Tangent2_PerBiseToMainDrop.b = _circleMath.centerPoint.y - line_Tangent2_PerBiseToMainDrop.k * _circleMath.centerPoint.x;
+    
+    AcrossPointStruct acrossPointStruct_Tangent2_PerBiseToMainDrop = [self calucateCircleAndLineAcrossPoint_withCircle:_circleMath withLine:line_Tangent2_PerBiseToMainDrop];
+    LineMath *tempLine3 = [[LineMath alloc] initWithPoint1:acrossPointStruct_Tangent2_PerBiseToMainDrop.point2 point2:_circleMath.centerPoint inView:self];
+    [_dropSuperView.assisArray addObject:tempLine3];
+    
+    //  经过小圆圆心的线，并与切线2垂直
+    LineMath *line_Tangent2_PerBiseToSmallDrop = [[LineMath alloc] init];
+    CGFloat angle_Tangent2_PerBiseToSmallDrop = atan(line_Tangent2.k);
+    angle_Tangent2_PerBiseToSmallDrop += M_PI/2;
+    if (angle_Tangent2_PerBiseToSmallDrop > M_PI) {
+        angle_Tangent2_PerBiseToSmallDrop -= M_PI;
+    }else if (angle_Tangent2_PerBiseToSmallDrop < - M_PI){
+        angle_Tangent2_PerBiseToSmallDrop += M_PI;
+    }
+    line_Tangent2_PerBiseToSmallDrop.k = tan(angle_Tangent2_PerBiseToSmallDrop);
+    line_Tangent2_PerBiseToSmallDrop.b = smallDrop_layer.position.y - line_Tangent2_PerBiseToSmallDrop.k * smallDrop_layer.position.x;
+    
+    AcrossPointStruct acrossPointStruct_Tangent2_PerBiseToSmallDrop = [self calucateCircleAndLineAcrossPoint_withCircle:_smallDrop.circleMath withLine:line_Tangent2_PerBiseToSmallDrop];
+    
+    
+    
+    //  两圆心的距离
+    CGFloat centerPointDistance = [LineMath calucateDistanceBetweenPoint1:_circleMath.centerPoint withPoint2:smallDrop_layer.position];
+    CGFloat mainRadius = _circleMath.radius;
+    CGFloat smallRadius = _smallDrop.circleMath.radius;
+    
+    //  两圆相离
+    if (centerPointDistance > _circleMath.radius + _smallDrop.circleMath.radius) {
+        
+        /******     计算贝赛尔需要的交点      ******/
+        CGPoint point1 = acrossPointStruct_Tangent1_PerBiseToSmallDrop.point1;
+        CGPoint point2 = acrossPointStruct_Tangent1_PerBiseToMainDrop.point1;
+        CGPoint point3 = acrossPointStruct_Tangent2_PerBiseToSmallDrop.point2;
+        CGPoint point4 = acrossPointStruct_Tangent2_PerBiseToMainDrop.point2;
+        CGPoint point_2_4Center = [LineMath calucateCenterPointBetweenPoint1:point2 withPoint2:point4];
+        CGPoint point_1_3Center = [LineMath calucateCenterPointBetweenPoint1:point1 withPoint2:point3];
+        
+        LineMath *line_P1_P4 = [[LineMath alloc] initWithPoint1:point1 point2:point4 inView:self];
+        LineMath *line_P2_P3 = [[LineMath alloc] initWithPoint1:point2 point2:point3 inView:self];
+        LineMath *line_P3_P2_4Center = [[LineMath alloc] initWithPoint1:point3 point2:point_2_4Center inView:self];
+        LineMath *line_P1_P2_4Center = [[LineMath alloc] initWithPoint1:point1 point2:point_2_4Center inView:self];
+        
+        [_dropSuperView.assisArray addObject:line_P1_P4];
+        [_dropSuperView.assisArray addObject:line_P2_P3];
+        [_dropSuperView.assisArray addObject:line_P3_P2_4Center];
+        [_dropSuperView.assisArray addObject:line_P1_P2_4Center];
+        
+        //  源计算出的控制点
+        _bezierControlPoint1 = [LineMath calucateAcrossPointBetweenLine1:line_P1_P4 withLine2:line_P3_P2_4Center];
+        _bezierControlPoint2 = [LineMath calucateAcrossPointBetweenLine1:line_P2_P3 withLine2:line_P1_P2_4Center];
+        _edge_point1 = point2;
+        _edge_point2 = point4;
+        _smallDrop.edge_point1 = point1;
+        _smallDrop.edge_point2 = point3;
+        
+        //  controlPointReduceRatio 控制点缩小比例
+        //  radiusAll               大圆半径＋小圆半径
+        //  twoControlPointDistance 两控制点距离
+        //  startReduceDistance     开始减小控制点距离的阈值（该值为两圆心距离所用）
+        //  deltaCenterDistance     两圆心距离和阈值距离测差值（为负值时开始减小距离）
+        //  distanceRatio           间距比例
+        CGFloat controlPointReduceRatio = 0.005;
+        CGFloat radiusAll = _circleMath.radius + _smallDrop.circleMath.radius;
+        CGFloat twoControlPointDistance = [LineMath calucateDistanceBetweenPoint1:_bezierControlPoint1 withPoint2:_bezierControlPoint2];
+        CGFloat startReduceDistance = radiusAll * 0.8f;
+        CGFloat deltaCenterDistance = startReduceDistance - centerPointDistance;
+        CGFloat distanceRatio = deltaCenterDistance/startReduceDistance;
+        
+        BOOL res1 = deltaCenterDistance < 0;
+        BOOL res2 = twoControlPointDistance > 5;
+        NSLog(@"tempRatio:%f", distanceRatio);
+        
+        
+        
+        //  贝塞尔曲线变细
+        if (res1 && res2) {
+            
+            NSLog(@"断开");
+            _circleRelation = kCircleSeparateEntire;
+            //  两圆开始分开，变形
+            if (distanceRatio < -2.5) {
+                distanceRatio = -2.5;
+                _circleRelation = kCircleSeparateDeformation;
+                
+                
+            }
+            
+            TwoPointStruct twoPointStruct = [DropView PointBetweenPoint1:_bezierControlPoint1 point2:_bezierControlPoint2 ToPointRatio:distanceRatio];
+            _bezierControlPoint1 = twoPointStruct.point1;
+            _bezierControlPoint2 = twoPointStruct.point2;
+        }else{
+            
+            NSLog(@"相离但未断开");
+            _circleRelation = kCircleSeparateDeformation;
+        }
+        
+        //  DropView和贝塞尔曲线衔接平滑曲线 控制点
+        [self SetBezierSmoothControlPointWithDropView:self withAssisLine:line_P1_P4 withStartPoint:point4];
+        [self SetBezierSmoothControlPointWithDropView:self withAssisLine:line_P2_P3 withStartPoint:point2];
+        [self SetBezierSmoothControlPointWithDropView:_smallDrop withAssisLine:line_P1_P4 withStartPoint:point1];
+        [self SetBezierSmoothControlPointWithDropView:_smallDrop withAssisLine:line_P2_P3 withStartPoint:point3];
+        
+    }
+    
+    //  两圆内含
+    else if (centerPointDistance < mainRadius - smallRadius)
+    {
+        NSLog(@"内含");
+        _circleRelation = kCircleContain;
+    }
+    //  两圆相交
+    else if (centerPointDistance > mainRadius - smallRadius && centerPointDistance < mainRadius + smallRadius)
+    {
+        NSLog(@"相交");
+        _circleRelation = kCircleCross;
+        [self calucateCircleWithCircleAcrossPoint];
+    }
     
     [_dropSuperView setNeedsDisplay];
 }
 
 
-//  计算点到圆心的两天切线
+
 /** 计算两圆的切线
  *
  *  两圆中心连线和切线的交点
@@ -258,222 +423,6 @@
     return twoLineClass;
 }
 
-#pragma mark - 计算两圆的切线
-/** 计算两圆的切线
- *
- *  两圆中心连线和切线的交点
- *  r1  小圆半径
- *  r2  大圆半径
- *  d2  大圆和小圆中心的距离
- *  d1  小圆中心和切线交点的距离
- *
- *
- *
- *
- */
-- (void)calucateTangentLine
-{
-    CALayer *smallDrop_layer = _smallDrop.layer.presentationLayer;
-    
-    TwoLineClass *twoTangentLine = [self calucateTangentLine_mainDrop:self smallDrop:_smallDrop];
-    LineMath *line_Tangent1 = twoTangentLine.lineMath1;
-    LineMath *line_Tangent2 = twoTangentLine.lineMath2;
-
-    
-    //  经过大圆圆心的线，并与切线1垂直
-    LineMath *line_Tangent1_PerBiseToMainDrop = [[LineMath alloc] init];
-    CGFloat angle_Tangent1_PerBiseToMainDrop = atan(line_Tangent1.k);
-    angle_Tangent1_PerBiseToMainDrop += M_PI/2;
-    if (angle_Tangent1_PerBiseToMainDrop > M_PI) {
-        angle_Tangent1_PerBiseToMainDrop -= M_PI;
-    }else if (angle_Tangent1_PerBiseToMainDrop < - M_PI){
-        angle_Tangent1_PerBiseToMainDrop += M_PI;
-    }
-    line_Tangent1_PerBiseToMainDrop.k = tan(angle_Tangent1_PerBiseToMainDrop);
-    line_Tangent1_PerBiseToMainDrop.b = _circleMath.centerPoint.y - line_Tangent1_PerBiseToMainDrop.k * _circleMath.centerPoint.x;
-    
-    AcrossPointStruct acrossPointStruct_Tangent1_PerBiseToMainDrop = [self calucateCircleAndLineAcrossPoint_withCircle:_circleMath withLine:line_Tangent1_PerBiseToMainDrop];
-    LineMath *tempLine1 = [[LineMath alloc] initWithPoint1:acrossPointStruct_Tangent1_PerBiseToMainDrop.point1 point2:_circleMath.centerPoint inView:self];
-    [_dropSuperView.assisArray addObject:tempLine1];
-    
-    //  经过小圆圆心的线，并与切线1垂直
-    LineMath *line_Tangent1_PerBiseToSmallDrop = [[LineMath alloc] init];
-    CGFloat angle_Tangent1_PerBiseToSmallDrop = atan(line_Tangent1.k);
-    angle_Tangent1_PerBiseToSmallDrop += M_PI/2;
-    if (angle_Tangent1_PerBiseToSmallDrop > M_PI) {
-        angle_Tangent1_PerBiseToSmallDrop -= M_PI;
-    }else if (angle_Tangent1_PerBiseToSmallDrop < - M_PI){
-        angle_Tangent1_PerBiseToSmallDrop += M_PI;
-    }
-    line_Tangent1_PerBiseToSmallDrop.k = tan(angle_Tangent1_PerBiseToSmallDrop);
-    line_Tangent1_PerBiseToSmallDrop.b = smallDrop_layer.position.y - line_Tangent1_PerBiseToSmallDrop.k * smallDrop_layer.position.x;
-    
-    AcrossPointStruct acrossPointStruct_Tangent1_PerBiseToSmallDrop = [self calucateCircleAndLineAcrossPoint_withCircle:_smallDrop.circleMath withLine:line_Tangent1_PerBiseToSmallDrop];
-    
-    
-    //  经过大圆圆心的线，并与切线2垂直
-    LineMath *line_Tangent2_PerBiseToMainDrop = [[LineMath alloc] init];
-    CGFloat angle_Tangent2_PerBiseToMainDrop = atan(line_Tangent2.k);
-    angle_Tangent2_PerBiseToMainDrop += M_PI/2;
-    if (angle_Tangent2_PerBiseToMainDrop > M_PI) {
-        angle_Tangent2_PerBiseToMainDrop -= M_PI;
-    }else if (angle_Tangent2_PerBiseToMainDrop < - M_PI){
-        angle_Tangent2_PerBiseToMainDrop += M_PI;
-    }
-    line_Tangent2_PerBiseToMainDrop.k = tan(angle_Tangent2_PerBiseToMainDrop);
-    line_Tangent2_PerBiseToMainDrop.b = _circleMath.centerPoint.y - line_Tangent2_PerBiseToMainDrop.k * _circleMath.centerPoint.x;
-    
-    AcrossPointStruct acrossPointStruct_Tangent2_PerBiseToMainDrop = [self calucateCircleAndLineAcrossPoint_withCircle:_circleMath withLine:line_Tangent2_PerBiseToMainDrop];
-    LineMath *tempLine3 = [[LineMath alloc] initWithPoint1:acrossPointStruct_Tangent2_PerBiseToMainDrop.point2 point2:_circleMath.centerPoint inView:self];
-    [_dropSuperView.assisArray addObject:tempLine3];
-    
-    //  经过小圆圆心的线，并与切线2垂直
-    LineMath *line_Tangent2_PerBiseToSmallDrop = [[LineMath alloc] init];
-    CGFloat angle_Tangent2_PerBiseToSmallDrop = atan(line_Tangent2.k);
-    angle_Tangent2_PerBiseToSmallDrop += M_PI/2;
-    if (angle_Tangent2_PerBiseToSmallDrop > M_PI) {
-        angle_Tangent2_PerBiseToSmallDrop -= M_PI;
-    }else if (angle_Tangent2_PerBiseToSmallDrop < - M_PI){
-        angle_Tangent2_PerBiseToSmallDrop += M_PI;
-    }
-    line_Tangent2_PerBiseToSmallDrop.k = tan(angle_Tangent2_PerBiseToSmallDrop);
-    line_Tangent2_PerBiseToSmallDrop.b = smallDrop_layer.position.y - line_Tangent2_PerBiseToSmallDrop.k * smallDrop_layer.position.x;
-    
-    AcrossPointStruct acrossPointStruct_Tangent2_PerBiseToSmallDrop = [self calucateCircleAndLineAcrossPoint_withCircle:_smallDrop.circleMath withLine:line_Tangent2_PerBiseToSmallDrop];
-    
-    
-    
-    
-    CGFloat centerPointDistance = [LineMath calucateDistanceBetweenPoint1:_circleMath.centerPoint withPoint2:smallDrop_layer.position];
-    
-    //  两圆无重叠
-    if (centerPointDistance > _circleMath.radius + _smallDrop.circleMath.radius) {
-        
-        //  bigDrop与lineCenter2Center的垂直平分线的交点
-        //        [self calucateCircleAndPerBiseLinePoint_withCircle:self.circleMath withDropView:self];
-        
-        //  smallDrop与lineCenter2Center的垂直平分线的交点
-        //        [self calucateCircleAndPerBiseLinePoint_withCircle:self.smallDrop.circleMath withDropView:self.smallDrop];
-        
-        
-        /******     计算贝赛尔需要的交点      ******/
-        CGPoint point1 = acrossPointStruct_Tangent1_PerBiseToSmallDrop.point1;
-        CGPoint point2 = acrossPointStruct_Tangent1_PerBiseToMainDrop.point1;
-        CGPoint point3 = acrossPointStruct_Tangent2_PerBiseToSmallDrop.point2;
-        CGPoint point4 = acrossPointStruct_Tangent2_PerBiseToMainDrop.point2;
-        CGPoint point_2_4Center = [LineMath calucateCenterPointBetweenPoint1:point2 withPoint2:point4];
-        CGPoint point_1_3Center = [LineMath calucateCenterPointBetweenPoint1:point1 withPoint2:point3];
-        
-        LineMath *line_P1_P4 = [[LineMath alloc] initWithPoint1:point1 point2:point4 inView:self];
-        LineMath *line_P2_P3 = [[LineMath alloc] initWithPoint1:point2 point2:point3 inView:self];
-        LineMath *line_P3_P2_4Center = [[LineMath alloc] initWithPoint1:point3 point2:point_2_4Center inView:self];
-        LineMath *line_P1_P2_4Center = [[LineMath alloc] initWithPoint1:point1 point2:point_2_4Center inView:self];
-        
-        [_dropSuperView.assisArray addObject:line_P1_P4];
-        [_dropSuperView.assisArray addObject:line_P2_P3];
-        [_dropSuperView.assisArray addObject:line_P3_P2_4Center];
-        [_dropSuperView.assisArray addObject:line_P1_P2_4Center];
-        
-        //  源计算出的控制点
-        _bezierControlPoint1 = [LineMath calucateAcrossPointBetweenLine1:line_P1_P4 withLine2:line_P3_P2_4Center];
-        _bezierControlPoint2 = [LineMath calucateAcrossPointBetweenLine1:line_P2_P3 withLine2:line_P1_P2_4Center];
-        _edge_point1 = point2;
-        _edge_point2 = point4;
-        _smallDrop.edge_point1 = point1;
-        _smallDrop.edge_point2 = point3;
-        
-        //  controlPointReduceRatio 控制点缩小比例
-        //  radiusAll               大圆半径＋小圆半径
-        //  twoControlPointDistance 两控制点距离
-        //  startReduceDistance     开始减小控制点距离的阈值（该值为两圆心距离所用）
-        //  deltaCenterDistance     两圆心距离和阈值距离测差值（为负值时开始减小距离）
-        //  distanceRatio           间距比例
-        CGFloat controlPointReduceRatio = 0.005;
-        CGFloat radiusAll = _circleMath.radius + _smallDrop.circleMath.radius;
-        CGFloat twoControlPointDistance = [LineMath calucateDistanceBetweenPoint1:_bezierControlPoint1 withPoint2:_bezierControlPoint2];
-        CGFloat startReduceDistance = radiusAll * 0.8f;
-        CGFloat deltaCenterDistance = startReduceDistance - centerPointDistance;
-        CGFloat distanceRatio = deltaCenterDistance/startReduceDistance;
-        
-        BOOL res1 = deltaCenterDistance < 0;
-        BOOL res2 = twoControlPointDistance > 5;
-        NSLog(@"tempRatio:%f", distanceRatio);
-        
-        _drawSingle = NO;
-        _smallDrop.drawSingle = NO;
-        
-        //  贝塞尔曲线变细
-        if (res1 && res2) {
-            NSLog(@"开始缩小");
-            
-            if (distanceRatio < -2.5) {
-                distanceRatio = -2.5;
-                _drawSingle = YES;
-                _smallDrop.drawSingle = YES;
-            }
-            
-            TwoPointStruct twoPointStruct = [DropView PointBetweenPoint1:_bezierControlPoint1 point2:_bezierControlPoint2 ToPointRatio:distanceRatio];
-            _bezierControlPoint1 = twoPointStruct.point1;
-            _bezierControlPoint2 = twoPointStruct.point2;
-        }else{
-            NSLog(@"还未缩小");
-        }
-        
-        
-        
-        
-        //  DropView和贝塞尔曲线衔接平滑曲线 控制点
-        [self SetBezierSmoothControlPointWithDropView:self withAssisLine:line_P1_P4 withStartPoint:point4];
-        [self SetBezierSmoothControlPointWithDropView:self withAssisLine:line_P2_P3 withStartPoint:point2];
-        [self SetBezierSmoothControlPointWithDropView:_smallDrop withAssisLine:line_P1_P4 withStartPoint:point1];
-        [self SetBezierSmoothControlPointWithDropView:_smallDrop withAssisLine:line_P2_P3 withStartPoint:point3];
-        
-        
-        
-        
-        
-        
-        
-        //    //  计算圆心连线的垂线与圆的交点1,贝塞尔绘制点两侧(大圆)
-        //    LineMath *line_P2_MainCenter = [[LineMath alloc] initWithPoint1:point2 point2:_circleMath.centerPoint inView:self];
-        //    AcrossPointStruct acrossPointStruct1 = [self calucateEdgePoint_LeftANDRight_WithCircleMath:_circleMath withOriginLine:line_P2_MainCenter needPoint1:YES];
-        //    _edge_point1_left = acrossPointStruct1.point1;
-        //    _edge_point1_right = acrossPointStruct1.point2;
-        //
-        //
-        //    LineMath *line_P4_MainCenter = [[LineMath alloc] initWithPoint1:_circleMath.centerPoint point2:point4 inView:self];
-        //    AcrossPointStruct acrossPointStruct2= [self calucateEdgePoint_LeftANDRight_WithCircleMath:_circleMath withOriginLine:line_P4_MainCenter needPoint1:NO];
-        //    _edge_point2_left = acrossPointStruct2.point1;
-        //    _edge_point2_right = acrossPointStruct2.point2;
-        
-        
-        
-        //    //  计算圆心连线的垂线与圆的交点1,贝塞尔绘制点两侧(小圆)
-        //    LineMath *line_P1_SmallCenter = [[LineMath alloc] initWithPoint1:point1 point2:smallDrop_layer.position inView:self];
-        //    AcrossPointStruct acrossPointStruct3 = [self calucateEdgePoint_LeftANDRight_WithCircleMath:_smallDrop.circleMath withOriginLine:line_P1_SmallCenter needPoint1:YES];
-        //    _smallDrop.edge_point1_left = acrossPointStruct3.point1;
-        //    _smallDrop.edge_point1_right = acrossPointStruct3.point2;
-        //
-        //    LineMath *tempLine7 = [[LineMath alloc] initWithPoint1:point1 point2:smallDrop_layer.position inView:self];
-        //    [_dropSuperView.assisArray addObject:tempLine7];
-        
-        
-        //    LineMath *line_P3_SmallCenter = [[LineMath alloc] initWithPoint1:point3 point2:smallDrop_layer.position inView:self];
-        //    AcrossPointStruct acrossPointStruct4= [self calucateEdgePoint_LeftANDRight_WithCircleMath:_smallDrop.circleMath withOriginLine:line_P3_SmallCenter needPoint1:NO];
-        //    _smallDrop.edge_point2_left = acrossPointStruct4.point1;
-        //    _smallDrop.edge_point2_right = acrossPointStruct4.point2;
-        //    
-        //    LineMath *tempLine11 = [[LineMath alloc] initWithPoint1:point3 point2:smallDrop_layer.position inView:self];
-        //    [_dropSuperView.assisArray addObject:tempLine11];
-        
-        
-    }
-    //  两圆有重叠
-    else{
-        NSLog(@"两圆有重叠");
-        [self calucateCircleWithCircleAcrossPoint];
-    }
-}
 
 //  绘制园与贝塞尔曲线交接的平滑控制点
 - (void)SetBezierSmoothControlPointWithDropView:(DropView *)dropView

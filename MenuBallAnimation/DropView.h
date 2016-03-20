@@ -44,6 +44,13 @@ typedef enum {
     kQuadrant_Fourth,
 }kQuadrantArea;
 
+typedef enum {
+    kCircleSeparateEntire,          //两圆完全相离
+    kCircleSeparateDeformation,     //两圆相离，变形
+    kCircleCross,                   //两圆相交，变形
+    kCircleContain,                 //两圆内含
+}kCirlceRelation;
+
 @interface DropView : UIView
 
 @property (strong, nonatomic) LineMath      *lineCenter2Center; //圆心的连线
@@ -67,9 +74,9 @@ typedef enum {
 @property (assign, nonatomic) DropCanvasView    *dropSuperView;
 @property (assign, nonatomic) kQuadrantArea     smallDropQuadrant;
 
-@property (strong, nonatomic) CAShapeLayer  *dropShapLayer;
-@property (strong, nonatomic) UIBezierPath  *bezierPath;
-@property (assign, nonatomic) BOOL          drawSingle;
+@property (strong, nonatomic) CAShapeLayer      *dropShapLayer;
+@property (strong, nonatomic) UIBezierPath      *bezierPath;
+@property (assign, nonatomic) kCirlceRelation   circleRelation;
 
 - (instancetype)initWithFrame:(CGRect)frame createSmallDrop:(BOOL)createSmallDrop;
 

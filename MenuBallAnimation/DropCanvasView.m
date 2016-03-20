@@ -126,22 +126,6 @@
     
     
     
-    
-    
-    //  两圆无重叠
-    if (centerDistance > dropView.circleMath.radius + dropView.smallDrop.circleMath.radius) {
-        
-        NSLog(@"两圆无重叠");
-        
-    }
-    //  两圆有重叠
-    else{
-        NSLog(@"两圆有重叠");
-        
-    }
-    
-    
-    
     /******    MainDrop和SmallDrop 相交   ******/
     
     
@@ -178,7 +162,7 @@
     }];
     
     //  连体绘制
-    if (dropView.drawSingle == NO) {
+    if (dropView.circleRelation == kCircleCross) {
         [dropView.bezierPath addArcWithCenter:mainDrop_center radius:dropView.circleMath.radius startAngle:angleLine_MainP1 endAngle:angleLine_MainP2 clockwise:YES];
         
         //  MainDrop右侧贝塞尔圆滑过渡曲线
