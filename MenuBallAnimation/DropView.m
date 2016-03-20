@@ -286,30 +286,27 @@
         
         BOOL res1 = deltaCenterDistance < 0;
         BOOL res2 = twoControlPointDistance > 5;
+        BOOL res3 = distanceRatio < -2.5;
         NSLog(@"tempRatio:%f", distanceRatio);
         
         
         
         //  贝塞尔曲线变细
-        if (res1 && res2) {
+        if (res1 && res2 && res3) {
             
             NSLog(@"断开");
             _circleRelation = kCircleSeparateEntire;
-            //  两圆开始分开，变形
-            if (distanceRatio < -2.5) {
-                distanceRatio = -2.5;
-                _circleRelation = kCircleSeparateDeformation;
-                
-                
-            }
             
-            TwoPointStruct twoPointStruct = [DropView PointBetweenPoint1:_bezierControlPoint1 point2:_bezierControlPoint2 ToPointRatio:distanceRatio];
-            _bezierControlPoint1 = twoPointStruct.point1;
-            _bezierControlPoint2 = twoPointStruct.point2;
+            //  两圆开始分开，变形
+            distanceRatio = -2.5;
         }else{
             
             NSLog(@"相离但未断开");
             _circleRelation = kCircleSeparateDeformation;
+            
+            TwoPointStruct twoPointStruct = [DropView PointBetweenPoint1:_bezierControlPoint1 point2:_bezierControlPoint2 ToPointRatio:distanceRatio];
+            _bezierControlPoint1 = twoPointStruct.point1;
+            _bezierControlPoint2 = twoPointStruct.point2;
         }
         
         //  DropView和贝塞尔曲线衔接平滑曲线 控制点
