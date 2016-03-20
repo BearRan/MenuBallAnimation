@@ -282,31 +282,43 @@
         CGFloat twoControlPointDistance = [LineMath calucateDistanceBetweenPoint1:_bezierControlPoint1 withPoint2:_bezierControlPoint2];
         CGFloat startReduceDistance = radiusAll * 0.8f;
         CGFloat deltaCenterDistance = startReduceDistance - centerPointDistance;
-        CGFloat distanceRatio = deltaCenterDistance/startReduceDistance;
+        CGFloat distanceRatio = deltaCenterDistance/startReduceDistance * 1.2;
         
         BOOL res1 = deltaCenterDistance < 0;
         BOOL res2 = twoControlPointDistance > 5;
         BOOL res3 = distanceRatio < -2.5;
+        BOOL res4 = twoControlPointDistance > 30;
         NSLog(@"tempRatio:%f", distanceRatio);
         
         
         
+        NSLog(@"相离但未断开");
+        _circleRelation = kCircleSeparateDeformation;
+        
+        TwoPointStruct twoPointStruct = [DropView PointBetweenPoint1:_bezierControlPoint1 point2:_bezierControlPoint2 ToPointRatio:distanceRatio];
+        _bezierControlPoint1 = twoPointStruct.point1;
+        _bezierControlPoint2 = twoPointStruct.point2;
+        
+        
+        
         //  贝塞尔曲线变细
-        if (res1 && res2 && res3) {
+        if (res1 && res3) {
             
-            NSLog(@"断开");
-            _circleRelation = kCircleSeparateEntire;
+            NSLog(@"centerPointDistance:%f", centerPointDistance);
+            if (centerPointDistance > 400) {
+                NSLog(@"断开");
+                _circleRelation = kCircleSeparateEntire;
+            }else{
+                NSLog(@"未断开");
+                
+                /***    在该处增加第二种交接方式    ***/
+                
+                
+            }
+            
             
             //  两圆开始分开，变形
             distanceRatio = -2.5;
-        }else{
-            
-            NSLog(@"相离但未断开");
-            _circleRelation = kCircleSeparateDeformation;
-            
-            TwoPointStruct twoPointStruct = [DropView PointBetweenPoint1:_bezierControlPoint1 point2:_bezierControlPoint2 ToPointRatio:distanceRatio];
-            _bezierControlPoint1 = twoPointStruct.point1;
-            _bezierControlPoint2 = twoPointStruct.point2;
         }
         
         //  DropView和贝塞尔曲线衔接平滑曲线 控制点
