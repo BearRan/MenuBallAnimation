@@ -167,18 +167,13 @@
     }
     
     [self calucateTangentLine];
+//    [self calucateTangentLine_mainDrop:self smallDrop:_smallDrop];
     
     [_dropSuperView setNeedsDisplay];
 }
 
 
 //  计算点到圆心的两天切线
-- (TwoLineClass *)calucateTangentLine_pointMath:(PointMath *)pointMath circleMath:(CircleMath *)circleMath
-{
-    
-}
-
-#pragma mark - 计算两圆的切线
 /** 计算两圆的切线
  *
  *  两圆中心连线和切线的交点
@@ -191,12 +186,12 @@
  *
  *
  */
-- (void)calucateTangentLine
+- (TwoLineClass *)calucateTangentLine_mainDrop:(DropView *)mainDrop smallDrop:(DropView *)smallDrop
 {
-    CGFloat r1 = _smallDrop.circleMath.radius;
-    CGFloat r2 = _circleMath.radius;
-    CALayer *smallDrop_layer = _smallDrop.layer.presentationLayer;
-    CGFloat d2 = [LineMath calucateDistanceBetweenPoint1:_circleMath.centerPoint withPoint2:smallDrop_layer.position];
+    CGFloat r1 = smallDrop.circleMath.radius;
+    CGFloat r2 = mainDrop.circleMath.radius;
+    CALayer *smallDrop_layer = smallDrop.layer.presentationLayer;
+    CGFloat d2 = [LineMath calucateDistanceBetweenPoint1:mainDrop.circleMath.centerPoint withPoint2:smallDrop_layer.position];
     CGFloat d1 = (r1 * d2) / (r2 - r1);
     
     
@@ -242,8 +237,48 @@
     line_Tangent1.point1 = acrossPoint;
     line_Tangent1.point2 = acrossPointStruct_Tangent1.point1;
     line_Tangent1.InView = self;
-    [_dropSuperView.assisArray addObject:line_Tangent1];
     
+    
+    /*** 切线2 ***/
+    CGFloat angle_TangentLine2 = angle + angleDelta;
+    LineMath *line_Tangent2 = [[LineMath alloc] init];
+    line_Tangent2.k = tan(angle_TangentLine2);
+    line_Tangent2.b = acrossPoint.y - line_Tangent2.k * acrossPoint.x;
+    
+    AcrossPointStruct acrossPointStruct_Tangent2 = [self calucateCircleAndLineAcrossPoint_withCircle:_circleMath withLine:line_Tangent2];
+    line_Tangent2.point1 = acrossPoint;
+    line_Tangent2.point2 = acrossPointStruct_Tangent2.point1;
+    line_Tangent2.InView = self;
+    
+    
+    [_dropSuperView.assisArray addObject:line_Tangent1];
+    [_dropSuperView.assisArray addObject:line_Tangent2];
+    
+    TwoLineClass *twoLineClass = [[TwoLineClass alloc] initWithTwoLineMath_line1:line_Tangent1 line2:line_Tangent2];
+    return twoLineClass;
+}
+
+#pragma mark - 计算两圆的切线
+/** 计算两圆的切线
+ *
+ *  两圆中心连线和切线的交点
+ *  r1  小圆半径
+ *  r2  大圆半径
+ *  d2  大圆和小圆中心的距离
+ *  d1  小圆中心和切线交点的距离
+ *
+ *
+ *
+ *
+ */
+- (void)calucateTangentLine
+{
+    CALayer *smallDrop_layer = _smallDrop.layer.presentationLayer;
+    
+    TwoLineClass *twoTangentLine = [self calucateTangentLine_mainDrop:self smallDrop:_smallDrop];
+    LineMath *line_Tangent1 = twoTangentLine.lineMath1;
+    LineMath *line_Tangent2 = twoTangentLine.lineMath2;
+
     
     //  经过大圆圆心的线，并与切线1垂直
     LineMath *line_Tangent1_PerBiseToMainDrop = [[LineMath alloc] init];
@@ -274,21 +309,6 @@
     line_Tangent1_PerBiseToSmallDrop.b = smallDrop_layer.position.y - line_Tangent1_PerBiseToSmallDrop.k * smallDrop_layer.position.x;
     
     AcrossPointStruct acrossPointStruct_Tangent1_PerBiseToSmallDrop = [self calucateCircleAndLineAcrossPoint_withCircle:_smallDrop.circleMath withLine:line_Tangent1_PerBiseToSmallDrop];
-//    LineMath *tempLine2 = [[LineMath alloc] initWithPoint1:acrossPointStruct_Tangent1_PerBiseToSmallDrop.point1 point2:smallDrop_layer.position inView:self];
-//    [_dropSuperView.assisArray addObject:tempLine2];
-    
-    
-    /*** 切线2 ***/
-    CGFloat angle_TangentLine2 = angle + angleDelta;
-    LineMath *line_Tangent2 = [[LineMath alloc] init];
-    line_Tangent2.k = tan(angle_TangentLine2);
-    line_Tangent2.b = acrossPoint.y - line_Tangent2.k * acrossPoint.x;
-    
-    AcrossPointStruct acrossPointStruct_Tangent2 = [self calucateCircleAndLineAcrossPoint_withCircle:_circleMath withLine:line_Tangent2];
-    line_Tangent2.point1 = acrossPoint;
-    line_Tangent2.point2 = acrossPointStruct_Tangent2.point1;
-    line_Tangent2.InView = self;
-    [_dropSuperView.assisArray addObject:line_Tangent2];
     
     
     //  经过大圆圆心的线，并与切线2垂直
@@ -320,11 +340,6 @@
     line_Tangent2_PerBiseToSmallDrop.b = smallDrop_layer.position.y - line_Tangent2_PerBiseToSmallDrop.k * smallDrop_layer.position.x;
     
     AcrossPointStruct acrossPointStruct_Tangent2_PerBiseToSmallDrop = [self calucateCircleAndLineAcrossPoint_withCircle:_smallDrop.circleMath withLine:line_Tangent2_PerBiseToSmallDrop];
-//    LineMath *tempLine4 = [[LineMath alloc] initWithPoint1:acrossPointStruct_Tangent2_PerBiseToSmallDrop.point2 point2:smallDrop_layer.position inView:self];
-//    [_dropSuperView.assisArray addObject:tempLine4];
-    
-    
-    
     
     
     
