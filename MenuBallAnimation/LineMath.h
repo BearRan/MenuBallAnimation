@@ -13,6 +13,11 @@
 //  弧度转角度
 #define radiansToDegrees(x) (180.0 * x / M_PI)
 
+typedef enum {
+    kLineNormal,        //正常
+    kLineHorizontal,    //水平
+    kLineVertical,      //竖直
+}kLineStatus;
 
 #import <Foundation/Foundation.h>
 
@@ -20,14 +25,17 @@
 
 @property (assign, nonatomic) CGPoint point1;
 @property (assign, nonatomic) CGPoint point2;
+@property (assign, nonatomic) CGPoint tempCenter;   //临时点，当处于垂直状态时可以使用
 @property (assign, nonatomic) CGFloat degrees;
 @property (strong, nonatomic) UIView  *InView;
+@property (assign, nonatomic) kLineStatus lineStatus;
 
 //  直线方程 y=kx+b;
 @property (assign, nonatomic) CGFloat k;
 @property (assign, nonatomic) CGFloat b;
 @property (assign, nonatomic) CGFloat x;
 @property (assign, nonatomic) CGFloat y;
+
 
 - (instancetype)initWithPoint1:(CGPoint)point1 point2:(CGPoint)point2 inView:(UIView *)inView;
 

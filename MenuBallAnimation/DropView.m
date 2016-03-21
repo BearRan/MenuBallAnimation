@@ -140,8 +140,8 @@
         
         _assisDrop1.center = CGPointMake(centerX - deltaX, centerY - deltaX);
         _assisDrop2.center = CGPointMake(centerX + deltaX, centerY - deltaX);
-        _assisDrop3.center = CGPointMake(centerX - deltaX, centerY + deltaX);
-        _assisDrop4.center = CGPointMake(centerX + deltaX, centerY + deltaX);
+        _assisDrop3.center = CGPointMake(centerX + deltaX, centerY + deltaX);
+        _assisDrop4.center = CGPointMake(centerX - deltaX, centerY + deltaX);
         
         [self calucateCoordinate1];
 //        _smallDrop.center = tempPoint;
@@ -203,6 +203,11 @@
     else if (dis_SmallToMain < radius_SmallAddMain && dis_SmallToSmall < radius_SmallAddSmall){
         NSLog(@"小圆和小圆相交");
         _relation = kCross_SmallToSmall;
+        
+        [self calucateCrossPointDropView1:_assisDrop1 dropView2:_assisDrop2];
+        [self calucateCrossPointDropView1:_assisDrop2 dropView2:_assisDrop3];
+        [self calucateCrossPointDropView1:_assisDrop3 dropView2:_assisDrop4];
+        [self calucateCrossPointDropView1:_assisDrop4 dropView2:_assisDrop1];
     }
     
     [_dropSuperView setNeedsDisplay];
@@ -677,6 +682,7 @@
     CALayer *dropView2_PreLayer = dropView2.layer.presentationLayer;
     CGPoint center1 = ![dropView1 isEqual:self] ? dropView1_PreLayer.position : CGPointMake(dropView1.width/2, dropView1.height/2);
     CGPoint center2 = ![dropView2 isEqual:self] ? dropView2_PreLayer.position : CGPointMake(dropView2.width/2, dropView2.height/2);
+
     
     CGFloat x  = [LineMath calucateDistanceBetweenPoint1:center1 withPoint2:center2];
     CGFloat x1;
@@ -690,43 +696,101 @@
     x3 = sqrt((r1*r1) - (x1*x1));
     
     
-    LineMath *lineCenter2Center = [[LineMath alloc] initWithPoint1:center1 point2:center2 inView:self];
-    CGFloat angle = atan(lineCenter2Center.k);
+    PointMath *pointMath1 = [[PointMath alloc] initWithPoint:center1 inView:self];
+    [_dropSuperView.assisArray addObject:pointMath1];
     
-    //  x_o角度修正
-    [DropView eventInDiffQuadrantWithCenterPoint:center1
-                                    withParaPoint:center2
-                                    quadrantFirst:^{
-                                        x_o = r1 - cos(angle) * x2;
-                                    }
-                                    quadrantSecond:^{
-                                        x_o = r1 + cos(angle) * x2;
-                                    }
-                                    quadrantThird:^{
-                                        x_o = r1 + cos(angle) * x2;
-                                    }
-                                    quadrantFourth:^{
-                                        x_o = r1 - cos(angle) * x2;
-                                    }];
-    
-    y_o = lineCenter2Center.k * x_o + lineCenter2Center.b;
-    
-    LineMath *tempLine = [[LineMath alloc] initWithPoint1:center1 point2:CGPointMake(x_o, y_o) inView:self];
-    [_dropSuperView.assisArray addObject:tempLine];
+    PointMath *pointMath2 = [[PointMath alloc] initWithPoint:center2 inView:self];
+    [_dropSuperView.assisArray addObject:pointMath2];
     
     //  Center2Centerde的垂线 VerticalLine
     LineMath *verLine = [[LineMath alloc] init];
-    angle += M_PI/2;
-    if (angle > M_PI/2) {
-        angle -= M_PI;
-    }else if (angle < - M_PI/2){
-        angle += M_PI;
-    }
-    verLine.k = tan(angle);
-    verLine.b = y_o - verLine.k * x_o;
+    verLine.tempCenter = [LineMath calucateCenterPointBetweenPoint1:center1 withPoint2:center2];
     verLine.InView = self;
     
-    AcrossPointStruct acrossPointStruct = [self calucateCircleAndLineAcrossPoint_withCircle:_circleMath withLine:verLine];
+    LineMath *lineCenter2Center = [[LineMath alloc] initWithPoint1:center1 point2:center2 inView:self];
+    [_dropSuperView.assisArray addObject:lineCenter2Center];
+    
+    switch (lineCenter2Center.lineStatus) {
+        case kLineNormal:
+        {
+            CGFloat angle = atan(lineCenter2Center.k);
+            NSLog(@"angle:%f", angle);
+            
+            
+            
+            //  x_o角度修正
+            NSLog(@"--kk");
+            [DropView eventInDiffQuadrantWithCenterPoint:center1
+                                           withParaPoint:center2
+                                           quadrantFirst:^{
+                                               NSLog(@"--1");
+                                               x_o = r1 - cos(angle) * x2;
+                                           }
+                                          quadrantSecond:^{
+                                              NSLog(@"--2");
+                                              x_o = r1 + cos(angle) * x2;
+                                          }
+                                           quadrantThird:^{
+                                               NSLog(@"--3");
+                                               x_o = r1 + cos(angle) * x2;
+                                           }
+                                          quadrantFourth:^{
+                                              NSLog(@"--4");
+                                              x_o = r1 - cos(angle) * x2;
+                                          }];
+            
+            y_o = lineCenter2Center.k * x_o + lineCenter2Center.b;
+            NSLog(@"k:%f", lineCenter2Center.k);
+            NSLog(@"CGPointMake(x_o, y_o):%@", NSStringFromCGPoint(CGPointMake(x_o, y_o)));
+            NSLog(@"center1:%@", NSStringFromCGPoint(center1));
+            NSLog(@"center2:%@", NSStringFromCGPoint(center2));
+            
+            //    PointMath *pointMath3 = [[PointMath alloc] initWithPoint:CGPointMake(x_o, y_o) inView:self];
+            //    [_dropSuperView.assisArray addObject:pointMath3];
+            
+            //    LineMath *tempLine1 = [[LineMath alloc] initWithPoint1:center1 point2:center2 inView:self];
+            //    [_dropSuperView.assisArray addObject:tempLine1];
+            
+            //    LineMath *tempLine = [[LineMath alloc] initWithPoint1:center1 point2:CGPointMake(x_o, y_o) inView:self];
+            //    [_dropSuperView.assisArray addObject:tempLine];
+            
+            //  Center2Centerde的垂线 VerticalLine
+            angle += M_PI/2;
+            if (angle > M_PI/2) {
+                angle -= M_PI;
+            }else if (angle < - M_PI/2){
+                angle += M_PI;
+            }
+            
+            NSLog(@"angle1:%f", angle);
+            CGFloat degree = radiansToDegrees(angle);
+            NSLog(@"degree:%f", degree);
+            verLine.k = tan(angle);
+            NSLog(@"verLine.k:%f", verLine.k);
+            verLine.b = y_o - verLine.k * x_o;
+            
+        }
+            break;
+            
+        case kLineHorizontal:
+        {
+            verLine.lineStatus = kLineVertical;
+        }
+            break;
+            
+        case kLineVertical:
+        {
+            verLine.lineStatus = kLineHorizontal;
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    
+    
+    AcrossPointStruct acrossPointStruct = [self calucateCircleAndLineAcrossPoint_withCircle:dropView1.circleMath withLine:verLine];
     verLine.point1 = acrossPointStruct.point1;
     verLine.point2 = acrossPointStruct.point2;
     
@@ -868,51 +932,94 @@
     CGFloat c = (x0 * x0) + (bLine * bLine) - (2 * bLine * y0) + (y0 * y0) - (r * r);
     AcrossPointStruct acrossPointStruct;
     
-    float delta = (b * b) - (4 * a * c);
-    if (delta > 0) {
-        //        NSLog(@"两个根");
-        
-        CGFloat x1_result = ((-b) - sqrt(delta)) / (2 * a);
-        CGFloat y1_result = (kLine * x1_result) + bLine;
-        
-        CGFloat x2_result = ((-b) + sqrt(delta)) / (2 * a);
-        CGFloat y2_result = (kLine * x2_result) + bLine;
-        
-        acrossPointStruct.point1 = CGPointMake(x1_result, y1_result);
-        acrossPointStruct.point2 = CGPointMake(x2_result, y2_result);
-        
-        //  edgePoint矫正
-        switch (_smallDropQuadrant) {
-                //  第一象限
-            case kQuadrant_First:
-                acrossPointStruct.point1 = CGPointMake(x2_result, y2_result);
-                acrossPointStruct.point2 = CGPointMake(x1_result, y1_result);
-                break;
+    CGFloat tempAngle = atan(line.k);
+    NSLog(@"tempAngle:%f", tempAngle);
+    
+    CGFloat degree111 = radiansToDegrees(tempAngle);
+    NSLog(@"degree111:%f", degree111);
+    
+    switch (line.lineStatus) {
+        case kLineNormal:
+        {
+            float delta = (b * b) - (4 * a * c);
+            if (delta > 0) {
+                //        NSLog(@"两个根");
                 
-                //  第二象限
-            case kQuadrant_Second:
-                acrossPointStruct.point1 = CGPointMake(x2_result, y2_result);
-                acrossPointStruct.point2 = CGPointMake(x1_result, y1_result);
-                break;
+                CGFloat x1_result = ((-b) - sqrt(delta)) / (2 * a);
+                CGFloat y1_result = (kLine * x1_result) + bLine;
                 
-                //  第三象限
-            case kQuadrant_Third:
+                CGFloat x2_result = ((-b) + sqrt(delta)) / (2 * a);
+                CGFloat y2_result = (kLine * x2_result) + bLine;
                 
-                break;
+                acrossPointStruct.point1 = CGPointMake(x1_result, y1_result);
+                acrossPointStruct.point2 = CGPointMake(x2_result, y2_result);
                 
-                //  第四象限
-            case kQuadrant_Fourth:
+                //  edgePoint矫正
+                switch (_smallDropQuadrant) {
+                        //  第一象限
+                    case kQuadrant_First:
+                        acrossPointStruct.point1 = CGPointMake(x2_result, y2_result);
+                        acrossPointStruct.point2 = CGPointMake(x1_result, y1_result);
+                        break;
+                        
+                        //  第二象限
+                    case kQuadrant_Second:
+                        acrossPointStruct.point1 = CGPointMake(x2_result, y2_result);
+                        acrossPointStruct.point2 = CGPointMake(x1_result, y1_result);
+                        break;
+                        
+                        //  第三象限
+                    case kQuadrant_Third:
+                        
+                        break;
+                        
+                        //  第四象限
+                    case kQuadrant_Fourth:
+                        
+                        break;
+                        
+                    default:
+                        break;
+                }
                 
-                break;
-                
-            default:
-                break;
+            }else if (delta == 0){
+                //        NSLog(@"圆与直线 一个交点");
+            }else{
+                //        NSLog(@"圆与直线 无交点");
+            }
         }
-        
-    }else if (delta == 0){
-//        NSLog(@"圆与直线 一个交点");
-    }else{
-//        NSLog(@"圆与直线 无交点");
+            break;
+            
+        case kLineHorizontal:
+        {
+            NSLog(@"180度");
+            
+            CGFloat y_dis = [LineMath calucateDistanceBetweenPoint1:tempCenter withPoint2:line.tempCenter];
+            CGFloat x_dis = sqrt(r * r - y_dis * y_dis);
+            acrossPointStruct.point1 = CGPointMake(line.tempCenter.x - x_dis, line.tempCenter.y);
+            acrossPointStruct.point2 = CGPointMake(line.tempCenter.x + x_dis, line.tempCenter.y);
+        }
+            break;
+            
+        case kLineVertical:
+        {
+            NSLog(@"90度");
+            NSLog(@"x:%f", line.x);
+            NSLog(@"y:%f", line.y);
+            NSLog(@"b:%f", line.b);
+            NSLog(@"point1:%@", NSStringFromCGPoint(line.point1));
+            NSLog(@"point2:%@", NSStringFromCGPoint(line.point2));
+            NSLog(@"tempPoint;%@", NSStringFromCGPoint(line.tempCenter));
+            
+            CGFloat x_dis = [LineMath calucateDistanceBetweenPoint1:tempCenter withPoint2:line.tempCenter];
+            CGFloat y_dis = sqrt(r * r - x_dis * x_dis);
+            acrossPointStruct.point1 = CGPointMake(line.tempCenter.x, line.tempCenter.y - y_dis);
+            acrossPointStruct.point2 = CGPointMake(line.tempCenter.x, line.tempCenter.y + y_dis);
+        }
+            break;
+            
+        default:
+            break;
     }
     
     return acrossPointStruct;
@@ -956,13 +1063,13 @@
                             quadrantFourth:(void (^)())quadrantFourth
 {
     //  第一象限
-    if (centerPoint.x < paraPoint.x && centerPoint.y > paraPoint.y) {
+    if (centerPoint.x <= paraPoint.x && centerPoint.y >= paraPoint.y) {
         if (quadrantFirst) {
             quadrantFirst();
         }
     }
     //  第二象限
-    else if (centerPoint.x > paraPoint.x && centerPoint.y > paraPoint.y){
+    else if (centerPoint.x > paraPoint.x && centerPoint.y >= paraPoint.y){
         if (quadrantSecond) {
             quadrantSecond();
         }
@@ -974,7 +1081,7 @@
         }
     }
     //  第四象限
-    else if (centerPoint.x < paraPoint.x && centerPoint.y < paraPoint.y){
+    else if (centerPoint.x <= paraPoint.x && centerPoint.y < paraPoint.y){
         if (quadrantFourth) {
             quadrantFourth();
         }

@@ -25,11 +25,17 @@
     if (point2.x == point1.x) {
         _k = -1;
         _b = 0;
+        _lineStatus = kLineVertical;
+    }else if (point2.y == point1.y){
+        _k = -2;
+        _b = 0;
+        _lineStatus = kLineHorizontal;
     }
     //  斜率存在
     else{
         _k = (point2.y - point1.y) / (point2.x - point1.x);
         _b = point1.y - _k * point1.x;
+        _lineStatus = kLineNormal;
     }
     
     return self;
