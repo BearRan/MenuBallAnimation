@@ -277,48 +277,41 @@
         //  startReduceDistance     开始减小控制点距离的阈值（该值为两圆心距离所用）
         //  deltaCenterDistance     两圆心距离和阈值距离测差值（为负值时开始减小距离）
         //  distanceRatio           间距比例
+        //  separateDistance        两圆开始分开的距离阈值
+        //  distanceRatioThreshold  控制点比例系数阈值
         CGFloat controlPointReduceRatio = 0.005;
         CGFloat radiusAll = _circleMath.radius + _smallDrop.circleMath.radius;
         CGFloat twoControlPointDistance = [LineMath calucateDistanceBetweenPoint1:_bezierControlPoint1 withPoint2:_bezierControlPoint2];
         CGFloat startReduceDistance = radiusAll * 0.8f;
         CGFloat deltaCenterDistance = startReduceDistance - centerPointDistance;
         CGFloat distanceRatio = deltaCenterDistance/startReduceDistance * 1.2;
-        
-        BOOL res1 = deltaCenterDistance < 0;
-        BOOL res2 = twoControlPointDistance > 5;
-        BOOL res3 = distanceRatio < -2.5;
-        BOOL res4 = twoControlPointDistance > 30;
-        NSLog(@"tempRatio:%f", distanceRatio);
+        CGFloat separateDistanceThreshold = 400;
+        CGFloat distanceRatioThreshold = -2.5;
         
         
-        
-        NSLog(@"相离但未断开");
-        _circleRelation = kCircleSeparateDeformation;
+        _circleRelation = kCircleSeparateAndConnect;
         
         TwoPointStruct twoPointStruct = [DropView PointBetweenPoint1:_bezierControlPoint1 point2:_bezierControlPoint2 ToPointRatio:distanceRatio];
         _bezierControlPoint1 = twoPointStruct.point1;
         _bezierControlPoint2 = twoPointStruct.point2;
         
-        
-        
-        //  贝塞尔曲线变细
-        if (res1 && res3) {
+        if (centerPointDistance < separateDistanceThreshold && distanceRatio > distanceRatioThreshold) {
             
-            NSLog(@"centerPointDistance:%f", centerPointDistance);
-            if (centerPointDistance > 400) {
-                NSLog(@"断开");
-                _circleRelation = kCircleSeparateEntire;
-            }else{
-                NSLog(@"未断开");
-                
-                /***    在该处增加第二种交接方式    ***/
-                
-                
-            }
+            NSLog(@"相离但未断开");
+            _circleRelation = kCircleSeparateAndConnect;
             
+        }else if (centerPointDistance < separateDistanceThreshold && distanceRatio < distanceRatioThreshold){
             
-            //  两圆开始分开，变形
-            distanceRatio = -2.5;
+            NSLog(@"断开但已变形");
+            distanceRatio = distanceRatioThreshold;
+            _circleRelation = kCircleSeparateDeformation;
+            
+        }else if (centerPointDistance > separateDistanceThreshold && distanceRatio < distanceRatioThreshold){
+            
+            NSLog(@"完全分离，且不变形");
+            distanceRatio = distanceRatioThreshold;
+            _circleRelation = kCircleSeparateEntire;
+            
         }
         
         //  DropView和贝塞尔曲线衔接平滑曲线 控制点

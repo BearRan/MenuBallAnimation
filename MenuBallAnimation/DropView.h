@@ -46,7 +46,8 @@ typedef enum {
 
 typedef enum {
     kCircleSeparateEntire,          //两圆完全相离
-    kCircleSeparateDeformation,     //两圆相离，变形
+    kCircleSeparateAndConnect,      //两圆相离，但仍然相连
+    kCircleSeparateDeformation,     //两圆相离但变形
     kCircleCross,                   //两圆相交
     kCircleContain,                 //两圆内含
 }kCirlceRelation;

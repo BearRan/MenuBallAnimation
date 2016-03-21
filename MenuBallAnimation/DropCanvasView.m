@@ -172,7 +172,7 @@
             break;
             
             //两圆相离，变形
-        case kCircleSeparateDeformation:
+        case kCircleSeparateAndConnect:
         {
             [dropView.bezierPath addArcWithCenter:mainDrop_center radius:dropView.circleMath.radius startAngle:angleLine_MainP1 endAngle:angleLine_MainP2 clockwise:YES];
             
@@ -258,8 +258,6 @@
             [dropView.bezierPath addQuadCurveToPoint:SbezierControlPoint2_1C controlPoint:bezierControlPoint1];
             //    [dropView.bezierPath addCurveToPoint:SbezierControlPoint2_1C controlPoint1:MbezierControlPoint2_1 controlPoint2:bezierControlPoint1];
             
-            PointMath *pointMath1 = [[PointMath alloc] initWithPoint:MbezierControlPoint2_1 inView:self];
-            [_assisArray addObject:pointMath1];
             
             //  SmallDrop右侧被塞尔圆滑过渡曲线
             //    [dropView.bezierPath addCurveToPoint:SbezierControlPoint2_1C controlPoint1:bezierControlPoint1 controlPoint2:SbezierControlPoint2_1];
