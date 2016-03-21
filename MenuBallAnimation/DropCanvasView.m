@@ -46,7 +46,7 @@
     _mainDrop.dropSuperView = self;
     [self.layer addSublayer:_mainDrop.dropShapLayer];
     [self addSubview:_mainDrop];
-//    [_mainDrop BearSetCenterToParentViewWithAxis:kAXIS_X_Y];
+    [_mainDrop BearSetCenterToParentViewWithAxis:kAXIS_X_Y];
 }
 
 - (void)drawRect:(CGRect)rect
@@ -133,33 +133,6 @@
     [dropView.bezierPath removeAllPoints];
     dropView.bezierPath.lineCapStyle = kCGLineCapRound;
     
-    //  MainDrop半圆
-    LineMath *lineP1_MainCenter = [[LineMath alloc] initWithPoint1:MbezierControlPoint1_1C point2:mainDrop_center inView:self];
-    LineMath *lineP2_MainCenter = [[LineMath alloc] initWithPoint1:MbezierControlPoint2_1C point2:mainDrop_center inView:self];
-    
-    __block CGFloat angleLine_MainP1 = atan(lineP1_MainCenter.k);
-    __block CGFloat angleLine_MainP2 = atan(lineP2_MainCenter.k);
-    
-    //  两圆焦点和圆心连线的line的 斜率矫正
-    [DropView eventInDiffQuadrantWithCenterPoint:mainDrop_center withParaPoint:mainEdgePoint1 quadrantFirst:^{
-        nil;
-    } quadrantSecond:^{
-        angleLine_MainP1 -= M_PI;
-    } quadrantThird:^{
-        angleLine_MainP1 -= M_PI;
-    } quadrantFourth:^{
-        nil;
-    }];
-    
-    [DropView eventInDiffQuadrantWithCenterPoint:mainDrop_center withParaPoint:mainEdgePoint2 quadrantFirst:^{
-        nil;
-    } quadrantSecond:^{
-        angleLine_MainP2 -= M_PI;
-    } quadrantThird:^{
-        angleLine_MainP2 -= M_PI;
-    } quadrantFourth:^{
-        nil;
-    }];
     
     switch (dropView.circleRelation) {
             
@@ -171,9 +144,45 @@
         }
             break;
             
-            //两圆相离，变形
+            //两圆相离但变形
+        case kCircleSeparateDeformation:
+        {
+            
+        }
+            break;
+            
+            //两圆相离，但相连
         case kCircleSeparateAndConnect:
         {
+            //  MainDrop半圆
+            LineMath *lineP1_MainCenter = [[LineMath alloc] initWithPoint1:MbezierControlPoint1_1C point2:mainDrop_center inView:self];
+            LineMath *lineP2_MainCenter = [[LineMath alloc] initWithPoint1:MbezierControlPoint2_1C point2:mainDrop_center inView:self];
+            
+            __block CGFloat angleLine_MainP1 = atan(lineP1_MainCenter.k);
+            __block CGFloat angleLine_MainP2 = atan(lineP2_MainCenter.k);
+            
+            //  两圆焦点和圆心连线的line的 斜率矫正
+            [DropView eventInDiffQuadrantWithCenterPoint:mainDrop_center withParaPoint:mainEdgePoint1 quadrantFirst:^{
+                nil;
+            } quadrantSecond:^{
+                angleLine_MainP1 -= M_PI;
+            } quadrantThird:^{
+                angleLine_MainP1 -= M_PI;
+            } quadrantFourth:^{
+                nil;
+            }];
+            
+            [DropView eventInDiffQuadrantWithCenterPoint:mainDrop_center withParaPoint:mainEdgePoint2 quadrantFirst:^{
+                nil;
+            } quadrantSecond:^{
+                angleLine_MainP2 -= M_PI;
+            } quadrantThird:^{
+                angleLine_MainP2 -= M_PI;
+            } quadrantFourth:^{
+                nil;
+            }];
+            
+            
             [dropView.bezierPath addArcWithCenter:mainDrop_center radius:dropView.circleMath.radius startAngle:angleLine_MainP1 endAngle:angleLine_MainP2 clockwise:YES];
             
             //  MainDrop右侧贝塞尔圆滑过渡曲线
@@ -248,6 +257,34 @@
             //两圆相交
         case kCircleCross:
         {
+            //  MainDrop半圆
+            LineMath *lineP1_MainCenter = [[LineMath alloc] initWithPoint1:mainEdgePoint1 point2:mainDrop_center inView:self];
+            LineMath *lineP2_MainCenter = [[LineMath alloc] initWithPoint1:mainEdgePoint2 point2:mainDrop_center inView:self];
+            
+            __block CGFloat angleLine_MainP1 = atan(lineP1_MainCenter.k);
+            __block CGFloat angleLine_MainP2 = atan(lineP2_MainCenter.k);
+            
+            //  两圆焦点和圆心连线的line的 斜率矫正
+            [DropView eventInDiffQuadrantWithCenterPoint:mainDrop_center withParaPoint:mainEdgePoint1 quadrantFirst:^{
+                nil;
+            } quadrantSecond:^{
+                angleLine_MainP1 -= M_PI;
+            } quadrantThird:^{
+                angleLine_MainP1 -= M_PI;
+            } quadrantFourth:^{
+                nil;
+            }];
+            
+            [DropView eventInDiffQuadrantWithCenterPoint:mainDrop_center withParaPoint:mainEdgePoint2 quadrantFirst:^{
+                nil;
+            } quadrantSecond:^{
+                angleLine_MainP2 -= M_PI;
+            } quadrantThird:^{
+                angleLine_MainP2 -= M_PI;
+            } quadrantFourth:^{
+                nil;
+            }];
+            
             //  MainDrop Main
             [dropView.bezierPath addArcWithCenter:mainDrop_center radius:dropView.circleMath.radius startAngle:angleLine_MainP1 endAngle:angleLine_MainP2 clockwise:YES];
             
@@ -255,7 +292,7 @@
             //    LineMath *tempLine = [[LineMath alloc] initWithPoint1:mainEdgePoint2 point2:smallEdgePoint2 inView:self];
             //    [_assisArray addObject:tempLine];
             //    [dropView.bezierPath moveToPoint:MbezierControlPoint2_1];
-            [dropView.bezierPath addQuadCurveToPoint:SbezierControlPoint2_1C controlPoint:bezierControlPoint1];
+            [dropView.bezierPath addQuadCurveToPoint:smallEdgePoint2 controlPoint:bezierControlPoint1];
             //    [dropView.bezierPath addCurveToPoint:SbezierControlPoint2_1C controlPoint1:MbezierControlPoint2_1 controlPoint2:bezierControlPoint1];
             
             
@@ -270,8 +307,8 @@
             //    [_assisArray addObject:tempPointMath1];
             
             //  SmallDrop半圆
-            LineMath *lineP1_SmallCenter = [[LineMath alloc] initWithPoint1:SbezierControlPoint1_1C point2:smallDrop_center inView:self];
-            LineMath *lineP2_SmallCenter = [[LineMath alloc] initWithPoint1:SbezierControlPoint2_1C point2:smallDrop_center inView:self];
+            LineMath *lineP1_SmallCenter = [[LineMath alloc] initWithPoint1:smallEdgePoint1 point2:smallDrop_center inView:self];
+            LineMath *lineP2_SmallCenter = [[LineMath alloc] initWithPoint1:smallEdgePoint2 point2:smallDrop_center inView:self];
             
             __block CGFloat angleLine_SmallP1 = atan(lineP1_SmallCenter.k);
             __block CGFloat angleLine_SmallP2 = atan(lineP2_SmallCenter.k);
@@ -310,7 +347,7 @@
             LineMath *tempLine4 = [[LineMath alloc] initWithPoint1:smallEdgePoint1 point2:mainEdgePoint1 inView:self];
             [_assisArray addObject:tempLine4];
             
-            [dropView.bezierPath addQuadCurveToPoint:MbezierControlPoint1_1C controlPoint:bezierControlPoint2];
+            [dropView.bezierPath addQuadCurveToPoint:mainEdgePoint1 controlPoint:bezierControlPoint2];
         }
             break;
             

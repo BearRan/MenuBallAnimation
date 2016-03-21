@@ -89,12 +89,36 @@
 
 - (void)createSmallDropView
 {
-    CGFloat smallDrop_width = 80;
-    _smallDrop = [[DropView alloc] initWithFrame:CGRectMake(0, 0, smallDrop_width, smallDrop_width) createSmallDrop:NO];
-    _smallDrop.layer.cornerRadius = smallDrop_width/2;
-    _smallDrop.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
-    [self addSubview:_smallDrop];
-    [_smallDrop BearSetCenterToParentViewWithAxis:kAXIS_X_Y];
+//    CGFloat smallDrop_width = 80;
+//    _smallDrop = [[DropView alloc] initWithFrame:CGRectMake(0, 0, smallDrop_width, smallDrop_width) createSmallDrop:NO];
+//    _smallDrop.layer.cornerRadius = smallDrop_width/2;
+//    _smallDrop.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
+//    [self addSubview:_smallDrop];
+//    [_smallDrop BearSetCenterToParentViewWithAxis:kAXIS_X_Y];
+    
+    CGFloat assisDrop_width = 80;
+    
+    _assisDrop1 = [[DropView alloc] initWithFrame:CGRectMake(0, 0, assisDrop_width, assisDrop_width) createSmallDrop:NO];
+    [self initSetAssisDrop:_assisDrop1];
+    
+    _assisDrop2 = [[DropView alloc] initWithFrame:CGRectMake(0, 0, assisDrop_width, assisDrop_width) createSmallDrop:NO];
+    [self initSetAssisDrop:_assisDrop2];
+    
+    _assisDrop3 = [[DropView alloc] initWithFrame:CGRectMake(0, 0, assisDrop_width, assisDrop_width) createSmallDrop:NO];
+    [self initSetAssisDrop:_assisDrop3];
+    
+    _assisDrop4 = [[DropView alloc] initWithFrame:CGRectMake(0, 0, assisDrop_width, assisDrop_width) createSmallDrop:NO];
+    [self initSetAssisDrop:_assisDrop4];
+}
+
+- (void)initSetAssisDrop:(DropView *)assisDrop
+{
+    CGFloat assisDrop_width = 80;
+    
+    assisDrop.layer.cornerRadius = assisDrop_width/2;
+    assisDrop.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
+    [self addSubview:assisDrop];
+    [assisDrop BearSetCenterToParentViewWithAxis:kAXIS_X_Y];
 }
 
 - (void)createPanGesture
@@ -108,23 +132,34 @@
     if (panGesture.state == UIGestureRecognizerStateChanged) {
         
         CGPoint tempPoint = [panGesture locationInView:self];
-        _smallDrop.center = tempPoint;
-        [self calucateCoordinate];
+        
+        CGFloat centerX = self.width/2;
+        CGFloat centerY = self.height/2;
+        CGFloat deltaX = abs((int)centerX - (int)tempPoint.x);
+//        CGPoint selfCenter = CGPointMake(self.width/2, self.height/2);
+        
+        _assisDrop1.center = CGPointMake(centerX - deltaX, centerY - deltaX);
+        _assisDrop2.center = CGPointMake(centerX + deltaX, centerY - deltaX);
+        _assisDrop3.center = CGPointMake(centerX - deltaX, centerY + deltaX);
+        _assisDrop4.center = CGPointMake(centerX + deltaX, centerY + deltaX);
+        
+//        _smallDrop.center = tempPoint;
+//        [self calucateCoordinate];
     }
     else if(panGesture.state == UIGestureRecognizerStateEnded){
         
-        [UIView animateWithDuration:1.0
-                              delay:0
-             usingSpringWithDamping:0.3
-              initialSpringVelocity:0
-                            options:UIViewAnimationOptionCurveEaseInOut
-                         animations:^{
-                             [_smallDrop BearSetCenterToParentViewWithAxis:kAXIS_X_Y];
-                             _displayLink.paused = NO;
-                         }
-                         completion:^(BOOL finished) {
-                             _displayLink.paused = YES;
-                         }];
+//        [UIView animateWithDuration:1.0
+//                              delay:0
+//             usingSpringWithDamping:0.3
+//              initialSpringVelocity:0
+//                            options:UIViewAnimationOptionCurveEaseInOut
+//                         animations:^{
+//                             [_smallDrop BearSetCenterToParentViewWithAxis:kAXIS_X_Y];
+//                             _displayLink.paused = NO;
+//                         }
+//                         completion:^(BOOL finished) {
+//                             _displayLink.paused = YES;
+//                         }];
     }
 }
 
@@ -299,7 +334,7 @@
         CGFloat twoControlPointDistance = [LineMath calucateDistanceBetweenPoint1:_bezierControlPoint1 withPoint2:_bezierControlPoint2];
         CGFloat startReduceDistance = radiusAll * 0.8f;
         CGFloat deltaCenterDistance = startReduceDistance - centerPointDistance;
-        CGFloat distanceRatio = deltaCenterDistance/startReduceDistance * 1.2;
+        CGFloat distanceRatio = deltaCenterDistance/startReduceDistance * 1.4;
         CGFloat separateDistanceThreshold = 400;
         CGFloat distanceRatioThreshold = -2.5;
         
@@ -458,8 +493,8 @@
     LineMath *linePerBase = [self PerBaseLine_Point1:acrossPoint Point2:startPoint];
     AcrossPointStruct acrossPointStruct2 = [self calucateCircleAndLineAcrossPoint_withCircle:dropView.circleMath withLine:linePerBase];
     
-    LineMath *tempLine = [[LineMath alloc] initWithPoint1:acrossPointStruct2.point1 point2:acrossPointStruct2.point2 inView:self];
-    [_dropSuperView.assisArray addObject:tempLine];
+//    LineMath *tempLine = [[LineMath alloc] initWithPoint1:acrossPointStruct2.point1 point2:acrossPointStruct2.point2 inView:self];
+//    [_dropSuperView.assisArray addObject:tempLine];
     
     
     //  直线linePerBase和Circle的交点acrossPoint2
@@ -473,8 +508,8 @@
         acrossPoint2 = acrossPointStruct2.point2;
     }
     
-    PointMath *acrossPoint2_Math = [[PointMath alloc] initWithPoint:acrossPoint2 inView:self];
-    [_dropSuperView.assisArray addObject:acrossPoint2_Math];
+//    PointMath *acrossPoint2_Math = [[PointMath alloc] initWithPoint:acrossPoint2 inView:self];
+//    [_dropSuperView.assisArray addObject:acrossPoint2_Math];
     
     
     //  将计算出的控制贝塞尔点赋值给本类

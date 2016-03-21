@@ -75,6 +75,11 @@ typedef enum {
 @property (assign, nonatomic) DropCanvasView    *dropSuperView;
 @property (assign, nonatomic) kQuadrantArea     smallDropQuadrant;
 
+@property (strong, nonatomic) DropView          *assisDrop1;
+@property (strong, nonatomic) DropView          *assisDrop2;
+@property (strong, nonatomic) DropView          *assisDrop3;
+@property (strong, nonatomic) DropView          *assisDrop4;
+
 @property (strong, nonatomic) CAShapeLayer      *dropShapLayer;
 @property (strong, nonatomic) UIBezierPath      *bezierPath;
 @property (assign, nonatomic) kCirlceRelation   circleRelation;
