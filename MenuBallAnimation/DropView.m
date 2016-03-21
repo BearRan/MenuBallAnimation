@@ -778,15 +778,42 @@
             
         case kCross_SmallToMain:
         {
-            PointMath *pointMath1 = [[PointMath alloc] initWithPoint:verLine.point1 inView:self];
+            TwoPointStruct sideAssisPointRight = [self calucateSideAssisBezierPointWithOriginPoint:verLine.point1 withDropView:dropView1 deltaDegree:nil];
+            dropView1.crossToRightAssis_Point = verLine.point1;
+            dropView1.crossToRightAssis_PointS = sideAssisPointRight.point2;
+            
+            TwoPointStruct sideAssisPointLeft = [self calucateSideAssisBezierPointWithOriginPoint:verLine.point2 withDropView:dropView1 deltaDegree:nil];
+            dropView1.crossToLeftAssis_Point = verLine.point2;
+            dropView1.crossToLeftAssis_PointS = sideAssisPointLeft.point1;
+            
+            [DropView eventInDiffQuadrantWithCenterPoint:_mainCenter
+                                           withParaPoint:dropView1.center
+                                           quadrantFirst:^{
+                                               
+                                           }
+                                           quadrantSecond:^{
+                                              
+                                           }
+                                           quadrantThird:^{
+                                               dropView1.crossToRightAssis_PointS = sideAssisPointRight.point1;
+                                               dropView1.crossToLeftAssis_PointS = sideAssisPointLeft.point2;
+                                           }
+                                           quadrantFourth:^{
+                                               dropView1.crossToRightAssis_PointS = sideAssisPointRight.point1;
+                                               dropView1.crossToLeftAssis_PointS = sideAssisPointLeft.point2;
+                                           }];
+            
+            PointMath *pointMath1 = [[PointMath alloc] initWithPoint:dropView1.crossToRightAssis_Point inView:self];
             [_dropSuperView.assisArray addObject:pointMath1];
             
-            PointMath *pointMath2 = [[PointMath alloc] initWithPoint:verLine.point2 inView:self];
+            PointMath *pointMath2 = [[PointMath alloc] initWithPoint:dropView1.crossToRightAssis_PointS inView:self];
             [_dropSuperView.assisArray addObject:pointMath2];
             
+            PointMath *pointMath3 = [[PointMath alloc] initWithPoint:dropView1.crossToLeftAssis_Point inView:self];
+            [_dropSuperView.assisArray addObject:pointMath3];
             
-            [self calucateSideAssisBezierPointWithOriginPoint:verLine.point1 withDropView:dropView1];
-            [self calucateSideAssisBezierPointWithOriginPoint:verLine.point2 withDropView:dropView1];
+            PointMath *pointMath4 = [[PointMath alloc] initWithPoint:dropView1.crossToLeftAssis_PointS inView:self];
+            [_dropSuperView.assisArray addObject:pointMath4];
         }
             break;
             
@@ -799,7 +826,7 @@
             [_dropSuperView.assisArray addObject:pointMath1];
             
             //  圆与圆交点两侧的辅助点
-            TwoPointStruct sideAssisPoint = [self calucateSideAssisBezierPointWithOriginPoint:outerPoint withDropView:dropView1];
+            TwoPointStruct sideAssisPoint = [self calucateSideAssisBezierPointWithOriginPoint:outerPoint withDropView:dropView1 deltaDegree:nil];
             
             if (setCondition == kSetRightPoint) {
                 dropView1.crossToRightAssis_Point = outerPoint;
@@ -809,6 +836,14 @@
                 dropView1.crossToLeftAssis_PointS = sideAssisPoint.point1;
             }
             
+            
+            PointMath *pointMath2 = [[PointMath alloc] initWithPoint:dropView1.crossToRightAssis_Point inView:self];
+            pointMath2.radius = [NSNumber numberWithFloat:2.0f];
+            [_dropSuperView.assisArray addObject:pointMath2];
+            
+            PointMath *pointMath3 = [[PointMath alloc] initWithPoint:dropView1.crossToLeftAssis_PointS inView:self];
+            pointMath3.radius = [NSNumber numberWithFloat:2.0f];
+            [_dropSuperView.assisArray addObject:pointMath3];
         }
             break;
             
@@ -820,9 +855,13 @@
 }
 
 //  计算DropView上某点附近的点，用于平滑贝塞尔曲线
-- (TwoPointStruct)calucateSideAssisBezierPointWithOriginPoint:(CGPoint)originPoint withDropView:(DropView *)dropView
+- (TwoPointStruct)calucateSideAssisBezierPointWithOriginPoint:(CGPoint)originPoint withDropView:(DropView *)dropView deltaDegree:(NSNumber *)deltaDegree
 {
     CGFloat deltaDegrees = 15;
+    if (deltaDegree) {
+        deltaDegrees = [deltaDegree floatValue];
+    }
+    
     TwoPointStruct twoPointStruct;
     
     //  点和圆心的连线
@@ -858,14 +897,6 @@
                 twoPointStruct.point1 = [LineMath calucatePointWithOriginPoint:_mainCenter point1:twoPointStruct.point1 point2:twoPointStruct.point2 condition:kFar];
                 twoPointStruct.point2 = twoPointStruct.point1;
             }
-            
-            PointMath *pointMath1 = [[PointMath alloc] initWithPoint:twoPointStruct.point1 inView:self];
-            pointMath1.radius = [NSNumber numberWithFloat:2.0f];
-            [_dropSuperView.assisArray addObject:pointMath1];
-            
-            PointMath *pointMath2 = [[PointMath alloc] initWithPoint:twoPointStruct.point2 inView:self];
-            pointMath2.radius = [NSNumber numberWithFloat:2.0f];
-            [_dropSuperView.assisArray addObject:pointMath2];
             
         }
             break;
