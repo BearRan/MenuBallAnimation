@@ -242,34 +242,49 @@
     CGFloat mainRadius = _circleMath.radius;
     CGFloat smallRadius = _smallDrop.circleMath.radius;
     
+    /******     计算贝赛尔需要的交点      ******/
+    CGPoint point1 = acrossPointStruct_Tangent1_PerBiseToSmallDrop.point1;
+    CGPoint point2 = acrossPointStruct_Tangent1_PerBiseToMainDrop.point1;
+    CGPoint point3 = acrossPointStruct_Tangent2_PerBiseToSmallDrop.point2;
+    CGPoint point4 = acrossPointStruct_Tangent2_PerBiseToMainDrop.point2;
+    CGPoint point_2_4Center = [LineMath calucateCenterPointBetweenPoint1:point2 withPoint2:point4];
+    CGPoint point_1_3Center = [LineMath calucateCenterPointBetweenPoint1:point1 withPoint2:point3];
+    
+    LineMath *line_P1_P4 = [[LineMath alloc] initWithPoint1:point1 point2:point4 inView:self];
+    LineMath *line_P2_P3 = [[LineMath alloc] initWithPoint1:point2 point2:point3 inView:self];
+    LineMath *line_P3_P2_4Center = [[LineMath alloc] initWithPoint1:point3 point2:point_2_4Center inView:self];
+    LineMath *line_P1_P2_4Center = [[LineMath alloc] initWithPoint1:point1 point2:point_2_4Center inView:self];
+    
+    [_dropSuperView.assisArray addObject:line_P1_P4];
+    [_dropSuperView.assisArray addObject:line_P2_P3];
+    [_dropSuperView.assisArray addObject:line_P3_P2_4Center];
+    [_dropSuperView.assisArray addObject:line_P1_P2_4Center];
+    
+    //  源计算出的控制点
+    _bezierControlPoint1 = [LineMath calucateAcrossPointBetweenLine1:line_P1_P4 withLine2:line_P3_P2_4Center];
+    _bezierControlPoint2 = [LineMath calucateAcrossPointBetweenLine1:line_P2_P3 withLine2:line_P1_P2_4Center];
+    _edge_point1 = point2;
+    _edge_point2 = point4;
+    _smallDrop.edge_point1 = point1;
+    _smallDrop.edge_point2 = point3;
+    
+    
+    //  DropView和贝塞尔曲线衔接平滑曲线 控制点
+    [self SetBezierSmoothControlPointWithDropView:self withAssisLine:line_P1_P4 withStartPoint:point4];
+    [self SetBezierSmoothControlPointWithDropView:self withAssisLine:line_P2_P3 withStartPoint:point2];
+    [self SetBezierSmoothControlPointWithDropView:_smallDrop withAssisLine:line_P1_P4 withStartPoint:point1];
+    [self SetBezierSmoothControlPointWithDropView:_smallDrop withAssisLine:line_P2_P3 withStartPoint:point3];
+    
+    
+    
+    
+    
+    
+    
     //  两圆相离
     if (centerPointDistance > _circleMath.radius + _smallDrop.circleMath.radius) {
         
-        /******     计算贝赛尔需要的交点      ******/
-        CGPoint point1 = acrossPointStruct_Tangent1_PerBiseToSmallDrop.point1;
-        CGPoint point2 = acrossPointStruct_Tangent1_PerBiseToMainDrop.point1;
-        CGPoint point3 = acrossPointStruct_Tangent2_PerBiseToSmallDrop.point2;
-        CGPoint point4 = acrossPointStruct_Tangent2_PerBiseToMainDrop.point2;
-        CGPoint point_2_4Center = [LineMath calucateCenterPointBetweenPoint1:point2 withPoint2:point4];
-        CGPoint point_1_3Center = [LineMath calucateCenterPointBetweenPoint1:point1 withPoint2:point3];
         
-        LineMath *line_P1_P4 = [[LineMath alloc] initWithPoint1:point1 point2:point4 inView:self];
-        LineMath *line_P2_P3 = [[LineMath alloc] initWithPoint1:point2 point2:point3 inView:self];
-        LineMath *line_P3_P2_4Center = [[LineMath alloc] initWithPoint1:point3 point2:point_2_4Center inView:self];
-        LineMath *line_P1_P2_4Center = [[LineMath alloc] initWithPoint1:point1 point2:point_2_4Center inView:self];
-        
-        [_dropSuperView.assisArray addObject:line_P1_P4];
-        [_dropSuperView.assisArray addObject:line_P2_P3];
-        [_dropSuperView.assisArray addObject:line_P3_P2_4Center];
-        [_dropSuperView.assisArray addObject:line_P1_P2_4Center];
-        
-        //  源计算出的控制点
-        _bezierControlPoint1 = [LineMath calucateAcrossPointBetweenLine1:line_P1_P4 withLine2:line_P3_P2_4Center];
-        _bezierControlPoint2 = [LineMath calucateAcrossPointBetweenLine1:line_P2_P3 withLine2:line_P1_P2_4Center];
-        _edge_point1 = point2;
-        _edge_point2 = point4;
-        _smallDrop.edge_point1 = point1;
-        _smallDrop.edge_point2 = point3;
         
         //  controlPointReduceRatio 控制点缩小比例
         //  radiusAll               大圆半径＋小圆半径
@@ -313,12 +328,6 @@
             _circleRelation = kCircleSeparateEntire;
             
         }
-        
-        //  DropView和贝塞尔曲线衔接平滑曲线 控制点
-        [self SetBezierSmoothControlPointWithDropView:self withAssisLine:line_P1_P4 withStartPoint:point4];
-        [self SetBezierSmoothControlPointWithDropView:self withAssisLine:line_P2_P3 withStartPoint:point2];
-        [self SetBezierSmoothControlPointWithDropView:_smallDrop withAssisLine:line_P1_P4 withStartPoint:point1];
-        [self SetBezierSmoothControlPointWithDropView:_smallDrop withAssisLine:line_P2_P3 withStartPoint:point3];
         
     }
     
@@ -441,6 +450,7 @@
     }
     
 //    PointMath *pointMath = [[PointMath alloc] initWithPoint:acrossPoint inView:self];
+//    pointMath.radius = [NSNumber numberWithInt:4];
 //    [_dropSuperView.assisArray addObject:pointMath];
     
     
@@ -463,8 +473,8 @@
         acrossPoint2 = acrossPointStruct2.point2;
     }
     
-//    PointMath *acrossPoint2_Math = [[PointMath alloc] initWithPoint:acrossPoint2 inView:self];
-//    [_dropSuperView.assisArray addObject:acrossPoint2_Math];
+    PointMath *acrossPoint2_Math = [[PointMath alloc] initWithPoint:acrossPoint2 inView:self];
+    [_dropSuperView.assisArray addObject:acrossPoint2_Math];
     
     
     //  将计算出的控制贝塞尔点赋值给本类
