@@ -81,15 +81,30 @@ typedef enum {
 @property (assign, nonatomic) DropCanvasView    *dropSuperView;
 @property (assign, nonatomic) kQuadrantArea     smallDropQuadrant;
 
+@property (strong, nonatomic) CAShapeLayer      *dropShapLayer;
+@property (strong, nonatomic) UIBezierPath      *bezierPath;
+@property (assign, nonatomic) kCirlceRelation   circleRelation;
+
+
+
+
+@property (assign, nonatomic) kRelation         relation;
+
 @property (strong, nonatomic) DropView          *assisDrop1;
 @property (strong, nonatomic) DropView          *assisDrop2;
 @property (strong, nonatomic) DropView          *assisDrop3;
 @property (strong, nonatomic) DropView          *assisDrop4;
 
-@property (strong, nonatomic) CAShapeLayer      *dropShapLayer;
-@property (strong, nonatomic) UIBezierPath      *bezierPath;
-@property (assign, nonatomic) kCirlceRelation   circleRelation;
-@property (assign, nonatomic) kRelation         relation;
+@property (assign, nonatomic) CGPoint           crossToMain_Point1;         //和MainDrop的交点1
+@property (assign, nonatomic) CGPoint           crossToMain_Point2;         //和MainDrop的交点2
+@property (assign, nonatomic) CGPoint           crossToRightAssis_Point1;   //和右侧AssisDrop的交点1
+@property (assign, nonatomic) CGPoint           crossToRightAssis_Point2;   //和右侧AssisDrop的交点2
+@property (assign, nonatomic) CGPoint           crossToLeftAssis_Point1;    //和左侧AssisDrop的交点1
+@property (assign, nonatomic) CGPoint           crossToLeftAssis_Point2;    //和左侧AssisDrop的交点2
+
+
+
+
 
 - (instancetype)initWithFrame:(CGRect)frame createSmallDrop:(BOOL)createSmallDrop;
 

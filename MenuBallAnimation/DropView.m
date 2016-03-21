@@ -164,9 +164,12 @@
     }
 }
 
+#warning Modify
 //  新的计算坐标的方法
 - (void)calucateCoordinate1
 {
+    [_dropSuperView.assisArray removeAllObjects];
+
     CGPoint centerPoint = CGPointMake(self.width/2.0f, self.height/2.0f);
     
     CGFloat radius_SmallAddMain = self.circleMath.radius + _assisDrop1.circleMath.radius;
@@ -189,12 +192,20 @@
         NSLog(@"小圆和大圆相交");
         _relation = kCross_SmallToMain;
         
+        
+        [self calucateCrossPointDropView1:_assisDrop1 dropView2:self];
+        [self calucateCrossPointDropView1:_assisDrop2 dropView2:self];
+        [self calucateCrossPointDropView1:_assisDrop3 dropView2:self];
+        [self calucateCrossPointDropView1:_assisDrop4 dropView2:self];
+        
     }
     //小圆和小圆相交
     else if (dis_SmallToMain < radius_SmallAddMain && dis_SmallToSmall < radius_SmallAddSmall){
         NSLog(@"小圆和小圆相交");
         _relation = kCross_SmallToSmall;
     }
+    
+    [_dropSuperView setNeedsDisplay];
 }
 
 //  计算坐标
@@ -614,6 +625,7 @@
     return acrossPointStruct1;
 }
 
+
 #pragma mark - 计算Center2Center过圆心的垂直平分线和DropView的交点
 //  计算Center2Center过圆心的垂直平分线和DropView的交点
 - (void)calucateCircleAndPerBiseLinePoint_withCircle:(CircleMath *)circle withDropView:(DropView *)dropView
@@ -640,6 +652,93 @@
     
     LineMath *perBiseLine_BigDrop_result = [[LineMath alloc] initWithPoint1:acrossPointStruct.point1 point2:acrossPointStruct.point2 inView:self];
     [_dropSuperView.assisArray addObject:perBiseLine_BigDrop_result];
+}
+
+#warning Modify
+#pragma mark - 计算两圆有重叠时的交点
+/** 计算两圆有重叠时的交点
+ *
+ *  r1  小圆半径
+ *  r2  大圆半径
+ *  x   两圆心的距离
+ *  x1  小圆圆心和两圆焦点连线的距离
+ *  x2  大圆圆心和两圆焦点连线的距离
+ *  x3  两圆连线的线长的一半长度
+ *
+ *  (x_o,y_o)   两圆圆心连线和两圆焦点连线的交点
+ *  verLine     两圆心连线基于点(x_o,y_o)的垂线
+ */
+- (AcrossPointStruct)calucateCrossPointDropView1:(DropView *)dropView1 dropView2:(DropView *)dropView2
+{
+    CGFloat r1 = dropView1.circleMath.radius;
+    CGFloat r2 = dropView2.circleMath.radius;
+    
+    CALayer *dropView1_PreLayer = dropView1.layer.presentationLayer;
+    CALayer *dropView2_PreLayer = dropView2.layer.presentationLayer;
+    CGPoint center1 = ![dropView1 isEqual:self] ? dropView1_PreLayer.position : CGPointMake(dropView1.width/2, dropView1.height/2);
+    CGPoint center2 = ![dropView2 isEqual:self] ? dropView2_PreLayer.position : CGPointMake(dropView2.width/2, dropView2.height/2);
+    
+    CGFloat x  = [LineMath calucateDistanceBetweenPoint1:center1 withPoint2:center2];
+    CGFloat x1;
+    CGFloat x2;
+    CGFloat x3;
+    __block CGFloat x_o;
+    __block CGFloat y_o;
+    
+    x1 = ( (r1*r1) - (r2*r2) + (x*x)) / (2 * x);
+    x2 = x - x1;
+    x3 = sqrt((r1*r1) - (x1*x1));
+    
+    
+    LineMath *lineCenter2Center = [[LineMath alloc] initWithPoint1:center1 point2:center2 inView:self];
+    CGFloat angle = atan(lineCenter2Center.k);
+    
+    //  x_o角度修正
+    [DropView eventInDiffQuadrantWithCenterPoint:center1
+                                    withParaPoint:center2
+                                    quadrantFirst:^{
+                                        x_o = r1 - cos(angle) * x2;
+                                    }
+                                    quadrantSecond:^{
+                                        x_o = r1 + cos(angle) * x2;
+                                    }
+                                    quadrantThird:^{
+                                        x_o = r1 + cos(angle) * x2;
+                                    }
+                                    quadrantFourth:^{
+                                        x_o = r1 - cos(angle) * x2;
+                                    }];
+    
+    y_o = lineCenter2Center.k * x_o + lineCenter2Center.b;
+    
+    LineMath *tempLine = [[LineMath alloc] initWithPoint1:center1 point2:CGPointMake(x_o, y_o) inView:self];
+    [_dropSuperView.assisArray addObject:tempLine];
+    
+    //  Center2Centerde的垂线 VerticalLine
+    LineMath *verLine = [[LineMath alloc] init];
+    angle += M_PI/2;
+    if (angle > M_PI/2) {
+        angle -= M_PI;
+    }else if (angle < - M_PI/2){
+        angle += M_PI;
+    }
+    verLine.k = tan(angle);
+    verLine.b = y_o - verLine.k * x_o;
+    verLine.InView = self;
+    
+    AcrossPointStruct acrossPointStruct = [self calucateCircleAndLineAcrossPoint_withCircle:_circleMath withLine:verLine];
+    verLine.point1 = acrossPointStruct.point1;
+    verLine.point2 = acrossPointStruct.point2;
+    
+//    _bezierControlPoint1 = verLine.point2;
+//    _bezierControlPoint2 = verLine.point1;
+//    
+//    _smallDrop.bezierControlPoint1 = verLine.point1;
+//    _smallDrop.bezierControlPoint2 = verLine.point2;
+    
+    [_dropSuperView.assisArray addObject:verLine];
+    
+    return acrossPointStruct;
 }
 
 
