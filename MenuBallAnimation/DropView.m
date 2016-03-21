@@ -184,13 +184,13 @@
     
     //小圆和大圆相离
     if (dis_SmallToMain > radius_SmallAddMain) {
-        NSLog(@"小圆和大圆相离");
+//        NSLog(@"小圆和大圆相离");
         _relation = kSeparated_SmallToMain;
         
     }
     //小圆和大圆相交
     else if (dis_SmallToMain < radius_SmallAddMain && dis_SmallToSmall > radius_SmallAddSmall){
-        NSLog(@"小圆和大圆相交");
+//        NSLog(@"小圆和大圆相交");
         _relation = kCross_SmallToMain;
         
         
@@ -202,13 +202,18 @@
     }
     //小圆和小圆相交
     else if (dis_SmallToMain < radius_SmallAddMain && dis_SmallToSmall < radius_SmallAddSmall){
-        NSLog(@"小圆和小圆相交");
+//        NSLog(@"小圆和小圆相交");
         _relation = kCross_SmallToSmall;
         
         [self calucateCrossPointDropView1:_assisDrop1 dropView2:_assisDrop2];
         [self calucateCrossPointDropView1:_assisDrop2 dropView2:_assisDrop3];
         [self calucateCrossPointDropView1:_assisDrop3 dropView2:_assisDrop4];
         [self calucateCrossPointDropView1:_assisDrop4 dropView2:_assisDrop1];
+        
+        [self calucateCrossPointDropView1:_assisDrop4 dropView2:_assisDrop3];
+        [self calucateCrossPointDropView1:_assisDrop3 dropView2:_assisDrop2];
+        [self calucateCrossPointDropView1:_assisDrop2 dropView2:_assisDrop1];
+        [self calucateCrossPointDropView1:_assisDrop1 dropView2:_assisDrop4];
     }
     
     [_dropSuperView setNeedsDisplay];
@@ -843,8 +848,14 @@
             line2.b = dropViewCenter.y - line2.k * dropViewCenter.x;
             AcrossPointStruct acrossPointStruct2 = [self calucateCircleAndLineAcrossPoint_withCircle:dropView.circleMath withLine:line2];
             
-            twoPointStruct.point1 = [LineMath calucateNearPointWithOriginPoint:originPoint point1:acrossPointStruct1.point1 point2:acrossPointStruct1.point2];
-            twoPointStruct.point2 = [LineMath calucateNearPointWithOriginPoint:originPoint point1:acrossPointStruct2.point1 point2:acrossPointStruct2.point2];
+            twoPointStruct.point1 = [LineMath calucatePointWithOriginPoint:originPoint point1:acrossPointStruct1.point1 point2:acrossPointStruct1.point2 condition:kNear];
+            twoPointStruct.point2 = [LineMath calucatePointWithOriginPoint:originPoint point1:acrossPointStruct2.point1 point2:acrossPointStruct2.point2 condition:kNear];
+            
+            //  小圆相交时，只获取外侧的点
+            if (_relation == kCross_SmallToSmall) {
+                twoPointStruct.point1 = [LineMath calucatePointWithOriginPoint:_mainCenter point1:twoPointStruct.point1 point2:twoPointStruct.point2 condition:kFar];
+                twoPointStruct.point2 = twoPointStruct.point1;
+            }
             
             PointMath *pointMath1 = [[PointMath alloc] initWithPoint:twoPointStruct.point1 inView:self];
             pointMath1.radius = [NSNumber numberWithFloat:2.0f];
@@ -1186,6 +1197,28 @@
     twoPointStruct.point2 = CGPointMake(xRes2, yRes2);
     
     return twoPointStruct;
+}
+
+//  把某点转化成圆上对应的角度
++ (CGFloat)ConvertPointToRadiusInCircleMath:(CircleMath *)circleMath point:(CGPoint)point
+{
+    
+    LineMath *line = [[LineMath alloc] initWithPoint1:circleMath.centerPoint point2:point inView:nil];
+    
+    __block CGFloat angle = atan(line.k);
+    
+    //  两圆焦点和圆心连线的line的 斜率矫正
+    [DropView eventInDiffQuadrantWithCenterPoint:circleMath.centerPoint withParaPoint:point quadrantFirst:^{
+        nil;
+    } quadrantSecond:^{
+        angle -= M_PI;
+    } quadrantThird:^{
+        angle -= M_PI;
+    } quadrantFourth:^{
+        nil;
+    }];
+    
+    return angle;
 }
 
 @end

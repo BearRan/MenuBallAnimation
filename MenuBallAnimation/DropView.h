@@ -126,4 +126,7 @@ typedef enum {
 
 + (BOOL)JudgeEqualWithPoint1:(CGPoint)point1 point2:(CGPoint)point2;
 
+//  把某点转化成圆上对应的角度
++ (CGFloat)ConvertPointToRadiusInCircleMath:(CircleMath *)circleMath point:(CGPoint)point;
+
 @end

@@ -79,8 +79,8 @@
     return distance;
 }
 
-//  计算任意两点和某一点距离更近的点
-+ (CGPoint)calucateNearPointWithOriginPoint:(CGPoint)originPoint point1:(CGPoint)point1 point2:(CGPoint)point2
+//  计算任意两点和某一点距离更近/远的点
++ (CGPoint)calucatePointWithOriginPoint:(CGPoint)originPoint point1:(CGPoint)point1 point2:(CGPoint)point2 condition:(kPointCondition)condition
 {
     
     CGFloat pointDis1 = [LineMath calucateDistanceBetweenPoint1:originPoint withPoint2:point1];
@@ -88,10 +88,20 @@
     
     if (pointDis1 < pointDis2) {
         
-        return point1;
+        if (condition == kNear) {
+            return point1;
+        }else{
+            return point2;
+        }
+        
     }else if(pointDis2 < pointDis1){
         
-        return point2;
+        if (condition == kNear) {
+            return point2;
+        }else{
+            return point1;
+        }
+        
     }else{
         
         NSLog(@"计算任意两点和某一点距离更近的点 方法发生错误");
