@@ -52,6 +52,12 @@ typedef enum {
     kCircleContain,                 //两圆内含
 }kCirlceRelation;
 
+typedef enum {
+    kSeparated_SmallToMain,         //小圆和大圆相离
+    kCross_SmallToMain,             //小圆和大圆相交
+    kCross_SmallToSmall,            //小圆和小圆相交
+}kRelation;
+
 @interface DropView : UIView
 
 @property (strong, nonatomic) LineMath      *lineCenter2Center; //圆心的连线
@@ -83,6 +89,7 @@ typedef enum {
 @property (strong, nonatomic) CAShapeLayer      *dropShapLayer;
 @property (strong, nonatomic) UIBezierPath      *bezierPath;
 @property (assign, nonatomic) kCirlceRelation   circleRelation;
+@property (assign, nonatomic) kRelation         relation;
 
 - (instancetype)initWithFrame:(CGRect)frame createSmallDrop:(BOOL)createSmallDrop;
 

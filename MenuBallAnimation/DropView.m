@@ -96,7 +96,7 @@
 //    [self addSubview:_smallDrop];
 //    [_smallDrop BearSetCenterToParentViewWithAxis:kAXIS_X_Y];
     
-    CGFloat assisDrop_width = 80;
+    CGFloat assisDrop_width = self.width;
     
     _assisDrop1 = [[DropView alloc] initWithFrame:CGRectMake(0, 0, assisDrop_width, assisDrop_width) createSmallDrop:NO];
     [self initSetAssisDrop:_assisDrop1];
@@ -113,7 +113,7 @@
 
 - (void)initSetAssisDrop:(DropView *)assisDrop
 {
-    CGFloat assisDrop_width = 80;
+    CGFloat assisDrop_width = self.width;
     
     assisDrop.layer.cornerRadius = assisDrop_width/2;
     assisDrop.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
@@ -143,6 +143,7 @@
         _assisDrop3.center = CGPointMake(centerX - deltaX, centerY + deltaX);
         _assisDrop4.center = CGPointMake(centerX + deltaX, centerY + deltaX);
         
+        [self calucateCoordinate1];
 //        _smallDrop.center = tempPoint;
 //        [self calucateCoordinate];
     }
@@ -160,6 +161,39 @@
 //                         completion:^(BOOL finished) {
 //                             _displayLink.paused = YES;
 //                         }];
+    }
+}
+
+//  新的计算坐标的方法
+- (void)calucateCoordinate1
+{
+    CGPoint centerPoint = CGPointMake(self.width/2.0f, self.height/2.0f);
+    
+    CGFloat radius_SmallAddMain = self.circleMath.radius + _assisDrop1.circleMath.radius;
+    CGFloat radius_SmallAddSmall = _assisDrop1.circleMath.radius + _assisDrop2.circleMath.radius;
+    
+    CALayer *assisDrop1_PreLayer = _assisDrop1.layer.presentationLayer;
+    CALayer *assisDrop2_PreLayer = _assisDrop2.layer.presentationLayer;
+    
+    CGFloat dis_SmallToMain = [LineMath calucateDistanceBetweenPoint1:assisDrop1_PreLayer.position withPoint2:centerPoint];
+    CGFloat dis_SmallToSmall = [LineMath calucateDistanceBetweenPoint1:assisDrop1_PreLayer.position withPoint2:assisDrop2_PreLayer.position];
+    
+    //小圆和大圆相离
+    if (dis_SmallToMain > radius_SmallAddMain) {
+        NSLog(@"小圆和大圆相离");
+        _relation = kSeparated_SmallToMain;
+        
+    }
+    //小圆和大圆相交
+    else if (dis_SmallToMain < radius_SmallAddMain && dis_SmallToSmall > radius_SmallAddSmall){
+        NSLog(@"小圆和大圆相交");
+        _relation = kCross_SmallToMain;
+        
+    }
+    //小圆和小圆相交
+    else if (dis_SmallToMain < radius_SmallAddMain && dis_SmallToSmall < radius_SmallAddSmall){
+        NSLog(@"小圆和小圆相交");
+        _relation = kCross_SmallToSmall;
     }
 }
 

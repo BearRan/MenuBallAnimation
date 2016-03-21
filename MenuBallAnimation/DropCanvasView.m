@@ -41,7 +41,7 @@
 
 - (void)createMainDrop
 {
-    CGFloat mainDrop_width = 150;
+    CGFloat mainDrop_width = 80;
     _mainDrop = [[DropView alloc] initWithFrame:CGRectMake(mainDrop_width, mainDrop_width, mainDrop_width, mainDrop_width) createSmallDrop:YES];
     _mainDrop.dropSuperView = self;
     [self.layer addSublayer:_mainDrop.dropShapLayer];
