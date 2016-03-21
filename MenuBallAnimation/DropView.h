@@ -93,6 +93,7 @@ typedef enum {
 
 
 @property (assign, nonatomic) kRelation         relation;
+@property (assign, nonatomic) CGPoint           mainCenter;
 
 @property (strong, nonatomic) DropView          *assisDrop1;
 @property (strong, nonatomic) DropView          *assisDrop2;

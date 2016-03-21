@@ -71,6 +71,7 @@
     self.layer.masksToBounds = NO;
     self.clipsToBounds = NO;
     
+    _mainCenter = CGPointMake(self.width/2.0f, self.height/2.0f);
     _circleMath = [[CircleMath alloc] initWithCenterPoint:CGPointMake(self.width/2, self.height/2) radius:self.width/2 inView:self];
     
     _bezierPath = [UIBezierPath bezierPath];
@@ -696,19 +697,13 @@
     x3 = sqrt((r1*r1) - (x1*x1));
     
     
-    PointMath *pointMath1 = [[PointMath alloc] initWithPoint:center1 inView:self];
-    [_dropSuperView.assisArray addObject:pointMath1];
-    
-    PointMath *pointMath2 = [[PointMath alloc] initWithPoint:center2 inView:self];
-    [_dropSuperView.assisArray addObject:pointMath2];
-    
     //  Center2Centerde的垂线 VerticalLine
     LineMath *verLine = [[LineMath alloc] init];
     verLine.tempCenter = [LineMath calucateCenterPointBetweenPoint1:center1 withPoint2:center2];
     verLine.InView = self;
     
     LineMath *lineCenter2Center = [[LineMath alloc] initWithPoint1:center1 point2:center2 inView:self];
-    [_dropSuperView.assisArray addObject:lineCenter2Center];
+//    [_dropSuperView.assisArray addObject:lineCenter2Center];
     
     switch (lineCenter2Center.lineStatus) {
         case kLineNormal:
@@ -768,11 +763,46 @@
     verLine.point1 = acrossPointStruct.point1;
     verLine.point2 = acrossPointStruct.point2;
     
-//    _bezierControlPoint1 = verLine.point2;
-//    _bezierControlPoint2 = verLine.point1;
-//    
-//    _smallDrop.bezierControlPoint1 = verLine.point1;
-//    _smallDrop.bezierControlPoint2 = verLine.point2;
+    
+    switch (_relation) {
+        case kSeparated_SmallToMain:
+        {
+        
+        }
+            break;
+            
+        case kCross_SmallToMain:
+        {
+            PointMath *pointMath1 = [[PointMath alloc] initWithPoint:verLine.point1 inView:self];
+            [_dropSuperView.assisArray addObject:pointMath1];
+            
+            PointMath *pointMath2 = [[PointMath alloc] initWithPoint:verLine.point2 inView:self];
+            [_dropSuperView.assisArray addObject:pointMath2];
+        }
+            break;
+            
+        case kCross_SmallToSmall:
+        {
+            //  外侧的点
+            CGPoint outerPoint;
+            CGFloat dis_Point1ToMainCenter = [LineMath calucateDistanceBetweenPoint1:_mainCenter withPoint2:verLine.point1];
+            CGFloat dis_Point2ToMainCenter = [LineMath calucateDistanceBetweenPoint1:_mainCenter withPoint2:verLine.point2];
+            
+            if (dis_Point2ToMainCenter > dis_Point1ToMainCenter) {
+                outerPoint = verLine.point2;
+            }else if (dis_Point1ToMainCenter > dis_Point2ToMainCenter){
+                outerPoint = verLine.point1;
+            }
+            
+            PointMath *pointMath1 = [[PointMath alloc] initWithPoint:outerPoint inView:self];
+            [_dropSuperView.assisArray addObject:pointMath1];
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
     
     [_dropSuperView.assisArray addObject:verLine];
     
