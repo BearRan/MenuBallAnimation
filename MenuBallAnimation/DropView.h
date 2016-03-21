@@ -56,6 +56,12 @@ typedef enum {
     kCross_SmallToSmall,            //小圆和小圆相交
 }kRelation;
 
+typedef enum {
+    kSetNull,
+    kSetRightPoint,
+    kSetLeftPoint,
+}kSetCondition;                     //设置左侧／右侧点
+
 @interface DropView : UIView
 
 @property (strong, nonatomic) LineMath      *lineCenter2Center; //圆心的连线
@@ -96,10 +102,10 @@ typedef enum {
 
 @property (assign, nonatomic) CGPoint           crossToMain_Point1;         //和MainDrop的交点1
 @property (assign, nonatomic) CGPoint           crossToMain_Point2;         //和MainDrop的交点2
-@property (assign, nonatomic) CGPoint           crossToRightAssis_Point1;   //和右侧AssisDrop的交点1
-@property (assign, nonatomic) CGPoint           crossToRightAssis_Point2;   //和右侧AssisDrop的交点2
-@property (assign, nonatomic) CGPoint           crossToLeftAssis_Point1;    //和左侧AssisDrop的交点1
-@property (assign, nonatomic) CGPoint           crossToLeftAssis_Point2;    //和左侧AssisDrop的交点2
+@property (assign, nonatomic) CGPoint           crossToRightAssis_Point;   //和右侧AssisDrop的交点1
+@property (assign, nonatomic) CGPoint           crossToRightAssis_PointS;   //和右侧AssisDrop的交点2
+@property (assign, nonatomic) CGPoint           crossToLeftAssis_Point;    //和左侧AssisDrop的交点1
+@property (assign, nonatomic) CGPoint           crossToLeftAssis_PointS;    //和左侧AssisDrop的交点2
 
 
 
@@ -127,6 +133,6 @@ typedef enum {
 + (BOOL)JudgeEqualWithPoint1:(CGPoint)point1 point2:(CGPoint)point2;
 
 //  把某点转化成圆上对应的角度
-+ (CGFloat)ConvertPointToRadiusInCircleMath:(CircleMath *)circleMath point:(CGPoint)point;
++ (CGFloat)ConvertPointToRadiusInDropView:(DropView *)dropView point:(CGPoint)point canvansView:(UIView *)canvansView;
 
 @end

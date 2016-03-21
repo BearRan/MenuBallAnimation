@@ -63,6 +63,9 @@
 
 - (void)drawDropView2:(DropView *)dropView
 {
+    [dropView.bezierPath removeAllPoints];
+    dropView.bezierPath.lineCapStyle = kCGLineCapRound;
+    
     switch (dropView.relation) {
         case kSeparated_SmallToMain:
         {
@@ -78,13 +81,38 @@
             
         case kCross_SmallToSmall:
         {
-            
+            NSArray *smallDropViewArray = [[NSArray alloc] initWithObjects:dropView.assisDrop1, dropView.assisDrop2, dropView.assisDrop3, dropView.assisDrop4, nil];
+            for (int i = 0; i < [smallDropViewArray count]; i++) {
+                
+                DropView *assisDrop_now = (DropView *)smallDropViewArray[i];
+                DropView *assisDrop_later = (i+1) >= [smallDropViewArray count] ? (DropView *)smallDropViewArray[0] : (DropView *)smallDropViewArray[i+1];
+                
+                CALayer *assisDrop_PreLayer = assisDrop_now.layer.presentationLayer;
+                CGPoint assisDropNow_center = [dropView convertPoint:assisDrop_PreLayer.position toView:self];
+                CGPoint assisDropLater_LeftAssisPoint = [dropView convertPoint:assisDrop_later.crossToLeftAssis_Point toView:self];
+                CGPoint assisDropLater_LeftAssisPointS = [dropView convertPoint:assisDrop_later.crossToLeftAssis_PointS toView:self];
+                
+                CGFloat radius_start = [DropView ConvertPointToRadiusInDropView:assisDrop_now point:assisDrop_now.crossToLeftAssis_PointS canvansView:self];
+                CGFloat radius_end = [DropView ConvertPointToRadiusInDropView:assisDrop_now point:assisDrop_now.crossToRightAssis_PointS canvansView:self];
+                
+                
+                PointMath *centerPointMath = [[PointMath alloc] initWithPoint:assisDropNow_center inView:self];
+                [_assisArray addObject:centerPointMath];
+                
+                //  绘制半圆弧
+                [dropView.bezierPath addArcWithCenter:assisDropNow_center radius:assisDrop_now.circleMath.radius startAngle:radius_start endAngle:radius_end clockwise:YES];
+                
+                //  和下一个相连
+                [dropView.bezierPath addQuadCurveToPoint:assisDropLater_LeftAssisPointS controlPoint:assisDropLater_LeftAssisPoint];
+            }
         }
             break;
             
         default:
             break;
     }
+    
+    dropView.dropShapLayer.path = dropView.bezierPath.CGPath;
 }
 
 

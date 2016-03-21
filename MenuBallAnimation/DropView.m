@@ -194,10 +194,10 @@
         _relation = kCross_SmallToMain;
         
         
-        [self calucateCrossPointDropView1:_assisDrop1 dropView2:self];
-        [self calucateCrossPointDropView1:_assisDrop2 dropView2:self];
-        [self calucateCrossPointDropView1:_assisDrop3 dropView2:self];
-        [self calucateCrossPointDropView1:_assisDrop4 dropView2:self];
+        [self calucateCrossPointDropView1:_assisDrop1 dropView2:self setCondition:kSetNull];
+        [self calucateCrossPointDropView1:_assisDrop2 dropView2:self setCondition:kSetNull];
+        [self calucateCrossPointDropView1:_assisDrop3 dropView2:self setCondition:kSetNull];
+        [self calucateCrossPointDropView1:_assisDrop4 dropView2:self setCondition:kSetNull];
         
     }
     //小圆和小圆相交
@@ -205,15 +205,15 @@
 //        NSLog(@"小圆和小圆相交");
         _relation = kCross_SmallToSmall;
         
-        [self calucateCrossPointDropView1:_assisDrop1 dropView2:_assisDrop2];
-        [self calucateCrossPointDropView1:_assisDrop2 dropView2:_assisDrop3];
-        [self calucateCrossPointDropView1:_assisDrop3 dropView2:_assisDrop4];
-        [self calucateCrossPointDropView1:_assisDrop4 dropView2:_assisDrop1];
-        
-        [self calucateCrossPointDropView1:_assisDrop4 dropView2:_assisDrop3];
-        [self calucateCrossPointDropView1:_assisDrop3 dropView2:_assisDrop2];
-        [self calucateCrossPointDropView1:_assisDrop2 dropView2:_assisDrop1];
-        [self calucateCrossPointDropView1:_assisDrop1 dropView2:_assisDrop4];
+        [self calucateCrossPointDropView1:_assisDrop1 dropView2:_assisDrop2 setCondition:kSetRightPoint];
+        [self calucateCrossPointDropView1:_assisDrop2 dropView2:_assisDrop3 setCondition:kSetRightPoint];
+        [self calucateCrossPointDropView1:_assisDrop3 dropView2:_assisDrop4 setCondition:kSetRightPoint];
+        [self calucateCrossPointDropView1:_assisDrop4 dropView2:_assisDrop1 setCondition:kSetRightPoint];
+
+        [self calucateCrossPointDropView1:_assisDrop4 dropView2:_assisDrop3 setCondition:kSetLeftPoint];
+        [self calucateCrossPointDropView1:_assisDrop3 dropView2:_assisDrop2 setCondition:kSetLeftPoint];
+        [self calucateCrossPointDropView1:_assisDrop2 dropView2:_assisDrop1 setCondition:kSetLeftPoint];
+        [self calucateCrossPointDropView1:_assisDrop1 dropView2:_assisDrop4 setCondition:kSetLeftPoint];
     }
     
     [_dropSuperView setNeedsDisplay];
@@ -679,7 +679,7 @@
  *  (x_o,y_o)   两圆圆心连线和两圆焦点连线的交点
  *  verLine     两圆心连线基于点(x_o,y_o)的垂线
  */
-- (AcrossPointStruct)calucateCrossPointDropView1:(DropView *)dropView1 dropView2:(DropView *)dropView2
+- (AcrossPointStruct)calucateCrossPointDropView1:(DropView *)dropView1 dropView2:(DropView *)dropView2 setCondition:(kSetCondition)setCondition
 {
     CGFloat r1 = dropView1.circleMath.radius;
     CGFloat r2 = dropView2.circleMath.radius;
@@ -793,20 +793,22 @@
         case kCross_SmallToSmall:
         {
             //  外侧的点
-            CGPoint outerPoint;
-            CGFloat dis_Point1ToMainCenter = [LineMath calucateDistanceBetweenPoint1:_mainCenter withPoint2:verLine.point1];
-            CGFloat dis_Point2ToMainCenter = [LineMath calucateDistanceBetweenPoint1:_mainCenter withPoint2:verLine.point2];
-            
-            if (dis_Point2ToMainCenter > dis_Point1ToMainCenter) {
-                outerPoint = verLine.point2;
-            }else if (dis_Point1ToMainCenter > dis_Point2ToMainCenter){
-                outerPoint = verLine.point1;
-            }
+            CGPoint outerPoint = [LineMath calucatePointWithOriginPoint:_mainCenter point1:verLine.point1 point2:verLine.point2 condition:kFar];
             
             PointMath *pointMath1 = [[PointMath alloc] initWithPoint:outerPoint inView:self];
             [_dropSuperView.assisArray addObject:pointMath1];
             
-            [self calucateSideAssisBezierPointWithOriginPoint:outerPoint withDropView:dropView1];
+            //  圆与圆交点两侧的辅助点
+            TwoPointStruct sideAssisPoint = [self calucateSideAssisBezierPointWithOriginPoint:outerPoint withDropView:dropView1];
+            
+            if (setCondition == kSetRightPoint) {
+                dropView1.crossToRightAssis_Point = outerPoint;
+                dropView1.crossToRightAssis_PointS = sideAssisPoint.point1;
+            }else if (setCondition == kSetLeftPoint){
+                dropView1.crossToLeftAssis_Point = outerPoint;
+                dropView1.crossToLeftAssis_PointS = sideAssisPoint.point1;
+            }
+            
         }
             break;
             
@@ -1200,25 +1202,29 @@
 }
 
 //  把某点转化成圆上对应的角度
-+ (CGFloat)ConvertPointToRadiusInCircleMath:(CircleMath *)circleMath point:(CGPoint)point
++ (CGFloat)ConvertPointToRadiusInDropView:(DropView *)dropView point:(CGPoint)point canvansView:(UIView *)canvansView
 {
+    CALayer *dropView_PreLayer = dropView.layer.presentationLayer;
+    CGPoint dropView_center = [dropView convertPoint:dropView_PreLayer.position toView:canvansView];
+    CGPoint point1 = [dropView convertPoint:point toView:canvansView];
     
-    LineMath *line = [[LineMath alloc] initWithPoint1:circleMath.centerPoint point2:point inView:nil];
+    //  MainDrop半圆
+    LineMath *line = [[LineMath alloc] initWithPoint1:point1 point2:dropView_center inView:canvansView];
     
-    __block CGFloat angle = atan(line.k);
+    __block CGFloat radius = atan(line.k);
     
     //  两圆焦点和圆心连线的line的 斜率矫正
-    [DropView eventInDiffQuadrantWithCenterPoint:circleMath.centerPoint withParaPoint:point quadrantFirst:^{
+    [DropView eventInDiffQuadrantWithCenterPoint:dropView_center withParaPoint:point1 quadrantFirst:^{
         nil;
     } quadrantSecond:^{
-        angle -= M_PI;
+        radius -= M_PI;
     } quadrantThird:^{
-        angle -= M_PI;
+        radius -= M_PI;
     } quadrantFourth:^{
         nil;
     }];
     
-    return angle;
+    return radius;
 }
 
 @end
