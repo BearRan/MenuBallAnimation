@@ -681,8 +681,8 @@
     
     CALayer *dropView1_PreLayer = dropView1.layer.presentationLayer;
     CALayer *dropView2_PreLayer = dropView2.layer.presentationLayer;
-    CGPoint center1 = ![dropView1 isEqual:self] ? dropView1_PreLayer.position : CGPointMake(dropView1.width/2, dropView1.height/2);
-    CGPoint center2 = ![dropView2 isEqual:self] ? dropView2_PreLayer.position : CGPointMake(dropView2.width/2, dropView2.height/2);
+    CGPoint center1 = ![dropView1 isEqual:self] ? dropView1_PreLayer.position : _mainCenter;
+    CGPoint center2 = ![dropView2 isEqual:self] ? dropView2_PreLayer.position : _mainCenter;
 
     
     CGFloat x  = [LineMath calucateDistanceBetweenPoint1:center1 withPoint2:center2];
@@ -762,7 +762,7 @@
     AcrossPointStruct acrossPointStruct = [self calucateCircleAndLineAcrossPoint_withCircle:dropView1.circleMath withLine:verLine];
     verLine.point1 = acrossPointStruct.point1;
     verLine.point2 = acrossPointStruct.point2;
-    
+    [_dropSuperView.assisArray addObject:verLine];
     
     switch (_relation) {
         case kSeparated_SmallToMain:
@@ -778,6 +778,10 @@
             
             PointMath *pointMath2 = [[PointMath alloc] initWithPoint:verLine.point2 inView:self];
             [_dropSuperView.assisArray addObject:pointMath2];
+            
+            
+            [self calucateSideAssisBezierPointWithOriginPoint:verLine.point1 withDropView:dropView1];
+            [self calucateSideAssisBezierPointWithOriginPoint:verLine.point2 withDropView:dropView1];
         }
             break;
             
@@ -796,6 +800,72 @@
             
             PointMath *pointMath1 = [[PointMath alloc] initWithPoint:outerPoint inView:self];
             [_dropSuperView.assisArray addObject:pointMath1];
+            
+            [self calucateSideAssisBezierPointWithOriginPoint:outerPoint withDropView:dropView1];
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    return acrossPointStruct;
+}
+
+//  计算DropView上某点附近的点，用于平滑贝塞尔曲线
+- (TwoPointStruct)calucateSideAssisBezierPointWithOriginPoint:(CGPoint)originPoint withDropView:(DropView *)dropView
+{
+    CGFloat deltaDegrees = 15;
+    TwoPointStruct twoPointStruct;
+    
+    //  点和圆心的连线
+    CGPoint dropViewCenter = dropView.center;
+    if ([dropView isEqual:self]) {
+        dropViewCenter = _mainCenter;
+    }
+    
+    LineMath *lineMathOrigin = [[LineMath alloc] initWithPoint1:dropViewCenter point2:originPoint inView:self];
+    [_dropSuperView.assisArray addObject:lineMathOrigin];
+    
+    switch (lineMathOrigin.lineStatus) {
+        case kLineNormal:
+        {
+            CGFloat angleOrigin = atan(lineMathOrigin.k);
+            CGFloat deltaAngle = degreesToRadian(deltaDegrees);
+            
+            LineMath *line1 = [[LineMath alloc] init];
+            line1.k = tan(angleOrigin + deltaAngle);
+            line1.b = dropViewCenter.y - line1.k * dropViewCenter.x;
+            AcrossPointStruct acrossPointStruct1 = [self calucateCircleAndLineAcrossPoint_withCircle:dropView.circleMath withLine:line1];
+            
+            LineMath *line2 = [[LineMath alloc] init];
+            line2.k = tan(angleOrigin - deltaAngle);
+            line2.b = dropViewCenter.y - line2.k * dropViewCenter.x;
+            AcrossPointStruct acrossPointStruct2 = [self calucateCircleAndLineAcrossPoint_withCircle:dropView.circleMath withLine:line2];
+            
+            twoPointStruct.point1 = [LineMath calucateNearPointWithOriginPoint:originPoint point1:acrossPointStruct1.point1 point2:acrossPointStruct1.point2];
+            twoPointStruct.point2 = [LineMath calucateNearPointWithOriginPoint:originPoint point1:acrossPointStruct2.point1 point2:acrossPointStruct2.point2];
+            
+            PointMath *pointMath1 = [[PointMath alloc] initWithPoint:twoPointStruct.point1 inView:self];
+            pointMath1.radius = [NSNumber numberWithFloat:2.0f];
+            [_dropSuperView.assisArray addObject:pointMath1];
+            
+            PointMath *pointMath2 = [[PointMath alloc] initWithPoint:twoPointStruct.point2 inView:self];
+            pointMath2.radius = [NSNumber numberWithFloat:2.0f];
+            [_dropSuperView.assisArray addObject:pointMath2];
+            
+        }
+            break;
+            
+        case kLineHorizontal:
+        {
+            
+        }
+            break;
+            
+        case kLineVertical:
+        {
+            
         }
             break;
             
@@ -804,11 +874,9 @@
     }
     
     
-    [_dropSuperView.assisArray addObject:verLine];
     
-    return acrossPointStruct;
+    return twoPointStruct;
 }
-
 
 #pragma mark - 计算两圆有重叠时的交点
 /** 计算两圆有重叠时的交点

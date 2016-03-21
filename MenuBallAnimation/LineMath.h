@@ -42,6 +42,9 @@ typedef enum {
 //  计算两点间的距离
 + (CGFloat)calucateDistanceBetweenPoint1:(CGPoint)point1 withPoint2:(CGPoint)point2;
 
+//  计算任意两点和某一点距离更近的点
++ (CGPoint)calucateNearPointWithOriginPoint:(CGPoint)originPoint point1:(CGPoint)point1 point2:(CGPoint)point2;
+
 //  计算两条线的交点
 + (CGPoint)calucateAcrossPointBetweenLine1:(LineMath *)line1 withLine2:(LineMath *)line2;
 

@@ -79,6 +79,26 @@
     return distance;
 }
 
+//  计算任意两点和某一点距离更近的点
++ (CGPoint)calucateNearPointWithOriginPoint:(CGPoint)originPoint point1:(CGPoint)point1 point2:(CGPoint)point2
+{
+    
+    CGFloat pointDis1 = [LineMath calucateDistanceBetweenPoint1:originPoint withPoint2:point1];
+    CGFloat pointDis2 = [LineMath calucateDistanceBetweenPoint1:originPoint withPoint2:point2];
+    
+    if (pointDis1 < pointDis2) {
+        
+        return point1;
+    }else if(pointDis2 < pointDis1){
+        
+        return point2;
+    }else{
+        
+        NSLog(@"计算任意两点和某一点距离更近的点 方法发生错误");
+        return CGPointMake(0, 0);
+    }
+}
+
 //  计算两条线的交点
 + (CGPoint)calucateAcrossPointBetweenLine1:(LineMath *)line1 withLine2:(LineMath *)line2
 {

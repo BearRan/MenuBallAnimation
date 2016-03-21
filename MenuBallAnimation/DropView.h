@@ -11,12 +11,6 @@
 #import "CircleMath.h"
 #import "LineMath.h"
 
-//  角度转弧度
-#define degreesToRadian(x) (M_PI * x / 180.0)
-
-//  弧度转角度
-#define radiansToDegrees(x) (180.0 * x / M_PI)
-
 
 
 @interface TwoLineClass : NSObject
