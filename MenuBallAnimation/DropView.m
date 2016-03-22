@@ -767,7 +767,7 @@
     AcrossPointStruct acrossPointStruct = [self calucateCircleAndLineAcrossPoint_withCircle:dropView1.circleMath withLine:verLine];
     verLine.point1 = acrossPointStruct.point1;
     verLine.point2 = acrossPointStruct.point2;
-    [_dropSuperView.assisArray addObject:verLine];
+//    [_dropSuperView.assisArray addObject:verLine];
     
     switch (_relation) {
         case kSeparated_SmallToMain:
@@ -790,10 +790,13 @@
             
             //  在大圆上的两个辅助点
             TwoPointStruct mainSideAssisPointRight = [self calucateSideAssisBezierPointWithOriginPoint:verLine.point1 withDropView:dropView2 deltaDegree:nil];
-            dropView1.crossToLeftAssis_PointMain = mainSideAssisPointRight.point1;
+            
             
             TwoPointStruct mainSideAssisPointLeft = [self calucateSideAssisBezierPointWithOriginPoint:verLine.point2 withDropView:dropView2 deltaDegree:nil];
-            dropView1.crossToRightAssis_PointMain = mainSideAssisPointLeft.point2;
+            
+            
+            dropView1.crossToLeftAssis_PointMain = mainSideAssisPointLeft.point2;
+            dropView1.crossToRightAssis_PointMain = mainSideAssisPointRight.point1;
             
             
             //  矫正
@@ -806,16 +809,20 @@
                                               
                                           }
                                            quadrantThird:^{
-                                               dropView1.crossToRightAssis_PointS = sideAssisPointRight.point1;
-                                               dropView1.crossToLeftAssis_PointS = sideAssisPointLeft.point2;
-                                               dropView1.crossToRightAssis_PointMain = mainSideAssisPointRight.point2;
-                                               dropView1.crossToLeftAssis_PointMain = mainSideAssisPointLeft.point1;
+                                               dropView1.crossToRightAssis_Point = verLine.point2;
+                                               dropView1.crossToLeftAssis_Point = verLine.point1;
+                                               dropView1.crossToRightAssis_PointS = sideAssisPointLeft.point2;
+                                               dropView1.crossToLeftAssis_PointS = sideAssisPointRight.point1;
+                                               dropView1.crossToRightAssis_PointMain = mainSideAssisPointLeft.point1;
+                                               dropView1.crossToLeftAssis_PointMain = mainSideAssisPointRight.point2;
                                            }
                                           quadrantFourth:^{
-                                              dropView1.crossToRightAssis_PointS = sideAssisPointRight.point1;
-                                              dropView1.crossToLeftAssis_PointS = sideAssisPointLeft.point2;
-                                              dropView1.crossToRightAssis_PointMain = mainSideAssisPointRight.point2;
-                                              dropView1.crossToLeftAssis_PointMain = mainSideAssisPointLeft.point1;
+                                              dropView1.crossToRightAssis_Point = verLine.point2;
+                                              dropView1.crossToLeftAssis_Point = verLine.point1;
+                                              dropView1.crossToRightAssis_PointS = sideAssisPointLeft.point2;
+                                              dropView1.crossToLeftAssis_PointS = sideAssisPointRight.point1;
+                                              dropView1.crossToRightAssis_PointMain = mainSideAssisPointLeft.point1;
+                                              dropView1.crossToLeftAssis_PointMain = mainSideAssisPointRight.point2;
                                           }];
             
             
@@ -903,7 +910,7 @@
     }
     
     LineMath *lineMathOrigin = [[LineMath alloc] initWithPoint1:dropViewCenter point2:originPoint inView:self];
-    [_dropSuperView.assisArray addObject:lineMathOrigin];
+//    [_dropSuperView.assisArray addObject:lineMathOrigin];
     
     switch (lineMathOrigin.lineStatus) {
         case kLineNormal:
