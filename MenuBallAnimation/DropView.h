@@ -109,6 +109,9 @@ typedef enum {
 @property (assign, nonatomic) CGPoint           crossToLeftAssis_PointS;        //和左侧AssisDrop的交点2
 @property (assign, nonatomic) CGPoint           crossToLeftAssis_PointMain;     //左侧AssisDrop的交点2(在Main上)
 
+@property (assign, nonatomic) CGPoint           crossToCenterAssis_Point;       //中间AssisDrop的交点(在Small上,和大圆相离的状态专用)
+@property (assign, nonatomic) CGPoint           crossToCenterAssis_PointMain;   //中间AssisDrop的交点(在Main上,和大圆相离的状态专用)
+
 
 
 

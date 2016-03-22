@@ -57,7 +57,7 @@
     [self drawDropView2:_mainDrop];
 //    [self drawDrop1View:_mainDrop];
 //    [self drawDropView:_mainDrop];
-//    [self drawAssistantLine];
+    [self drawAssistantLine];
 }
 
 

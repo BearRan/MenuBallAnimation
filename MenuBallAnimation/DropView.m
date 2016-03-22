@@ -187,6 +187,15 @@
 //        NSLog(@"小圆和大圆相离");
         _relation = kSeparated_SmallToMain;
         
+        [self calucateCrossPointDropView1:_assisDrop1 dropView2:self setCondition:kSetNull];
+        [self calucateCrossPointDropView1:_assisDrop2 dropView2:self setCondition:kSetNull];
+        [self calucateCrossPointDropView1:_assisDrop3 dropView2:self setCondition:kSetNull];
+        [self calucateCrossPointDropView1:_assisDrop4 dropView2:self setCondition:kSetNull];
+        
+//        [self calucateCrossPointDropView1:_assisDrop4 dropView2:_assisDrop3 setCondition:kSetLeftPoint];
+//        [self calucateCrossPointDropView1:_assisDrop3 dropView2:_assisDrop2 setCondition:kSetLeftPoint];
+//        [self calucateCrossPointDropView1:_assisDrop2 dropView2:_assisDrop1 setCondition:kSetLeftPoint];
+//        [self calucateCrossPointDropView1:_assisDrop1 dropView2:_assisDrop4 setCondition:kSetLeftPoint];
     }
     //小圆和大圆相交
     else if (dis_SmallToMain < radius_SmallAddMain && dis_SmallToSmall > radius_SmallAddSmall){
@@ -708,71 +717,127 @@
     verLine.InView = self;
     
     LineMath *lineCenter2Center = [[LineMath alloc] initWithPoint1:center1 point2:center2 inView:self];
-//    [_dropSuperView.assisArray addObject:lineCenter2Center];
+    //    [_dropSuperView.assisArray addObject:lineCenter2Center];
     
-    switch (lineCenter2Center.lineStatus) {
-        case kLineNormal:
-        {
-            CGFloat angle = atan(lineCenter2Center.k);
-            
-            //  x_o角度修正
-            [DropView eventInDiffQuadrantWithCenterPoint:center1
-                                           withParaPoint:center2
-                                           quadrantFirst:^{
-                                               x_o = r1 - cos(angle) * x2;
-                                           }
-                                          quadrantSecond:^{
-                                              x_o = r1 + cos(angle) * x2;
-                                          }
-                                           quadrantThird:^{
-                                               x_o = r1 + cos(angle) * x2;
-                                           }
-                                          quadrantFourth:^{
-                                              x_o = r1 - cos(angle) * x2;
-                                          }];
-            
-            y_o = lineCenter2Center.k * x_o + lineCenter2Center.b;
-            
-            //  Center2Centerde的垂线 VerticalLine
-            angle += M_PI/2;
-            if (angle > M_PI/2) {
-                angle -= M_PI;
-            }else if (angle < - M_PI/2){
-                angle += M_PI;
+    if (_relation != kSeparated_SmallToMain) {
+        
+        switch (lineCenter2Center.lineStatus) {
+            case kLineNormal:
+            {
+                CGFloat angle = atan(lineCenter2Center.k);
+                
+                //  x_o角度修正
+                [DropView eventInDiffQuadrantWithCenterPoint:center1
+                                               withParaPoint:center2
+                                               quadrantFirst:^{
+                                                   x_o = r1 - cos(angle) * x2;
+                                               }
+                                              quadrantSecond:^{
+                                                  x_o = r1 + cos(angle) * x2;
+                                              }
+                                               quadrantThird:^{
+                                                   x_o = r1 + cos(angle) * x2;
+                                               }
+                                              quadrantFourth:^{
+                                                  x_o = r1 - cos(angle) * x2;
+                                              }];
+                
+                y_o = lineCenter2Center.k * x_o + lineCenter2Center.b;
+                
+                //  Center2Centerde的垂线 VerticalLine
+                angle += M_PI/2;
+                if (angle > M_PI/2) {
+                    angle -= M_PI;
+                }else if (angle < - M_PI/2){
+                    angle += M_PI;
+                }
+                
+                verLine.k = tan(angle);
+                verLine.b = y_o - verLine.k * x_o;
             }
-            
-            verLine.k = tan(angle);
-            verLine.b = y_o - verLine.k * x_o;
+                break;
+                
+            case kLineHorizontal:
+            {
+                verLine.lineStatus = kLineVertical;
+            }
+                break;
+                
+            case kLineVertical:
+            {
+                verLine.lineStatus = kLineHorizontal;
+            }
+                break;
+                
+            default:
+                break;
         }
-            break;
-            
-        case kLineHorizontal:
-        {
-            verLine.lineStatus = kLineVertical;
-        }
-            break;
-            
-        case kLineVertical:
-        {
-            verLine.lineStatus = kLineHorizontal;
-        }
-            break;
-            
-        default:
-            break;
     }
     
-    
-    
+    //  垂直平分线的两点
     AcrossPointStruct acrossPointStruct = [self calucateCircleAndLineAcrossPoint_withCircle:dropView1.circleMath withLine:verLine];
     verLine.point1 = acrossPointStruct.point1;
     verLine.point2 = acrossPointStruct.point2;
-//    [_dropSuperView.assisArray addObject:verLine];
     
     switch (_relation) {
         case kSeparated_SmallToMain:
         {
-        
+            [_dropSuperView.assisArray addObject:lineCenter2Center];
+            
+            
+            
+            //  小圆和lineCenter2Center的交点
+            AcrossPointStruct small_AcrossPointSrtuct = [self calucateCircleAndLineAcrossPoint_withCircle:dropView1.circleMath withLine:lineCenter2Center];
+            dropView1.crossToCenterAssis_Point = [LineMath calucatePointWithOriginPoint:_mainCenter point1:small_AcrossPointSrtuct.point1 point2:small_AcrossPointSrtuct.point2 condition:kNear];
+            
+            //  绘制辅助点，小圆上的
+            PointMath *pointMath1 = [[PointMath alloc] initWithPoint:dropView1.crossToCenterAssis_Point inView:self];
+            pointMath1.radius = [NSNumber numberWithFloat:4.0f];
+            [_dropSuperView.assisArray addObject:pointMath1];
+            
+            
+            
+            //  大圆和lineCenter2Center的交点
+            AcrossPointStruct main_AcrossPointStruct = [self calucateCircleAndLineAcrossPoint_withCircle:dropView2.circleMath withLine:lineCenter2Center];
+            dropView1.crossToCenterAssis_PointMain = [LineMath calucatePointWithOriginPoint:center1 point1:main_AcrossPointStruct.point1 point2:main_AcrossPointStruct.point2 condition:kNear];
+            
+            //  绘制辅助点，大圆上
+            PointMath *pointMath2 = [[PointMath alloc] initWithPoint:dropView1.crossToCenterAssis_PointMain inView:self];
+            pointMath2.radius = [NSNumber numberWithFloat:4.0f];
+            [_dropSuperView.assisArray addObject:pointMath2];
+            
+            
+            
+            //  在小圆上的两个辅助点
+            TwoPointStruct small_SideAssisPoint = [self calucateSideAssisBezierPointWithOriginPoint:dropView1.crossToCenterAssis_Point withDropView:dropView1 deltaDegree:[NSNumber numberWithFloat:30]];
+            dropView1.crossToLeftAssis_Point = small_SideAssisPoint.point1;
+            dropView1.crossToRightAssis_Point = small_SideAssisPoint.point2;
+
+            //  绘制辅助点，小圆上的
+            PointMath *pointMath3= [[PointMath alloc] initWithPoint:dropView1.crossToLeftAssis_Point inView:self];
+            pointMath3.radius = [NSNumber numberWithFloat:2.0f];
+            [_dropSuperView.assisArray addObject:pointMath3];
+
+            PointMath *pointMath4 = [[PointMath alloc] initWithPoint:dropView1.crossToRightAssis_Point inView:self];
+            pointMath4.radius = [NSNumber numberWithFloat:2.0f];
+            [_dropSuperView.assisArray addObject:pointMath4];
+            
+            
+          
+            //  在大圆上的两个辅助点
+            TwoPointStruct main_SideAssisPoint = [self calucateSideAssisBezierPointWithOriginPoint:dropView1.crossToCenterAssis_PointMain withDropView:dropView2 deltaDegree:[NSNumber numberWithFloat:30]];
+            dropView1.crossToLeftAssis_PointMain = main_SideAssisPoint.point2;
+            dropView1.crossToRightAssis_PointMain = main_SideAssisPoint.point1;
+            
+            //  绘制辅助点，大圆上的
+            PointMath *pointMath5= [[PointMath alloc] initWithPoint:dropView1.crossToLeftAssis_PointMain inView:self];
+            pointMath5.radius = [NSNumber numberWithFloat:2.0f];
+            [_dropSuperView.assisArray addObject:pointMath5];
+
+            PointMath *pointMath6 = [[PointMath alloc] initWithPoint:dropView1.crossToRightAssis_PointMain inView:self];
+            pointMath6.radius = [NSNumber numberWithFloat:2.0f];
+            [_dropSuperView.assisArray addObject:pointMath6];
+            
         }
             break;
             
