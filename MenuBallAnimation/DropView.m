@@ -809,7 +809,7 @@
             
             
             //  在小圆上的两个辅助点
-            TwoPointStruct small_SideAssisPoint = [self calucateSideAssisBezierPointWithOriginPoint:dropView1.crossToCenterAssis_Point withDropView:dropView1 deltaDegree:[NSNumber numberWithFloat:30]];
+            TwoPointStruct small_SideAssisPoint = [self calucateSideAssisBezierPointWithOriginPoint:dropView1.crossToCenterAssis_Point withDropView:dropView1 deltaDegree:[NSNumber numberWithFloat:60]];
             dropView1.crossToLeftAssis_Point = small_SideAssisPoint.point1;
             dropView1.crossToRightAssis_Point = small_SideAssisPoint.point2;
 
@@ -1309,9 +1309,11 @@
  *  point1,point2   两源点
  *  ratio           距两个端点距离占线段总长度的比例
  *  twoPointStruct  最终返回的两点的结构体
- *  注：ratio小于0.5的情况下，
- *      twoPointStruct.point1靠近point1
- *      twoPointStruct.point2靠近point2
+ *  注：
+ *      ratio小于0的情况下，twoPointStruct.point1在中点和point2之间
+ *      ratio等于0的情况下，twoPointStruct.point1为中点
+ *      ratio等于1的情况下，twoPointStruct.point1为point1
+ *      ratio大于1的情况下，twoPointStruct.point1为超过point1的点
  *      反之亦然
  */
 + (TwoPointStruct)PointBetweenPoint1:(CGPoint)point1 point2:(CGPoint)point2 ToPointRatio:(CGFloat)ratio

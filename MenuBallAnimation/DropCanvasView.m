@@ -77,13 +77,13 @@
                 
                 CALayer *assisDrop_PreLayer = assisDrop_now.layer.presentationLayer;
                 CGPoint assisDropNow_center = [dropView convertPoint:assisDrop_PreLayer.position toView:self];
-                
                 CGPoint mainDrop_center = [dropView convertPoint:dropView.circleMath.centerPoint toView:self];
                 
                 CGPoint assisDropNow_CenterAssisPoint = [dropView convertPoint:assisDrop_now.crossToCenterAssis_Point toView:self];
                 CGPoint assisDropMain_CenterAssisPoint = [dropView convertPoint:assisDrop_now.crossToCenterAssis_PointMain toView:self];
                 
                 CGPoint assisDropNow_LeftAssisPoint = [dropView convertPoint:assisDrop_now.crossToLeftAssis_Point toView:self];
+                CGPoint assisDropNow_RightAssisPoint = [dropView convertPoint:assisDrop_now.crossToRightAssis_Point toView:self];
                 CGPoint assisDropNow_LeftAssisPointMain = [dropView convertPoint:assisDrop_now.crossToLeftAssis_PointMain toView:self];
                 CGPoint assisDropNow_RightAssisPointMain = [dropView convertPoint:assisDrop_now.crossToRightAssis_PointMain toView:self];
                 
@@ -92,26 +92,60 @@
                 CGFloat radius_start = [DropView ConvertPointToRadiusInDropView:assisDrop_now point:assisDrop_now.crossToLeftAssis_Point canvansView:self];
                 CGFloat radius_end = [DropView ConvertPointToRadiusInDropView:assisDrop_now point:assisDrop_now.crossToRightAssis_Point canvansView:self];
                 
-                if ([assisDrop_now isEqual:[smallDropViewArray firstObject]]) {
-                    [dropView.bezierPath moveToPoint:assisDropNow_LeftAssisPointMain];
+                CGFloat centerDistace = [LineMath calucateDistanceBetweenPoint1:mainDrop_center withPoint2:assisDropNow_center];
+                
+                CGFloat normalThreshold = 170;
+                CGFloat reduceThreshold = 120;
+                
+                //  开始减小
+                if (centerDistace > reduceThreshold && centerDistace < normalThreshold) {
+//                    NSLog(@"centerDistace:%f", centerDistace);
+                    
+                    CGFloat deltaValue  = normalThreshold - reduceThreshold;
+                    CGFloat deltaNow    = centerDistace - reduceThreshold;
+                    CGFloat ratio       = deltaNow / deltaValue;
+                    NSLog(@"ratio:%f", ratio);
+                    
+                    //  计算比赛尔曲线的终点
+                    TwoPointStruct assisDropFinal_PointStruct = [DropView PointBetweenPoint1:assisDropNow_CenterAssisPoint point2:assisDropMain_CenterAssisPoint ToPointRatio:ratio];
+                    
+                    PointMath *pointMath1 = [[PointMath alloc] initWithPoint:assisDropFinal_PointStruct.point1 inView:self];
+                    [_assisArray addObject:pointMath1];
+                    
+                    PointMath *pointMath2 = [[PointMath alloc] initWithPoint:assisDropFinal_PointStruct.point2 inView:self];
+                    [_assisArray addObject:pointMath2];
+                    
+                    
+                    //  计算贝塞尔曲线控制点(小圆上)
+                    CGPoint dropNowAssisCenterPoint = [LineMath calucateCenterPointBetweenPoint1:assisDropNow_LeftAssisPoint withPoint2:assisDropNow_RightAssisPoint];
+                    TwoPointStruct assisControl_PointStructDropNow = [DropView PointBetweenPoint1:dropNowAssisCenterPoint point2:assisDropFinal_PointStruct.point1 ToPointRatio:0.7];
+                    
+                    
                 }
                 
-                //  大圆到小圆
-                CGPoint centerPoint = [LineMath calucateCenterPointBetweenPoint1:assisDropNow_CenterAssisPoint withPoint2:assisDropMain_CenterAssisPoint];
-                [dropView.bezierPath addQuadCurveToPoint:assisDropNow_LeftAssisPoint controlPoint:centerPoint];
-                
-                //  绘制小圆半圆弧
-                [dropView.bezierPath addArcWithCenter:assisDropNow_center radius:assisDrop_now.circleMath.radius startAngle:radius_start endAngle:radius_end clockwise:YES];
-                
-                //  小圆到大圆贝塞尔曲线
-                [dropView.bezierPath addQuadCurveToPoint:assisDropNow_RightAssisPointMain controlPoint:centerPoint];
-                
-                //  大圆半圆弧
-                CGFloat radius_startMain = [DropView ConvertPointToRadiusInDropView:dropView point:assisDropNow_RightAssisPointMain canvansView:self];
-                CGFloat radius_endMain = [DropView ConvertPointToRadiusInDropView:dropView point:assisDropLater_LeftAssisPointMain canvansView:self];
-                
-                //  绘制大圆半圆弧
-                [dropView.bezierPath addArcWithCenter:mainDrop_center radius:dropView.circleMath.radius startAngle:radius_startMain endAngle:radius_endMain clockwise:YES];
+                //  粘滞状态
+                else{
+                    if ([assisDrop_now isEqual:[smallDropViewArray firstObject]]) {
+                        [dropView.bezierPath moveToPoint:assisDropNow_LeftAssisPointMain];
+                    }
+                    
+                    //  大圆到小圆
+                    CGPoint centerPoint = [LineMath calucateCenterPointBetweenPoint1:assisDropNow_CenterAssisPoint withPoint2:assisDropMain_CenterAssisPoint];
+                    [dropView.bezierPath addQuadCurveToPoint:assisDropNow_LeftAssisPoint controlPoint:centerPoint];
+                    
+                    //  绘制小圆半圆弧
+                    [dropView.bezierPath addArcWithCenter:assisDropNow_center radius:assisDrop_now.circleMath.radius startAngle:radius_start endAngle:radius_end clockwise:YES];
+                    
+                    //  小圆到大圆贝塞尔曲线
+                    [dropView.bezierPath addQuadCurveToPoint:assisDropNow_RightAssisPointMain controlPoint:centerPoint];
+                    
+                    //  大圆半圆弧
+                    CGFloat radius_startMain = [DropView ConvertPointToRadiusInDropView:dropView point:assisDropNow_RightAssisPointMain canvansView:self];
+                    CGFloat radius_endMain = [DropView ConvertPointToRadiusInDropView:dropView point:assisDropLater_LeftAssisPointMain canvansView:self];
+                    
+                    //  绘制大圆半圆弧
+                    [dropView.bezierPath addArcWithCenter:mainDrop_center radius:dropView.circleMath.radius startAngle:radius_startMain endAngle:radius_endMain clockwise:YES];
+                }
             }
         }
             break;
