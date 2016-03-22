@@ -69,13 +69,54 @@
     switch (dropView.relation) {
         case kSeparated_SmallToMain:
         {
-        
+            NSArray *smallDropViewArray = [[NSArray alloc] initWithObjects:dropView.assisDrop1, dropView.assisDrop2, dropView.assisDrop3, dropView.assisDrop4, nil];
+            for (int i = 0; i < [smallDropViewArray count]; i++) {
+                
+                DropView *assisDrop_now = (DropView *)smallDropViewArray[i];
+                DropView *assisDrop_later = (i+1) >= [smallDropViewArray count] ? (DropView *)smallDropViewArray[0] : (DropView *)smallDropViewArray[i+1];
+                
+                CALayer *assisDrop_PreLayer = assisDrop_now.layer.presentationLayer;
+                CGPoint assisDropNow_center = [dropView convertPoint:assisDrop_PreLayer.position toView:self];
+                
+                CGPoint mainDrop_center = [dropView convertPoint:dropView.circleMath.centerPoint toView:self];
+                
+                CGPoint assisDropNow_CenterAssisPoint = [dropView convertPoint:assisDrop_now.crossToCenterAssis_Point toView:self];
+                CGPoint assisDropMain_CenterAssisPoint = [dropView convertPoint:assisDrop_now.crossToCenterAssis_PointMain toView:self];
+                
+                CGPoint assisDropNow_LeftAssisPoint = [dropView convertPoint:assisDrop_now.crossToLeftAssis_Point toView:self];
+                CGPoint assisDropNow_LeftAssisPointMain = [dropView convertPoint:assisDrop_now.crossToLeftAssis_PointMain toView:self];
+                CGPoint assisDropNow_RightAssisPointMain = [dropView convertPoint:assisDrop_now.crossToRightAssis_PointMain toView:self];
+                
+                CGPoint assisDropLater_LeftAssisPointMain = [dropView convertPoint:assisDrop_later.crossToLeftAssis_PointMain toView:self];
+                
+                CGFloat radius_start = [DropView ConvertPointToRadiusInDropView:assisDrop_now point:assisDrop_now.crossToLeftAssis_Point canvansView:self];
+                CGFloat radius_end = [DropView ConvertPointToRadiusInDropView:assisDrop_now point:assisDrop_now.crossToRightAssis_Point canvansView:self];
+                
+                
+                [dropView.bezierPath moveToPoint:assisDropNow_LeftAssisPointMain];
+                
+                //  大圆到小圆
+                CGPoint centerPoint = [LineMath calucateCenterPointBetweenPoint1:assisDropNow_CenterAssisPoint withPoint2:assisDropMain_CenterAssisPoint];
+                [dropView.bezierPath addQuadCurveToPoint:assisDropNow_LeftAssisPoint controlPoint:centerPoint];
+                
+                //  绘制小圆半圆弧
+                [dropView.bezierPath addArcWithCenter:assisDropNow_center radius:assisDrop_now.circleMath.radius startAngle:radius_start endAngle:radius_end clockwise:YES];
+                
+                //  小圆到大圆贝塞尔曲线
+                [dropView.bezierPath addQuadCurveToPoint:assisDropNow_RightAssisPointMain controlPoint:centerPoint];
+                
+                //  大圆半圆弧
+                CGFloat radius_startMain = [DropView ConvertPointToRadiusInDropView:dropView point:assisDropNow_RightAssisPointMain canvansView:self];
+                CGFloat radius_endMain = [DropView ConvertPointToRadiusInDropView:dropView point:assisDropLater_LeftAssisPointMain canvansView:self];
+                
+                //  绘制大圆半圆弧
+                [dropView.bezierPath addArcWithCenter:mainDrop_center radius:dropView.circleMath.radius startAngle:radius_startMain endAngle:radius_endMain clockwise:YES];
+            }
         }
             break;
             
         case kCross_SmallToMain:
         {
-//            NSArray *smallDropViewArray = [[NSArray alloc] initWithObjects:dropView.assisDrop2, dropView.assisDrop3, nil];
             NSArray *smallDropViewArray = [[NSArray alloc] initWithObjects:dropView.assisDrop1, dropView.assisDrop2, dropView.assisDrop3, dropView.assisDrop4, nil];
             for (int i = 0; i < [smallDropViewArray count]; i++) {
                 
