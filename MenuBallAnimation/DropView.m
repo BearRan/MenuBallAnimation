@@ -865,7 +865,7 @@
             [_dropSuperView.assisArray addObject:pointMath1];
             
             //  圆与圆交点两侧的辅助点
-            TwoPointStruct sideAssisPoint = [self calucateSideAssisBezierPointWithOriginPoint:outerPoint withDropView:dropView1 deltaDegree:nil];
+            TwoPointStruct sideAssisPoint = [self calucateSideAssisBezierPointWithOriginPoint:outerPoint withDropView:dropView1 deltaDegree:[NSNumber numberWithFloat:15]];
             
             if (setCondition == kSetRightPoint) {
                 dropView1.crossToRightAssis_Point = outerPoint;
@@ -896,7 +896,7 @@
 //  计算DropView上某点附近的点，用于平滑贝塞尔曲线
 - (TwoPointStruct)calucateSideAssisBezierPointWithOriginPoint:(CGPoint)originPoint withDropView:(DropView *)dropView deltaDegree:(NSNumber *)deltaDegree
 {
-    CGFloat deltaDegrees = 15;
+    CGFloat deltaDegrees = 60;
     if (deltaDegree) {
         deltaDegrees = [deltaDegree floatValue];
     }

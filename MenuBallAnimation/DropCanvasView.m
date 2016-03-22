@@ -57,7 +57,7 @@
     [self drawDropView2:_mainDrop];
 //    [self drawDrop1View:_mainDrop];
 //    [self drawDropView:_mainDrop];
-    [self drawAssistantLine];
+//    [self drawAssistantLine];
 }
 
 
@@ -104,27 +104,35 @@
                 CGFloat dis_nowAssisPointToLaterAssisMain = [LineMath calucateDistanceBetweenPoint1:assisDropNow_RightAssisPoint withPoint2:assisDropLater_LeftAssisPointMain];
                 CGFloat dis_nowAssisMainToLaterAssisMain = [LineMath calucateDistanceBetweenPoint1:assisDropNow_RightAssisPointMain withPoint2:assisDropLater_LeftAssisPointMain];
                 
-                if (dis_nowAssisPointToLaterAssisMain > dis_nowAssisMainToLaterAssisMain) {
-                    NSLog(@"交点分开");
-                    
+                //  绘制半圆弧
+                [dropView.bezierPath addArcWithCenter:assisDropNow_center radius:assisDrop_now.circleMath.radius startAngle:radius_start endAngle:radius_end clockwise:YES];
+                
+                CGPoint centerPoint1 = [LineMath calucateCenterPointBetweenPoint1:assisDropNow_RightAssisPoint withPoint2:assisDropLater_LeftAssisPoint];
+                CGPoint centerPoint2 = [LineMath calucateCenterPointBetweenPoint1:assisDropNow_RightAssisPointS withPoint2:assisDropLater_LeftAssisPointS];
+                CGPoint centerPoint = [LineMath calucateCenterPointBetweenPoint1:centerPoint1 withPoint2:centerPoint2];
+                
+                [dropView.bezierPath addQuadCurveToPoint:assisDropLater_LeftAssisPointS controlPoint:centerPoint];
+                
+//                if (dis_nowAssisPointToLaterAssisMain > dis_nowAssisMainToLaterAssisMain) {
+//                    NSLog(@"交点分开");
+//                    
 //                    //  绘制半圆弧
 //                    [dropView.bezierPath addArcWithCenter:assisDropNow_center radius:assisDrop_now.circleMath.radius startAngle:radius_start endAngle:radius_end clockwise:YES];
 //                    
 //                    [dropView.bezierPath addCurveToPoint:assisDropLater_LeftAssisPointS controlPoint1:assisDropNow_RightAssisPointMain controlPoint2:assisDropLater_LeftAssisPointMain];
-                    
-                }else{
-                    NSLog(@"交点相错");
-                    
-                    //  绘制半圆弧
-                    [dropView.bezierPath addArcWithCenter:assisDropNow_center radius:assisDrop_now.circleMath.radius startAngle:radius_start endAngle:radius_end clockwise:YES];
-
-                    CGPoint centerPoint = [LineMath calucateCenterPointBetweenPoint1:assisDropNow_RightAssisPoint withPoint2:assisDropLater_LeftAssisPoint];
-//                    PointMath *centerPointMath = [[PointMath alloc] initWithPoint:centerPoint inView:self];
-//                    centerPointMath.radius = [NSNumber numberWithFloat:2.0f];
-//                    [_assisArray addObject:centerPointMath];
-                    
-                    [dropView.bezierPath addQuadCurveToPoint:assisDropLater_LeftAssisPointS controlPoint:centerPoint];
-                }
+//                    
+//                }else{
+//                    NSLog(@"交点相错");
+//                    
+//                    //  绘制半圆弧
+//                    [dropView.bezierPath addArcWithCenter:assisDropNow_center radius:assisDrop_now.circleMath.radius startAngle:radius_start endAngle:radius_end clockwise:YES];
+//
+//                    CGPoint centerPoint1 = [LineMath calucateCenterPointBetweenPoint1:assisDropNow_RightAssisPoint withPoint2:assisDropLater_LeftAssisPoint];
+//                    CGPoint centerPoint2 = [LineMath calucateCenterPointBetweenPoint1:assisDropNow_RightAssisPointS withPoint2:assisDropLater_LeftAssisPointS];
+//                    CGPoint centerPoint = [LineMath calucateCenterPointBetweenPoint1:centerPoint1 withPoint2:centerPoint2];
+//                    
+//                    [dropView.bezierPath addQuadCurveToPoint:assisDropLater_LeftAssisPointS controlPoint:centerPoint];
+//                }
                 
                 
 //                PointMath *centerPointMath = [[PointMath alloc] initWithPoint:assisDropNow_RightAssisPoint inView:self];
