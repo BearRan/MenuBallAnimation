@@ -92,8 +92,9 @@
                 CGFloat radius_start = [DropView ConvertPointToRadiusInDropView:assisDrop_now point:assisDrop_now.crossToLeftAssis_Point canvansView:self];
                 CGFloat radius_end = [DropView ConvertPointToRadiusInDropView:assisDrop_now point:assisDrop_now.crossToRightAssis_Point canvansView:self];
                 
-                
-                [dropView.bezierPath moveToPoint:assisDropNow_LeftAssisPointMain];
+                if ([assisDrop_now isEqual:[smallDropViewArray firstObject]]) {
+                    [dropView.bezierPath moveToPoint:assisDropNow_LeftAssisPointMain];
+                }
                 
                 //  大圆到小圆
                 CGPoint centerPoint = [LineMath calucateCenterPointBetweenPoint1:assisDropNow_CenterAssisPoint withPoint2:assisDropMain_CenterAssisPoint];
