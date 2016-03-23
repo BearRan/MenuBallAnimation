@@ -65,6 +65,7 @@
 {
     [dropView.bezierPath removeAllPoints];
     dropView.bezierPath.lineCapStyle = kCGLineCapRound;
+    dropView.bezierPath.lineJoinStyle = kCGLineJoinRound;
     
     switch (dropView.relation) {
         case kSeparated_SmallToMain:
@@ -185,9 +186,10 @@
             
         case kCross_SmallToMain:
         {
+            NSLog(@"kCross_SmallToMain-0");
             NSArray *smallDropViewArray = [[NSArray alloc] initWithObjects:dropView.assisDrop1, dropView.assisDrop2, dropView.assisDrop3, dropView.assisDrop4, nil];
             for (int i = 0; i < [smallDropViewArray count]; i++) {
-                
+                NSLog(@"kCross_SmallToMain-1");
                 DropView *assisDrop_now = (DropView *)smallDropViewArray[i];
                 DropView *assisDrop_later = (i+1) >= [smallDropViewArray count] ? (DropView *)smallDropViewArray[0] : (DropView *)smallDropViewArray[i+1];
                 
@@ -208,10 +210,7 @@
                 
                 PointMath *centerPointMath = [[PointMath alloc] initWithPoint:assisDrop_now.crossToLeftAssis_PointS inView:dropView];
                 [_assisArray addObject:centerPointMath];
-                
-                
-                CGFloat dis_nowAssisPointToLaterAssisMain = [LineMath calucateDistanceBetweenPoint1:assisDropNow_RightAssisPoint withPoint2:assisDropLater_LeftAssisPointMain];
-                CGFloat dis_nowAssisMainToLaterAssisMain = [LineMath calucateDistanceBetweenPoint1:assisDropNow_RightAssisPointMain withPoint2:assisDropLater_LeftAssisPointMain];
+
                 
                 //  绘制半圆弧
                 [dropView.bezierPath addArcWithCenter:assisDropNow_center radius:assisDrop_now.circleMath.radius startAngle:radius_start endAngle:radius_end clockwise:YES];
@@ -221,47 +220,6 @@
                 CGPoint centerPoint = [LineMath calucateCenterPointBetweenPoint1:centerPoint1 withPoint2:centerPoint2];
                 
                 [dropView.bezierPath addQuadCurveToPoint:assisDropLater_LeftAssisPointS controlPoint:centerPoint];
-                
-//                if (dis_nowAssisPointToLaterAssisMain > dis_nowAssisMainToLaterAssisMain) {
-//                    NSLog(@"交点分开");
-//                    
-//                    //  绘制半圆弧
-//                    [dropView.bezierPath addArcWithCenter:assisDropNow_center radius:assisDrop_now.circleMath.radius startAngle:radius_start endAngle:radius_end clockwise:YES];
-//                    
-//                    [dropView.bezierPath addCurveToPoint:assisDropLater_LeftAssisPointS controlPoint1:assisDropNow_RightAssisPointMain controlPoint2:assisDropLater_LeftAssisPointMain];
-//                    
-//                }else{
-//                    NSLog(@"交点相错");
-//                    
-//                    //  绘制半圆弧
-//                    [dropView.bezierPath addArcWithCenter:assisDropNow_center radius:assisDrop_now.circleMath.radius startAngle:radius_start endAngle:radius_end clockwise:YES];
-//
-//                    CGPoint centerPoint1 = [LineMath calucateCenterPointBetweenPoint1:assisDropNow_RightAssisPoint withPoint2:assisDropLater_LeftAssisPoint];
-//                    CGPoint centerPoint2 = [LineMath calucateCenterPointBetweenPoint1:assisDropNow_RightAssisPointS withPoint2:assisDropLater_LeftAssisPointS];
-//                    CGPoint centerPoint = [LineMath calucateCenterPointBetweenPoint1:centerPoint1 withPoint2:centerPoint2];
-//                    
-//                    [dropView.bezierPath addQuadCurveToPoint:assisDropLater_LeftAssisPointS controlPoint:centerPoint];
-//                }
-                
-                
-//                PointMath *centerPointMath = [[PointMath alloc] initWithPoint:assisDropNow_RightAssisPoint inView:self];
-//                [_assisArray addObject:centerPointMath];
-                
-//                PointMath *centerPointMath1 = [[PointMath alloc] initWithPoint:assisDropLater_LeftAssisPointMain inView:self];
-//                centerPointMath1.radius = [NSNumber numberWithFloat:3.0f];
-//                [_assisArray addObject:centerPointMath1];
-//
-//                LineMath *lineMath1 = [[LineMath alloc] initWithPoint1:assisDropNow_RightAssisPoint point2:assisDropLater_LeftAssisPoint inView:self];
-//                [_assisArray addObject:lineMath1];
-                
-//                PointMath *centerPointMath = [[PointMath alloc] initWithPoint:assisDropNow_center inView:self];
-//                [_assisArray addObject:centerPointMath];
-//                
-//                //  绘制半圆弧
-//                [dropView.bezierPath addArcWithCenter:assisDropNow_center radius:assisDrop_now.circleMath.radius startAngle:radius_start endAngle:radius_end clockwise:YES];
-//                
-//                //  和下一个相连
-//                [dropView.bezierPath addQuadCurveToPoint:assisDropLater_LeftAssisPointS controlPoint:assisDropLater_LeftAssisPoint];
             }
         }
             break;

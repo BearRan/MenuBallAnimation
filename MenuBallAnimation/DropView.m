@@ -182,9 +182,11 @@
     CGFloat dis_SmallToMain = [LineMath calucateDistanceBetweenPoint1:assisDrop1_PreLayer.position withPoint2:centerPoint];
     CGFloat dis_SmallToSmall = [LineMath calucateDistanceBetweenPoint1:assisDrop1_PreLayer.position withPoint2:assisDrop2_PreLayer.position];
     
+    CGFloat faultTolerantValue = 2.0f;
+    
     //小圆和大圆相离
-    if (dis_SmallToMain > radius_SmallAddMain) {
-//        NSLog(@"小圆和大圆相离");
+    if (dis_SmallToMain + faultTolerantValue >= radius_SmallAddMain) {
+        NSLog(@"小圆和大圆相离");
         _relation = kSeparated_SmallToMain;
         
         [self calucateCrossPointDropView1:_assisDrop1 dropView2:self setCondition:kSetNull];
@@ -192,16 +194,11 @@
         [self calucateCrossPointDropView1:_assisDrop3 dropView2:self setCondition:kSetNull];
         [self calucateCrossPointDropView1:_assisDrop4 dropView2:self setCondition:kSetNull];
         
-//        [self calucateCrossPointDropView1:_assisDrop4 dropView2:_assisDrop3 setCondition:kSetLeftPoint];
-//        [self calucateCrossPointDropView1:_assisDrop3 dropView2:_assisDrop2 setCondition:kSetLeftPoint];
-//        [self calucateCrossPointDropView1:_assisDrop2 dropView2:_assisDrop1 setCondition:kSetLeftPoint];
-//        [self calucateCrossPointDropView1:_assisDrop1 dropView2:_assisDrop4 setCondition:kSetLeftPoint];
     }
     //小圆和大圆相交
-    else if (dis_SmallToMain < radius_SmallAddMain && dis_SmallToSmall > radius_SmallAddSmall){
-//        NSLog(@"小圆和大圆相交");
+    else if (dis_SmallToMain + faultTolerantValue < radius_SmallAddMain && dis_SmallToSmall + faultTolerantValue >= radius_SmallAddSmall){
+        NSLog(@"小圆和大圆相交");
         _relation = kCross_SmallToMain;
-        
         
         [self calucateCrossPointDropView1:_assisDrop1 dropView2:self setCondition:kSetNull];
         [self calucateCrossPointDropView1:_assisDrop2 dropView2:self setCondition:kSetNull];
@@ -210,8 +207,8 @@
         
     }
     //小圆和小圆相交
-    else if (dis_SmallToMain < radius_SmallAddMain && dis_SmallToSmall < radius_SmallAddSmall){
-//        NSLog(@"小圆和小圆相交");
+    else if (dis_SmallToMain < radius_SmallAddMain && dis_SmallToSmall + faultTolerantValue < radius_SmallAddSmall){
+        NSLog(@"小圆和小圆相交");
         _relation = kCross_SmallToSmall;
         
         [self calucateCrossPointDropView1:_assisDrop1 dropView2:_assisDrop2 setCondition:kSetRightPoint];
@@ -223,6 +220,8 @@
         [self calucateCrossPointDropView1:_assisDrop3 dropView2:_assisDrop2 setCondition:kSetLeftPoint];
         [self calucateCrossPointDropView1:_assisDrop2 dropView2:_assisDrop1 setCondition:kSetLeftPoint];
         [self calucateCrossPointDropView1:_assisDrop1 dropView2:_assisDrop4 setCondition:kSetLeftPoint];
+    }else{
+        NSLog(@"都不是");
     }
     
     [_dropSuperView setNeedsDisplay];
