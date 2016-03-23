@@ -856,21 +856,24 @@
             
         case kCross_SmallToMain:
         {
+            NSNumber *assisRadius_Small = [NSNumber numberWithFloat:20.0f];
+            NSNumber *assisRadius_Main = [NSNumber numberWithFloat:30.0f];
+            
             //  在小圆上的两个辅助点
-            TwoPointStruct sideAssisPointRight = [self calucateSideAssisBezierPointWithOriginPoint:verLine.point1 withDropView:dropView1 deltaDegree:nil];
+            TwoPointStruct sideAssisPointRight = [self calucateSideAssisBezierPointWithOriginPoint:verLine.point1 withDropView:dropView1 deltaDegree:assisRadius_Small];
             dropView1.crossToRightAssis_Point = verLine.point1;
             dropView1.crossToRightAssis_PointS = sideAssisPointRight.point2;
             
-            TwoPointStruct sideAssisPointLeft = [self calucateSideAssisBezierPointWithOriginPoint:verLine.point2 withDropView:dropView1 deltaDegree:nil];
+            TwoPointStruct sideAssisPointLeft = [self calucateSideAssisBezierPointWithOriginPoint:verLine.point2 withDropView:dropView1 deltaDegree:assisRadius_Small];
             dropView1.crossToLeftAssis_Point = verLine.point2;
             dropView1.crossToLeftAssis_PointS = sideAssisPointLeft.point1;
             
-            
+
             //  在大圆上的两个辅助点
-            TwoPointStruct mainSideAssisPointRight = [self calucateSideAssisBezierPointWithOriginPoint:verLine.point1 withDropView:dropView2 deltaDegree:nil];
+            TwoPointStruct mainSideAssisPointRight = [self calucateSideAssisBezierPointWithOriginPoint:verLine.point1 withDropView:dropView2 deltaDegree:assisRadius_Main];
             
             
-            TwoPointStruct mainSideAssisPointLeft = [self calucateSideAssisBezierPointWithOriginPoint:verLine.point2 withDropView:dropView2 deltaDegree:nil];
+            TwoPointStruct mainSideAssisPointLeft = [self calucateSideAssisBezierPointWithOriginPoint:verLine.point2 withDropView:dropView2 deltaDegree:assisRadius_Main];
             
             
             dropView1.crossToLeftAssis_PointMain = mainSideAssisPointLeft.point2;
@@ -905,32 +908,32 @@
             
             
             
-            //  绘制辅助点，小圆上的
-            PointMath *pointMath1 = [[PointMath alloc] initWithPoint:dropView1.crossToRightAssis_Point inView:self];
-            pointMath1.radius = [NSNumber numberWithFloat:2.0f];
-            [_dropSuperView.assisArray addObject:pointMath1];
-            
-            PointMath *pointMath2 = [[PointMath alloc] initWithPoint:dropView1.crossToRightAssis_PointS inView:self];
-            pointMath2.radius = [NSNumber numberWithFloat:2.0f];
-            [_dropSuperView.assisArray addObject:pointMath2];
-            
-            PointMath *pointMath3 = [[PointMath alloc] initWithPoint:dropView1.crossToLeftAssis_Point inView:self];
-            pointMath3.radius = [NSNumber numberWithFloat:2.0f];
-            [_dropSuperView.assisArray addObject:pointMath3];
-            
-            PointMath *pointMath4 = [[PointMath alloc] initWithPoint:dropView1.crossToLeftAssis_PointS inView:self];
-            pointMath4.radius = [NSNumber numberWithFloat:2.0f];
-            [_dropSuperView.assisArray addObject:pointMath4];
-            
-            
-            //  绘制辅助点，大圆上的
-            PointMath *pointMath6 = [[PointMath alloc] initWithPoint:dropView1.crossToRightAssis_PointMain inView:self];
-            pointMath6.radius = [NSNumber numberWithFloat:3.0f];
-            [_dropSuperView.assisArray addObject:pointMath6];
-            
-            PointMath *pointMath8 = [[PointMath alloc] initWithPoint:dropView1.crossToLeftAssis_PointMain inView:self];
-            pointMath8.radius = [NSNumber numberWithFloat:3.0f];
-            [_dropSuperView.assisArray addObject:pointMath8];
+//            //  绘制辅助点，小圆上的
+//            PointMath *pointMath1 = [[PointMath alloc] initWithPoint:dropView1.crossToRightAssis_Point inView:self];
+//            pointMath1.radius = [NSNumber numberWithFloat:2.0f];
+//            [_dropSuperView.assisArray addObject:pointMath1];
+//            
+//            PointMath *pointMath2 = [[PointMath alloc] initWithPoint:dropView1.crossToRightAssis_PointS inView:self];
+//            pointMath2.radius = [NSNumber numberWithFloat:2.0f];
+//            [_dropSuperView.assisArray addObject:pointMath2];
+//            
+//            PointMath *pointMath3 = [[PointMath alloc] initWithPoint:dropView1.crossToLeftAssis_Point inView:self];
+//            pointMath3.radius = [NSNumber numberWithFloat:2.0f];
+//            [_dropSuperView.assisArray addObject:pointMath3];
+//            
+//            PointMath *pointMath4 = [[PointMath alloc] initWithPoint:dropView1.crossToLeftAssis_PointS inView:self];
+//            pointMath4.radius = [NSNumber numberWithFloat:2.0f];
+//            [_dropSuperView.assisArray addObject:pointMath4];
+//            
+//            
+//            //  绘制辅助点，大圆上的
+//            PointMath *pointMath6 = [[PointMath alloc] initWithPoint:dropView1.crossToRightAssis_PointMain inView:self];
+//            pointMath6.radius = [NSNumber numberWithFloat:3.0f];
+//            [_dropSuperView.assisArray addObject:pointMath6];
+//            
+//            PointMath *pointMath8 = [[PointMath alloc] initWithPoint:dropView1.crossToLeftAssis_PointMain inView:self];
+//            pointMath8.radius = [NSNumber numberWithFloat:3.0f];
+//            [_dropSuperView.assisArray addObject:pointMath8];
         }
             break;
             

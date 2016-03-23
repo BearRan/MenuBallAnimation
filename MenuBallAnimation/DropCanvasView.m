@@ -57,7 +57,7 @@
     [self drawDropView2:_mainDrop];
 //    [self drawDrop1View:_mainDrop];
 //    [self drawDropView:_mainDrop];
-//    [self drawAssistantLine];
+    [self drawAssistantLine];
 }
 
 
@@ -208,8 +208,19 @@
                 CGFloat radius_end = [DropView ConvertPointToRadiusInDropView:assisDrop_now point:assisDrop_now.crossToRightAssis_PointS canvansView:self];
                 
                 
-                PointMath *centerPointMath = [[PointMath alloc] initWithPoint:assisDrop_now.crossToLeftAssis_PointS inView:dropView];
-                [_assisArray addObject:centerPointMath];
+                PointMath *pointMath1 = [[PointMath alloc] initWithPoint:assisDrop_now.crossToLeftAssis_PointS inView:dropView];
+                pointMath1.radius = [NSNumber numberWithInt:3];
+                [_assisArray addObject:pointMath1];
+                
+                PointMath *pointMath2 = [[PointMath alloc] initWithPoint:assisDrop_now.crossToLeftAssis_Point inView:dropView];
+                [_assisArray addObject:pointMath2];
+                
+                PointMath *pointMath3 = [[PointMath alloc] initWithPoint:assisDrop_now.crossToRightAssis_PointS inView:dropView];
+                pointMath3.radius = [NSNumber numberWithInt:3];
+                [_assisArray addObject:pointMath3];
+                
+//                PointMath *pointMath4 = [[PointMath alloc] initWithPoint:assisDrop_now.crossToRightAssis_Point inView:dropView];
+//                [_assisArray addObject:pointMath4];
 
                 
                 //  绘制半圆弧
