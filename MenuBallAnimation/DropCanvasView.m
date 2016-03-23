@@ -186,10 +186,10 @@
             
         case kCross_SmallToMain:
         {
-            NSLog(@"kCross_SmallToMain-0");
+//            NSLog(@"kCross_SmallToMain-0");
             NSArray *smallDropViewArray = [[NSArray alloc] initWithObjects:dropView.assisDrop1, dropView.assisDrop2, dropView.assisDrop3, dropView.assisDrop4, nil];
             for (int i = 0; i < [smallDropViewArray count]; i++) {
-                NSLog(@"kCross_SmallToMain-1");
+//                NSLog(@"kCross_SmallToMain-1");
                 DropView *assisDrop_now = (DropView *)smallDropViewArray[i];
                 DropView *assisDrop_later = (i+1) >= [smallDropViewArray count] ? (DropView *)smallDropViewArray[0] : (DropView *)smallDropViewArray[i+1];
                 

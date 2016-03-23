@@ -56,4 +56,10 @@ typedef enum {
 //  计算两点的中点
 + (CGPoint)calucateCenterPointBetweenPoint1:(CGPoint)point1 withPoint2:(CGPoint)point2;
 
+//  计算某值在某值在某区域内所占比例
++ (CGFloat)calucateRatioBetweenMin:(CGFloat)min Max:(CGFloat)max Now:(CGFloat)now;
+
+//  根据比例计算在某区域内对应的值
++ (CGFloat)calucateValueBetweenMin:(CGFloat)min Max:(CGFloat)max Ratio:(CGFloat)ratio;
+
 @end

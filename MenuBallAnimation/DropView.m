@@ -171,15 +171,13 @@
 {
     [_dropSuperView.assisArray removeAllObjects];
 
-    CGPoint centerPoint = CGPointMake(self.width/2.0f, self.height/2.0f);
-    
     CGFloat radius_SmallAddMain = self.circleMath.radius + _assisDrop1.circleMath.radius;
     CGFloat radius_SmallAddSmall = _assisDrop1.circleMath.radius + _assisDrop2.circleMath.radius;
     
     CALayer *assisDrop1_PreLayer = _assisDrop1.layer.presentationLayer;
     CALayer *assisDrop2_PreLayer = _assisDrop2.layer.presentationLayer;
     
-    CGFloat dis_SmallToMain = [LineMath calucateDistanceBetweenPoint1:assisDrop1_PreLayer.position withPoint2:centerPoint];
+    CGFloat dis_SmallToMain = [LineMath calucateDistanceBetweenPoint1:assisDrop1_PreLayer.position withPoint2:_mainCenter];
     CGFloat dis_SmallToSmall = [LineMath calucateDistanceBetweenPoint1:assisDrop1_PreLayer.position withPoint2:assisDrop2_PreLayer.position];
     
     CGFloat faultTolerantValue = 2.0f;
@@ -689,6 +687,20 @@
  */
 - (AcrossPointStruct)calucateCrossPointDropView1:(DropView *)dropView1 dropView2:(DropView *)dropView2 setCondition:(kSetCondition)setCondition
 {
+    CGFloat radius_SmallAddMain = self.circleMath.radius + _assisDrop1.circleMath.radius;
+    CGFloat radius_SmallAddSmall = _assisDrop1.circleMath.radius + _assisDrop2.circleMath.radius;
+    
+    CALayer *assisDrop1_PreLayer = _assisDrop1.layer.presentationLayer;
+    CALayer *assisDrop2_PreLayer = _assisDrop2.layer.presentationLayer;
+    
+    CGFloat dis_SmallToMain = [LineMath calucateDistanceBetweenPoint1:assisDrop1_PreLayer.position withPoint2:_mainCenter];
+    CGFloat dis_SmallToSmall = [LineMath calucateDistanceBetweenPoint1:assisDrop1_PreLayer.position withPoint2:assisDrop2_PreLayer.position];
+    
+    
+    
+    
+    
+    
     CGFloat r1 = dropView1.circleMath.radius;
     CGFloat r2 = dropView2.circleMath.radius;
     
@@ -922,6 +934,17 @@
             
         case kCross_SmallToSmall:
         {
+#warning 1234567
+            CGFloat ratio = [LineMath calucateRatioBetweenMin:0 Max:radius_SmallAddSmall Now:dis_SmallToSmall];
+            NSLog(@"ratio:%f", ratio);
+            
+            CGFloat assis_radius = [LineMath calucateValueBetweenMin:0 Max:25 Ratio:ratio];
+            
+            if (ratio > 0.75) {
+                assis_radius = [LineMath calucateValueBetweenMin:0 Max:50 Ratio:ratio];
+            }
+            NSLog(@"assis_radius:%f", assis_radius);
+            
             //  外侧的点
             CGPoint outerPoint = [LineMath calucatePointWithOriginPoint:_mainCenter point1:verLine.point1 point2:verLine.point2 condition:kFar];
             
@@ -929,7 +952,7 @@
             [_dropSuperView.assisArray addObject:pointMath1];
             
             //  圆与圆交点两侧的辅助点
-            TwoPointStruct sideAssisPoint = [self calucateSideAssisBezierPointWithOriginPoint:outerPoint withDropView:dropView1 deltaDegree:[NSNumber numberWithFloat:15]];
+            TwoPointStruct sideAssisPoint = [self calucateSideAssisBezierPointWithOriginPoint:outerPoint withDropView:dropView1 deltaDegree:[NSNumber numberWithFloat:assis_radius]];
             
             if (setCondition == kSetRightPoint) {
                 dropView1.crossToRightAssis_Point = outerPoint;
