@@ -180,10 +180,12 @@
     CGFloat dis_SmallToMain = [LineMath calucateDistanceBetweenPoint1:assisDrop1_PreLayer.position withPoint2:_mainCenter];
     CGFloat dis_SmallToSmall = [LineMath calucateDistanceBetweenPoint1:assisDrop1_PreLayer.position withPoint2:assisDrop2_PreLayer.position];
     
-    CGFloat faultTolerantValue = 2.0f;
+    //  提前／延后交叉状态哦
+    CGFloat faultTolerantValue_SmallToSmall = 15.0f;
+    CGFloat faultTolerantValue_SmallToMain = 5.0f;
     
     //小圆和大圆相离
-    if (dis_SmallToMain + faultTolerantValue >= radius_SmallAddMain) {
+    if (dis_SmallToMain + faultTolerantValue_SmallToMain >= radius_SmallAddMain) {
         NSLog(@"小圆和大圆相离");
         _relation = kSeparated_SmallToMain;
         
@@ -194,7 +196,7 @@
         
     }
     //小圆和大圆相交
-    else if (dis_SmallToMain + faultTolerantValue < radius_SmallAddMain && dis_SmallToSmall + faultTolerantValue >= radius_SmallAddSmall){
+    else if (dis_SmallToMain + faultTolerantValue_SmallToMain < radius_SmallAddMain && dis_SmallToSmall + faultTolerantValue_SmallToSmall >= radius_SmallAddSmall){
         NSLog(@"小圆和大圆相交");
         _relation = kCross_SmallToMain;
         
@@ -205,7 +207,7 @@
         
     }
     //小圆和小圆相交
-    else if (dis_SmallToMain < radius_SmallAddMain && dis_SmallToSmall + faultTolerantValue < radius_SmallAddSmall){
+    else if (dis_SmallToMain + faultTolerantValue_SmallToMain < radius_SmallAddMain && dis_SmallToSmall + faultTolerantValue_SmallToSmall < radius_SmallAddSmall){
         NSLog(@"小圆和小圆相交");
         _relation = kCross_SmallToSmall;
         
@@ -934,16 +936,9 @@
             
         case kCross_SmallToSmall:
         {
-#warning 1234567
+            //  动态计算辅助角度
             CGFloat ratio = [LineMath calucateRatioBetweenMin:0 Max:radius_SmallAddSmall Now:dis_SmallToSmall];
-            NSLog(@"ratio:%f", ratio);
-            
-            CGFloat assis_radius = [LineMath calucateValueBetweenMin:0 Max:25 Ratio:ratio];
-            
-            if (ratio > 0.75) {
-                assis_radius = [LineMath calucateValueBetweenMin:0 Max:50 Ratio:ratio];
-            }
-            NSLog(@"assis_radius:%f", assis_radius);
+            CGFloat assis_radius = [LineMath calucateValueBetweenMin:0 Max:35 Ratio:ratio];
             
             //  外侧的点
             CGPoint outerPoint = [LineMath calucatePointWithOriginPoint:_mainCenter point1:verLine.point1 point2:verLine.point2 condition:kFar];
