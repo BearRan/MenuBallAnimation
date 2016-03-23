@@ -809,7 +809,7 @@
             
             
             //  在小圆上的两个辅助点
-            TwoPointStruct small_SideAssisPoint = [self calucateSideAssisBezierPointWithOriginPoint:dropView1.crossToCenterAssis_Point withDropView:dropView1 deltaDegree:[NSNumber numberWithFloat:60]];
+            TwoPointStruct small_SideAssisPoint = [self calucateSideAssisBezierPointWithOriginPoint:dropView1.crossToCenterAssis_Point withDropView:dropView1 deltaDegree:[NSNumber numberWithFloat:30]];
             dropView1.crossToLeftAssis_Point = small_SideAssisPoint.point1;
             dropView1.crossToRightAssis_Point = small_SideAssisPoint.point2;
 
