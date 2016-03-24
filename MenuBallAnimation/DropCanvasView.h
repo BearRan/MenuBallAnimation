@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+static CGFloat normalThreshold = 170 / 80.0 * 50;
+static CGFloat reduceThreshold = 140 / 80.0 * 50;
+
 @interface DropCanvasView : UIView
 
 @property (strong, nonatomic) NSMutableArray    *assisArray;

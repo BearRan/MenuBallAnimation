@@ -11,12 +11,6 @@
 #import "LineMath.h"
 #import "PointMath.h"
 
-//  角度转弧度
-#define degreesToRadian(x) (M_PI * x / 180.0)
-
-//  弧度转角度
-#define radiansToDegrees(x) (180.0 * x / M_PI)
-
 @interface DropCanvasView()
 @property (strong, nonatomic) DropView          *mainDrop;
 
@@ -41,7 +35,7 @@
 
 - (void)createMainDrop
 {
-    CGFloat mainDrop_width = 70;
+    CGFloat mainDrop_width = 0.13 * WIDTH;
     _mainDrop = [[DropView alloc] initWithFrame:CGRectMake(mainDrop_width, mainDrop_width, mainDrop_width, mainDrop_width) createSmallDrop:YES];
     _mainDrop.dropSuperView = self;
     [self.layer addSublayer:_mainDrop.dropShapLayer];
@@ -57,7 +51,7 @@
     [self drawDropView2:_mainDrop];
 //    [self drawDrop1View:_mainDrop];
 //    [self drawDropView:_mainDrop];
-    [self drawAssistantLine];
+//    [self drawAssistantLine];
 }
 
 
