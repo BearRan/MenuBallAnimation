@@ -105,7 +105,7 @@
                     CGFloat deltaValue  = normalThreshold - reduceThreshold;
                     CGFloat deltaNow    = centerDistace - reduceThreshold;
                     CGFloat ratio       = deltaNow / deltaValue;
-                    NSLog(@"ratio:%f", ratio);
+//                    NSLog(@"ratio:%f", ratio);
                     
                     //  计算比赛尔曲线的终点
                     TwoPointStruct assisDropFinal_PointStruct = [DropView PointBetweenPoint1:assisDropNow_CenterAssisPoint point2:assisDropMain_CenterAssisPoint ToPointRatio:ratio];

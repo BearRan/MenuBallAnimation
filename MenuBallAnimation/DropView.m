@@ -34,7 +34,9 @@
 
 
 
-
+//  提前／延后交叉状态哦
+static CGFloat faultTolerantValue_SmallToSmall = 15.0f;
+static CGFloat faultTolerantValue_SmallToMain = 5.0f;
 
 
 @interface DropView()
@@ -179,10 +181,6 @@
     
     CGFloat dis_SmallToMain = [LineMath calucateDistanceBetweenPoint1:assisDrop1_PreLayer.position withPoint2:_mainCenter];
     CGFloat dis_SmallToSmall = [LineMath calucateDistanceBetweenPoint1:assisDrop1_PreLayer.position withPoint2:assisDrop2_PreLayer.position];
-    
-    //  提前／延后交叉状态哦
-    CGFloat faultTolerantValue_SmallToSmall = 15.0f;
-    CGFloat faultTolerantValue_SmallToMain = 5.0f;
     
     //小圆和大圆相离
     if (dis_SmallToMain + faultTolerantValue_SmallToMain >= radius_SmallAddMain) {
@@ -856,8 +854,17 @@
             
         case kCross_SmallToMain:
         {
-            NSNumber *assisRadius_Small = [NSNumber numberWithFloat:20.0f];
-            NSNumber *assisRadius_Main = [NSNumber numberWithFloat:30.0f];
+            CGFloat dis_SmallToMainThreshold = sqrt((dropView1.circleMath.radius - faultTolerantValue_SmallToSmall) * (dropView1.circleMath.radius - faultTolerantValue_SmallToSmall) * 2);
+            
+            //  动态计算辅助角度
+            CGFloat ratio = [LineMath calucateRatioBetweenMin:dis_SmallToMainThreshold Max:radius_SmallAddMain Now:dis_SmallToMain];
+            CGFloat assis_radius = [LineMath calucateValueBetweenMin:0 Max:90 Ratio:1 - ratio];
+            
+            NSLog(@"ratio:%f", 1 - ratio);
+            NSLog(@"assis_radius:%f", assis_radius);
+            
+            NSNumber *assisRadius_Small = [NSNumber numberWithFloat:assis_radius];
+            NSNumber *assisRadius_Main = [NSNumber numberWithFloat:assis_radius];
             
             //  在小圆上的两个辅助点
             TwoPointStruct sideAssisPointRight = [self calucateSideAssisBezierPointWithOriginPoint:verLine.point1 withDropView:dropView1 deltaDegree:assisRadius_Small];
