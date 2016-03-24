@@ -11,8 +11,8 @@
 #import "CircleMath.h"
 #import "LineMath.h"
 
-static CGFloat normalThreshold = 170;
-static CGFloat reduceThreshold = 120;
+static CGFloat normalThreshold = 220;
+static CGFloat reduceThreshold = 170;
 
 
 @interface TwoLineClass : NSObject

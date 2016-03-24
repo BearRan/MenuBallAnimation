@@ -822,7 +822,7 @@ static CGFloat faultTolerantValue_SmallToMain = 5.0f;
             ratio = 1 - ratio;
             CGFloat assisRadius_Main = [LineMath calucateValueBetweenMin:30 Max:44 Ratio:ratio];
             CGFloat assisRadius_Small = [LineMath calucateValueBetweenMin:30 Max:50 Ratio:ratio];
-            NSLog(@"ratio2222:%f", ratio);
+//            NSLog(@"ratio2222:%f", ratio);
             
             
             //  在小圆上的两个辅助点
