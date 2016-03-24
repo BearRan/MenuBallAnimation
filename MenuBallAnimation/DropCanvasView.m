@@ -120,12 +120,12 @@
                     
                     //  计算贝塞尔曲线控制点(小圆上)
                     CGPoint dropNowAssisCenterPoint = [LineMath calucateCenterPointBetweenPoint1:assisDropNow_LeftAssisPoint withPoint2:assisDropNow_RightAssisPoint];
-                    TwoPointStruct assisControl_PointStructDropNow = [DropView PointBetweenPoint1:dropNowAssisCenterPoint point2:assisDropFinal_PointStruct.point1 ToPointRatio:0];
+                    TwoPointStruct assisControl_PointStructDropNow = [DropView PointBetweenPoint1:dropNowAssisCenterPoint point2:assisDropFinal_PointStruct.point1 ToPointRatio:0.3];
                     
                     [dropView.bezierPath moveToPoint:assisDropNow_LeftAssisPoint];
                     [dropView.bezierPath addArcWithCenter:assisDropNow_center radius:assisDrop_now.circleMath.radius startAngle:radius_start endAngle:radius_end clockwise:YES];
-                    [dropView.bezierPath addQuadCurveToPoint:assisDropFinal_PointStruct.point1 controlPoint:assisControl_PointStructDropNow.point2];
-                    [dropView.bezierPath addQuadCurveToPoint:assisDropNow_LeftAssisPoint controlPoint:assisControl_PointStructDropNow.point2];
+                    [dropView.bezierPath addQuadCurveToPoint:assisDropFinal_PointStruct.point1 controlPoint:assisControl_PointStructDropNow.point1];
+                    [dropView.bezierPath addQuadCurveToPoint:assisDropNow_LeftAssisPoint controlPoint:assisControl_PointStructDropNow.point1];
                     [dropView.bezierPath closePath];
                     
                     
@@ -147,11 +147,11 @@
                     
                     //  计算贝塞尔曲线控制点(d大圆上)
                     CGPoint dropMainAssisCenterPoint = [LineMath calucateCenterPointBetweenPoint1:assisDropNow_LeftAssisPointMain withPoint2:assisDropNow_RightAssisPointMain];
-                    TwoPointStruct assisControl_PointStructDropMain = [DropView PointBetweenPoint1:dropMainAssisCenterPoint point2:assisDropFinal_PointStruct.point2 ToPointRatio:0];
+                    TwoPointStruct assisControl_PointStructDropMain = [DropView PointBetweenPoint1:dropMainAssisCenterPoint point2:assisDropFinal_PointStruct.point2 ToPointRatio:0.3];
                     
                     [dropView.bezierPath moveToPoint:assisDropNow_LeftAssisPointMain];
-                    [dropView.bezierPath addQuadCurveToPoint:assisDropFinal_PointStruct.point2 controlPoint:assisControl_PointStructDropMain.point2];
-                    [dropView.bezierPath addQuadCurveToPoint:assisDropNow_RightAssisPointMain controlPoint:assisControl_PointStructDropMain.point2];
+                    [dropView.bezierPath addQuadCurveToPoint:assisDropFinal_PointStruct.point2 controlPoint:assisControl_PointStructDropMain.point1];
+                    [dropView.bezierPath addQuadCurveToPoint:assisDropNow_RightAssisPointMain controlPoint:assisControl_PointStructDropMain.point1];
                     [dropView.bezierPath addArcWithCenter:mainDrop_center radius:dropView.circleMath.radius startAngle:radius_startMain endAngle:radius_endMain clockwise:YES];
                 }
                 
@@ -163,7 +163,7 @@
                     
                     CGFloat radius_SmallAddMain = assisDrop_now.circleMath.radius + dropView.circleMath.radius;
                     CGFloat ratio = [LineMath calucateRatioBetweenMin:radius_SmallAddMain Max:reduceThreshold Now:centerDistace];
-                    NSLog(@"ratio3333:%f", ratio);
+//                    NSLog(@"ratio3333:%f", ratio);
 //                    TwoPointStruct centerAssisPointStruct = [DropView PointBetweenPoint1:assisDropNow_CenterAssisPoint point2:assisDropMain_CenterAssisPoint ToPointRatio:ratio];
                     
 //                    PointMath *pointMath5 = [[PointMath alloc] initWithPoint:centerAssisPointStruct.point1 inView:self];
@@ -183,7 +183,7 @@
                     
                     
                     CGFloat assisPointStruct_ratio = [LineMath calucateValueBetweenMin:-0.3 Max:0.8 Ratio:1 - ratio];
-                    NSLog(@"ratioOrigin:%f assisPointStruct_ratio:%f", 1-ratio, assisPointStruct_ratio);
+//                    NSLog(@"ratioOrigin:%f assisPointStruct_ratio:%f", 1-ratio, assisPointStruct_ratio);
                     TwoPointStruct smallAssisPointStruct = [DropView PointBetweenPoint1:assisDropNow_LeftAssisPoint point2:assisDropNow_RightAssisPoint ToPointRatio:assisPointStruct_ratio];
                     
                     
@@ -207,9 +207,11 @@
 
                     
                     
-                    TwoPointStruct assisPointStruct_Left = [DropView PointBetweenPoint1:smallAssisPointStruct.point1 point2:mainAssisPointStruct.point1 ToPointRatio:ratio];
+                    CGFloat assisPointStructSmallToMain_ratio = [LineMath calucateValueBetweenMin:0 Max:0.7 Ratio:ratio];
+                    NSLog(@"ratioOrigin:%f assisPointStructSmallToMain_ratio:%f", ratio, assisPointStructSmallToMain_ratio);
+                    TwoPointStruct assisPointStruct_Left = [DropView PointBetweenPoint1:smallAssisPointStruct.point1 point2:mainAssisPointStruct.point1 ToPointRatio:assisPointStructSmallToMain_ratio];
                     
-                    TwoPointStruct assisPointStruct_Right = [DropView PointBetweenPoint1:smallAssisPointStruct.point2 point2:mainAssisPointStruct.point2 ToPointRatio:ratio];
+                    TwoPointStruct assisPointStruct_Right = [DropView PointBetweenPoint1:smallAssisPointStruct.point2 point2:mainAssisPointStruct.point2 ToPointRatio:assisPointStructSmallToMain_ratio];
                     
                     
                     PointMath *pointMath11 = [[PointMath alloc] initWithPoint:assisPointStruct_Left.point1 inView:self];
