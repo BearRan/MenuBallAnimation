@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AddButton.h"
 
 static CGFloat normalThreshold = 170 / 80.0 * 50;
 static CGFloat reduceThreshold = 140 / 80.0 * 50;
@@ -15,7 +16,7 @@ static CGFloat reduceThreshold = 140 / 80.0 * 50;
 
 @property (strong, nonatomic) NSMutableArray    *assisArray;
 
-@property (strong, nonatomic) UIButton  *bottom_Btn;
+@property (strong, nonatomic) AddButton *bottom_Btn;
 @property (strong, nonatomic) UIButton  *Menu1_Btn;
 @property (strong, nonatomic) UIButton  *Menu2_Btn;
 @property (strong, nonatomic) UIButton  *Menu3_Btn;

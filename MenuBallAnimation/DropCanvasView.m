@@ -37,9 +37,9 @@
     
     [self setParameter];
     
-    [self createAllButton];
-    [self createMainDrop];
     
+//    [self createMainDrop];
+    [self createAllButton];
     
     return self;
 }
@@ -69,9 +69,10 @@
     CGFloat deltaGap = _btnGapDistance + _btnWidth;
     
     //  _bottom_Btn
-    _bottom_Btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
+    _bottom_Btn = [[AddButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
     _bottom_Btn.backgroundColor = [UIColor whiteColor];
     _bottom_Btn.layer.cornerRadius = _btnWidth/2.0f;
+    _bottom_Btn.layer.masksToBounds = YES;
     [self addSubview:_bottom_Btn];
     [_bottom_Btn BearSetRelativeLayoutWithDirection:kDIR_DOWN destinationView:nil parentRelation:YES distance:_btnOffY_start center:YES];
     

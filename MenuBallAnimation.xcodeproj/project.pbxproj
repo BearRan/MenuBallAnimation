@@ -20,6 +20,7 @@
 		0913810D1C9AF0380091E305 /* DropCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 091381081C9AF0380091E305 /* DropCanvasView.m */; };
 		0913810E1C9AF0380091E305 /* DropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0913810A1C9AF0380091E305 /* DropView.m */; };
 		091381121C9AF7500091E305 /* PointMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 091381111C9AF7500091E305 /* PointMath.m */; };
+		182B74851CA40DA20026C5A6 /* AddButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 182B74841CA40DA20026C5A6 /* AddButton.m */; };
 		AF445A9F7261112CFA0404D8 /* libPods-MenuBallAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 113C46E53EF92D52E6113FFC /* libPods-MenuBallAnimation.a */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +70,8 @@
 		091381101C9AF7500091E305 /* PointMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointMath.h; sourceTree = "<group>"; };
 		091381111C9AF7500091E305 /* PointMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PointMath.m; sourceTree = "<group>"; };
 		113C46E53EF92D52E6113FFC /* libPods-MenuBallAnimation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MenuBallAnimation.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		182B74831CA40DA20026C5A6 /* AddButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddButton.h; sourceTree = "<group>"; };
+		182B74841CA40DA20026C5A6 /* AddButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddButton.m; sourceTree = "<group>"; };
 		7FAC5AE0128CFE1CCAA6DD5B /* Pods-MenuBallAnimation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuBallAnimation.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MenuBallAnimation/Pods-MenuBallAnimation.debug.xcconfig"; sourceTree = "<group>"; };
 		BEF936BDC406E6BF25368528 /* Pods-MenuBallAnimation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuBallAnimation.release.xcconfig"; path = "Pods/Target Support Files/Pods-MenuBallAnimation/Pods-MenuBallAnimation.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -138,6 +141,8 @@
 				091381021C9AEF890091E305 /* LineMath.m */,
 				091381031C9AEF890091E305 /* CircleMath.h */,
 				091381041C9AEF890091E305 /* CircleMath.m */,
+				182B74831CA40DA20026C5A6 /* AddButton.h */,
+				182B74841CA40DA20026C5A6 /* AddButton.m */,
 				091381001C9AEA940091E305 /* PrefixHeader.pch */,
 				091380D01C9ADEDA0091E305 /* Main.storyboard */,
 				091380D31C9ADEDA0091E305 /* Assets.xcassets */,
@@ -381,6 +386,7 @@
 				091380C91C9ADEDA0091E305 /* main.m in Sources */,
 				091381051C9AEF890091E305 /* LineMath.m in Sources */,
 				0913810E1C9AF0380091E305 /* DropView.m in Sources */,
+				182B74851CA40DA20026C5A6 /* AddButton.m in Sources */,
 				091381061C9AEF890091E305 /* CircleMath.m in Sources */,
 				0913810D1C9AF0380091E305 /* DropCanvasView.m in Sources */,
 			);
