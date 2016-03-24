@@ -38,6 +38,7 @@
     CGFloat mainDrop_width = 0.13 * WIDTH;
     _mainDrop = [[DropView alloc] initWithFrame:CGRectMake(mainDrop_width, mainDrop_width, mainDrop_width, mainDrop_width) createSmallDrop:YES];
     _mainDrop.dropSuperView = self;
+    _mainDrop.fillColor = [UIColor whiteColor];
     [self.layer addSublayer:_mainDrop.dropShapLayer];
     [self addSubview:_mainDrop];
     [_mainDrop BearSetCenterToParentViewWithAxis:kAXIS_X_Y];
@@ -64,7 +65,10 @@
     switch (dropView.relation) {
             
         case kInitional:{
-        
+            CGPoint mainDrop_center = [dropView convertPoint:dropView.circleMath.centerPoint toView:self];
+            
+            [dropView.bezierPath moveToPoint:CGPointMake(mainDrop_center.x + dropView.circleMath.radius, mainDrop_center.y)];
+            [dropView.bezierPath addArcWithCenter:mainDrop_center radius:dropView.circleMath.radius startAngle:0 endAngle:M_PI * 2 clockwise:YES];
         }
             break;
             

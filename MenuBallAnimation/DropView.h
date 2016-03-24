@@ -11,6 +11,11 @@
 #import "CircleMath.h"
 #import "LineMath.h"
 
+//  提前／延后交叉状态
+static CGFloat faultTolerantValue_Inintional = 2.0f;
+static CGFloat faultTolerantValue_SmallToSmall = 2.0f;
+static CGFloat faultTolerantValue_SmallToMain = 5.0f;
+
 
 @interface TwoLineClass : NSObject
 
@@ -88,7 +93,7 @@ typedef enum {
 @property (strong, nonatomic) CAShapeLayer      *dropShapLayer;
 @property (strong, nonatomic) UIBezierPath      *bezierPath;
 @property (assign, nonatomic) kCirlceRelation   circleRelation;
-
+@property (strong, nonatomic) UIColor           *fillColor;
 
 
 

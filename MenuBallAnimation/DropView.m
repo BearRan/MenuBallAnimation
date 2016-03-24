@@ -32,14 +32,6 @@
 
 
 
-
-
-//  提前／延后交叉状态
-static CGFloat faultTolerantValue_Inintional = 2.0f;
-static CGFloat faultTolerantValue_SmallToSmall = 2.0f;
-static CGFloat faultTolerantValue_SmallToMain = 5.0f;
-
-
 @interface DropView()
 
 @property (strong, nonatomic) CADisplayLink *displayLink;
@@ -69,7 +61,7 @@ static CGFloat faultTolerantValue_SmallToMain = 5.0f;
 
 - (void)createDropView
 {
-    self.backgroundColor = [[UIColor orangeColor] colorWithAlphaComponent:0.5];
+//    self.backgroundColor = [[UIColor orangeColor] colorWithAlphaComponent:0.5];
     self.layer.cornerRadius = self.width/2;
     self.layer.masksToBounds = NO;
     self.clipsToBounds = NO;
@@ -80,9 +72,8 @@ static CGFloat faultTolerantValue_SmallToMain = 5.0f;
     _bezierPath = [UIBezierPath bezierPath];
     
     _dropShapLayer = [CAShapeLayer layer];
-    _dropShapLayer.fillColor = [[UIColor blueColor] colorWithAlphaComponent:0.4].CGColor;
-    _dropShapLayer.lineWidth = 2.0f;
-    _dropShapLayer.strokeColor = [[UIColor blackColor] colorWithAlphaComponent:0.7].CGColor;
+//    _dropShapLayer.lineWidth = 2.0f;
+//    _dropShapLayer.strokeColor = [[UIColor blackColor] colorWithAlphaComponent:0.7].CGColor;
     _dropShapLayer.strokeStart = 0;
     _dropShapLayer.strokeEnd = 1;
     
@@ -120,7 +111,8 @@ static CGFloat faultTolerantValue_SmallToMain = 5.0f;
     CGFloat assisDrop_width = self.width;
     
     assisDrop.layer.cornerRadius = assisDrop_width/2;
-    assisDrop.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.5];
+    assisDrop.fillColor = _fillColor;
+    
     [self addSubview:assisDrop];
     [assisDrop BearSetCenterToParentViewWithAxis:kAXIS_X_Y];
 }
@@ -1464,6 +1456,13 @@ static CGFloat faultTolerantValue_SmallToMain = 5.0f;
     }];
     
     return radius;
+}
+
+@synthesize fillColor = _fillColor;
+- (void)setFillColor:(UIColor *)fillColor
+{
+    _fillColor = fillColor;
+    _dropShapLayer.fillColor = _fillColor.CGColor;
 }
 
 @end
