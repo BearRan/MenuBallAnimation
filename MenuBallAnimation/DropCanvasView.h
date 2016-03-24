@@ -12,8 +12,14 @@
 static CGFloat normalThreshold = 170 / 80.0 * 50;
 static CGFloat reduceThreshold = 140 / 80.0 * 50;
 
+typedef enum {
+    animationOpen,
+    animationClose,
+}AnimationStatus;
+
 @interface DropCanvasView : UIView
 
+@property (assign, nonatomic) AnimationStatus   animationStatus;
 @property (strong, nonatomic) NSMutableArray    *assisArray;
 
 @property (strong, nonatomic) AddButton *bottom_Btn;
