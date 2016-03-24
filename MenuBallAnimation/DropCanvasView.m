@@ -147,10 +147,11 @@
                     
                     //  计算贝塞尔曲线控制点(d大圆上)
                     CGPoint dropMainAssisCenterPoint = [LineMath calucateCenterPointBetweenPoint1:assisDropNow_LeftAssisPointMain withPoint2:assisDropNow_RightAssisPointMain];
+                    TwoPointStruct assisControl_PointStructDropMain = [DropView PointBetweenPoint1:dropMainAssisCenterPoint point2:assisDropFinal_PointStruct.point2 ToPointRatio:0];
                     
                     [dropView.bezierPath moveToPoint:assisDropNow_LeftAssisPointMain];
-                    [dropView.bezierPath addQuadCurveToPoint:assisDropFinal_PointStruct.point2 controlPoint:dropMainAssisCenterPoint];
-                    [dropView.bezierPath addQuadCurveToPoint:assisDropNow_RightAssisPointMain controlPoint:dropMainAssisCenterPoint];
+                    [dropView.bezierPath addQuadCurveToPoint:assisDropFinal_PointStruct.point2 controlPoint:assisControl_PointStructDropMain.point2];
+                    [dropView.bezierPath addQuadCurveToPoint:assisDropNow_RightAssisPointMain controlPoint:assisControl_PointStructDropMain.point2];
                     [dropView.bezierPath addArcWithCenter:mainDrop_center radius:dropView.circleMath.radius startAngle:radius_startMain endAngle:radius_endMain clockwise:YES];
                 }
                 

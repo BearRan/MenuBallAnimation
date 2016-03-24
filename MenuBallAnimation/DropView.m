@@ -823,8 +823,8 @@ static CGFloat faultTolerantValue_SmallToMain = 5.0f;
                 
                 CGFloat ratio = [LineMath calucateRatioBetweenMin:reduceThreshold Max:normalThreshold Now:dis_SmallToMain];
                 ratio = 1 - ratio;
-                CGFloat assisRadius_Main = [LineMath calucateValueBetweenMin:30 Max:44 Ratio:ratio];
-                CGFloat assisRadius_Small = [LineMath calucateValueBetweenMin:30 Max:50 Ratio:ratio];
+                CGFloat assisRadius_Main = [LineMath calucateValueBetweenMin:20 Max:44 Ratio:ratio];
+                CGFloat assisRadius_Small = [LineMath calucateValueBetweenMin:20 Max:50 Ratio:ratio];
                 NSLog(@"ratio5555:%f", ratio);
                 
                 
