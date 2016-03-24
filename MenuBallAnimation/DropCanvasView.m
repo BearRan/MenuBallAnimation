@@ -17,6 +17,7 @@
     CGFloat     _btnOffY_start;
     CGFloat     _btnOffY_end;
     CGFloat     _btnGapDistance;
+    CGFloat     _btnGapDistance_Origin;
     
     DropView        *_mainDrop;
     CAShapeLayer    *_ringStrokeLayer;
@@ -39,8 +40,8 @@
     
     [self setParameter];
     
-    [self createAllButton];
     [self createMainDrop];
+    [self createAllButton];
     
     return self;
 }
@@ -52,7 +53,8 @@
     _btnWidth       = 0.13 * WIDTH;
     _btnOffY_start  = 42 / 1337.0 * HEIGHT;
     _btnOffY_end    = 183 / 1337.0 * HEIGHT;
-    _btnGapDistance = ( 275 / 752.0 ) * WIDTH / 2;
+    _btnGapDistance_Origin = 252/752.0 * WIDTH;
+    _btnGapDistance = sqrt(_btnGapDistance_Origin * _btnGapDistance_Origin / 2.0);
 }
 
 - (void)createMainDrop
@@ -106,7 +108,7 @@
 
 - (void)createAllButton
 {
-    CGFloat deltaGap = _btnGapDistance + _btnWidth;
+    CGFloat deltaGap = _btnGapDistance;
     UIColor *btnBackgroundColor = [UIColor whiteColor];
     
     //  _bottom_Btn
