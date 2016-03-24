@@ -104,7 +104,7 @@
                     CGFloat deltaValue  = normalThreshold - reduceThreshold;
                     CGFloat deltaNow    = centerDistace - reduceThreshold;
                     CGFloat ratio       = deltaNow / deltaValue;
-//                    NSLog(@"ratio:%f", ratio);
+                    NSLog(@"ratio444:%f", ratio);
                     
                     //  计算贝赛尔曲线的终点
                     TwoPointStruct assisDropFinal_PointStruct = [DropView PointBetweenPoint1:assisDropNow_CenterAssisPoint point2:assisDropMain_CenterAssisPoint ToPointRatio:ratio];
@@ -127,6 +127,17 @@
                     [dropView.bezierPath addQuadCurveToPoint:assisDropFinal_PointStruct.point1 controlPoint:assisControl_PointStructDropNow.point2];
                     [dropView.bezierPath addQuadCurveToPoint:assisDropNow_LeftAssisPoint controlPoint:assisControl_PointStructDropNow.point2];
                     [dropView.bezierPath closePath];
+                    
+                    
+                    
+                    PointMath *pointMath3 = [[PointMath alloc] initWithPoint:assisControl_PointStructDropNow.point1 inView:self];
+                    pointMath3.radius = [NSNumber numberWithFloat:3.0f];
+                    [_assisArray addObject:pointMath3];
+
+                    PointMath *pointMath4 = [[PointMath alloc] initWithPoint:assisControl_PointStructDropNow.point2 inView:self];
+                    pointMath4.radius = [NSNumber numberWithFloat:3.0f];
+                    [_assisArray addObject:pointMath4];
+                    
                     
                     
                     /***  在大圆上绘制贝塞尔曲线  ***/
