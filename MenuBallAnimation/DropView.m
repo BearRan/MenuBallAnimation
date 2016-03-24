@@ -34,8 +34,8 @@
 
 
 
-//  提前／延后交叉状态哦
-static CGFloat faultTolerantValue_SmallToSmall = 15.0f;
+//  提前／延后交叉状态
+static CGFloat faultTolerantValue_SmallToSmall = 2.0f;
 static CGFloat faultTolerantValue_SmallToMain = 5.0f;
 
 
@@ -858,7 +858,7 @@ static CGFloat faultTolerantValue_SmallToMain = 5.0f;
             
             //  动态计算辅助角度
             CGFloat ratio = [LineMath calucateRatioBetweenMin:dis_SmallToMainThreshold Max:radius_SmallAddMain Now:dis_SmallToMain];
-            CGFloat assis_radius = [LineMath calucateValueBetweenMin:0 Max:90 Ratio:1 - ratio];
+            CGFloat assis_radius = [LineMath calucateValueBetweenMin:30 Max:50 Ratio:1 - ratio];
             
             NSLog(@"ratio:%f", 1 - ratio);
             NSLog(@"assis_radius:%f", assis_radius);
@@ -882,9 +882,11 @@ static CGFloat faultTolerantValue_SmallToMain = 5.0f;
             
             TwoPointStruct mainSideAssisPointLeft = [self calucateSideAssisBezierPointWithOriginPoint:verLine.point2 withDropView:dropView2 deltaDegree:assisRadius_Main];
             
+//            dropView1.crossToLeftAssis_PointMain = mainSideAssisPointLeft.point2;
+//            dropView1.crossToRightAssis_PointMain = mainSideAssisPointRight.point1;
             
-            dropView1.crossToLeftAssis_PointMain = mainSideAssisPointLeft.point2;
-            dropView1.crossToRightAssis_PointMain = mainSideAssisPointRight.point1;
+            dropView1.crossToLeftAssis_PointMain = verLine.point2;
+            dropView1.crossToRightAssis_PointMain = verLine.point1;
             
             
             //  矫正
@@ -901,16 +903,23 @@ static CGFloat faultTolerantValue_SmallToMain = 5.0f;
                                                dropView1.crossToLeftAssis_Point = verLine.point1;
                                                dropView1.crossToRightAssis_PointS = sideAssisPointLeft.point2;
                                                dropView1.crossToLeftAssis_PointS = sideAssisPointRight.point1;
-                                               dropView1.crossToRightAssis_PointMain = mainSideAssisPointLeft.point1;
-                                               dropView1.crossToLeftAssis_PointMain = mainSideAssisPointRight.point2;
+//                                               dropView1.crossToRightAssis_PointMain = mainSideAssisPointLeft.point1;
+//                                               dropView1.crossToLeftAssis_PointMain = mainSideAssisPointRight.point2;
+                                               
+                                               dropView1.crossToRightAssis_PointMain = verLine.point2;
+                                               dropView1.crossToLeftAssis_PointMain = verLine.point1;
                                            }
                                           quadrantFourth:^{
                                               dropView1.crossToRightAssis_Point = verLine.point2;
                                               dropView1.crossToLeftAssis_Point = verLine.point1;
                                               dropView1.crossToRightAssis_PointS = sideAssisPointLeft.point2;
                                               dropView1.crossToLeftAssis_PointS = sideAssisPointRight.point1;
-                                              dropView1.crossToRightAssis_PointMain = mainSideAssisPointLeft.point1;
-                                              dropView1.crossToLeftAssis_PointMain = mainSideAssisPointRight.point2;
+//                                              dropView1.crossToRightAssis_PointMain = mainSideAssisPointLeft.point1;
+//                                              dropView1.crossToLeftAssis_PointMain = mainSideAssisPointRight.point2;
+                                              
+                                              dropView1.crossToRightAssis_PointMain = verLine.point2;
+                                              dropView1.crossToLeftAssis_PointMain = verLine.point1;
+
                                           }];
             
             
@@ -933,14 +942,14 @@ static CGFloat faultTolerantValue_SmallToMain = 5.0f;
 //            [_dropSuperView.assisArray addObject:pointMath4];
 //            
 //            
-//            //  绘制辅助点，大圆上的
-//            PointMath *pointMath6 = [[PointMath alloc] initWithPoint:dropView1.crossToRightAssis_PointMain inView:self];
-//            pointMath6.radius = [NSNumber numberWithFloat:3.0f];
-//            [_dropSuperView.assisArray addObject:pointMath6];
-//            
-//            PointMath *pointMath8 = [[PointMath alloc] initWithPoint:dropView1.crossToLeftAssis_PointMain inView:self];
-//            pointMath8.radius = [NSNumber numberWithFloat:3.0f];
-//            [_dropSuperView.assisArray addObject:pointMath8];
+            //  绘制辅助点，大圆上的
+            PointMath *pointMath6 = [[PointMath alloc] initWithPoint:dropView1.crossToRightAssis_PointMain inView:self];
+            pointMath6.radius = [NSNumber numberWithFloat:3.0f];
+            [_dropSuperView.assisArray addObject:pointMath6];
+            
+            PointMath *pointMath8 = [[PointMath alloc] initWithPoint:dropView1.crossToLeftAssis_PointMain inView:self];
+            pointMath8.radius = [NSNumber numberWithFloat:3.0f];
+            [_dropSuperView.assisArray addObject:pointMath8];
         }
             break;
             
