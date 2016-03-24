@@ -182,7 +182,8 @@
 //                    CGPoint assisDropNow_RightAssisPointMain = [dropView convertPoint:assisDrop_now.crossToRightAssis_PointMain toView:self];
                     
                     
-                    CGFloat assisPointStruct_ratio = [LineMath calucateValueBetweenMin:-0.3 Max:0.8 Ratio:1 - ratio];
+                    //  同一个Drop左右两侧assisRatio
+                    CGFloat assisPointStruct_ratio = [LineMath calucateValueBetweenMin:-0.3 Max:0.6 Ratio:1 - ratio];
 //                    NSLog(@"ratioOrigin:%f assisPointStruct_ratio:%f", 1-ratio, assisPointStruct_ratio);
                     TwoPointStruct smallAssisPointStruct = [DropView PointBetweenPoint1:assisDropNow_LeftAssisPoint point2:assisDropNow_RightAssisPoint ToPointRatio:assisPointStruct_ratio];
                     
@@ -207,7 +208,8 @@
 
                     
                     
-                    CGFloat assisPointStructSmallToMain_ratio = [LineMath calucateValueBetweenMin:0 Max:0.7 Ratio:ratio];
+                    //  同DropNow和MianDrop之间的assisRatio
+                    CGFloat assisPointStructSmallToMain_ratio = [LineMath calucateValueBetweenMin:0.3 Max:0.7 Ratio:ratio];
                     NSLog(@"ratioOrigin:%f assisPointStructSmallToMain_ratio:%f", ratio, assisPointStructSmallToMain_ratio);
                     TwoPointStruct assisPointStruct_Left = [DropView PointBetweenPoint1:smallAssisPointStruct.point1 point2:mainAssisPointStruct.point1 ToPointRatio:assisPointStructSmallToMain_ratio];
                     
