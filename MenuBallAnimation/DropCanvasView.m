@@ -142,14 +142,13 @@
                     
                     /***  在大圆上绘制贝塞尔曲线  ***/
                     
-                    CGFloat radius_startMain = [DropView ConvertPointToRadiusInDropView:dropView point:assisDropNow_LeftAssisPointMain canvansView:self];
+                    CGFloat radius_startMain = [DropView ConvertPointToRadiusInDropView:dropView point:assisDropNow_RightAssisPointMain canvansView:self];
                     CGFloat radius_endMain = [DropView ConvertPointToRadiusInDropView:dropView point:assisDropLater_LeftAssisPointMain canvansView:self];
                     
                     //  计算贝塞尔曲线控制点(d大圆上)
                     CGPoint dropMainAssisCenterPoint = [LineMath calucateCenterPointBetweenPoint1:assisDropNow_LeftAssisPointMain withPoint2:assisDropNow_RightAssisPointMain];
                     
                     [dropView.bezierPath moveToPoint:assisDropNow_LeftAssisPointMain];
-                    [dropView.bezierPath appendPath:dropView.bezierPath];
                     [dropView.bezierPath addQuadCurveToPoint:assisDropFinal_PointStruct.point2 controlPoint:dropMainAssisCenterPoint];
                     [dropView.bezierPath addQuadCurveToPoint:assisDropNow_RightAssisPointMain controlPoint:dropMainAssisCenterPoint];
                     [dropView.bezierPath addArcWithCenter:mainDrop_center radius:dropView.circleMath.radius startAngle:radius_startMain endAngle:radius_endMain clockwise:YES];
