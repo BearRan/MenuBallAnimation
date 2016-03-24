@@ -60,34 +60,48 @@
     _mainDrop = [[DropView alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth) createSmallDrop:YES];
     _mainDrop.dropSuperView = self;
     _mainDrop.fillColor = [UIColor whiteColor];
-    [self.layer addSublayer:_mainDrop.dropShapLayer];
     [self addSubview:_mainDrop];
     [_mainDrop BearSetCenterToParentViewWithAxis:kAXIS_X_Y];
     
-    [self createRingLayer];
+    [self createLayer];
 }
 
-- (void)createRingLayer
+- (void)createLayer
 {
-    UIColor *ringColor = RGB(88, 91, 104);
+    CGFloat bigRingRadius       = 252/752.0 * WIDTH;
+    CGFloat smallRingRadius     = 100/752.0 * WIDTH;
+    CGFloat centerRingRadius    = 76/752.0 * WIDTH;
+    UIColor *ringColor          = RGB(88, 91, 104);
     
+    //  _ringStrokeLayer
     _ringStrokeLayer = [CAShapeLayer layer];
     _ringStrokeLayer.lineWidth = 1.5f;
     _ringStrokeLayer.strokeColor = ringColor.CGColor;
     _ringStrokeLayer.fillColor = [UIColor clearColor].CGColor;
     [self.layer addSublayer:_ringStrokeLayer];
     
-    CGFloat bigRingRadius = 252/752.0 * WIDTH;
-    CGFloat smallRingRadius = 100/752.0 * WIDTH;
+    UIBezierPath *bezierPath1 = [UIBezierPath bezierPath];
+    [bezierPath1 moveToPoint:CGPointMake(_mainDrop.centerX + bigRingRadius, _mainDrop.centerY)];
+    [bezierPath1 addArcWithCenter:_mainDrop.center radius:bigRingRadius startAngle:0 endAngle:M_PI * 2 clockwise:YES];
+    [bezierPath1 moveToPoint:CGPointMake(_mainDrop.centerX + smallRingRadius, _mainDrop.centerY)];
+    [bezierPath1 addArcWithCenter:_mainDrop.center radius:smallRingRadius startAngle:0 endAngle:M_PI * 2 clockwise:YES];
     
-    UIBezierPath *bezierPath = [UIBezierPath bezierPath];
+    _ringStrokeLayer.path = bezierPath1.CGPath;
     
-    [bezierPath moveToPoint:CGPointMake(_mainDrop.centerX + bigRingRadius, _mainDrop.centerY)];
-    [bezierPath addArcWithCenter:_mainDrop.center radius:bigRingRadius startAngle:0 endAngle:M_PI * 2 clockwise:YES];
-    [bezierPath moveToPoint:CGPointMake(_mainDrop.centerX + smallRingRadius, _mainDrop.centerY)];
-    [bezierPath addArcWithCenter:_mainDrop.center radius:smallRingRadius startAngle:0 endAngle:M_PI * 2 clockwise:YES];
     
-    _ringStrokeLayer.path = bezierPath.CGPath;
+    //  _ringStrokeLayer
+    _ringFillingLayer = [CAShapeLayer layer];
+    _ringFillingLayer.fillColor = ringColor.CGColor;
+    [self.layer addSublayer:_ringFillingLayer];
+    
+    UIBezierPath *bezierPath2 = [UIBezierPath bezierPath];
+    [bezierPath2 addArcWithCenter:_mainDrop.center radius:centerRingRadius startAngle:0 endAngle:M_PI * 2 clockwise:YES];
+    
+    _ringFillingLayer.path = bezierPath2.CGPath;
+    
+    
+    //  _mainDrop.dropShapLayer
+    [self.layer addSublayer:_mainDrop.dropShapLayer];
 }
 
 - (void)createAllButton
