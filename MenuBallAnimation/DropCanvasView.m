@@ -70,6 +70,7 @@
     switch (dropView.relation) {
         case kSeparated_SmallToMain:
         {
+//            NSArray *smallDropViewArray = [[NSArray alloc] initWithObjects:dropView.assisDrop1, dropView.assisDrop2, nil];
             NSArray *smallDropViewArray = [[NSArray alloc] initWithObjects:dropView.assisDrop1, dropView.assisDrop2, dropView.assisDrop3, dropView.assisDrop4, nil];
             for (int i = 0; i < [smallDropViewArray count]; i++) {
                 
@@ -95,8 +96,6 @@
                 
                 CGFloat centerDistace = [LineMath calucateDistanceBetweenPoint1:mainDrop_center withPoint2:assisDropNow_center];
                 
-                CGFloat normalThreshold = 170;
-                CGFloat reduceThreshold = 120;
                 
                 //  开始减小
                 if (centerDistace > reduceThreshold && centerDistace < normalThreshold) {
@@ -164,6 +163,20 @@
                     //  大圆半圆弧
                     CGFloat radius_startMain = [DropView ConvertPointToRadiusInDropView:dropView point:assisDropNow_RightAssisPointMain canvansView:self];
                     CGFloat radius_endMain = [DropView ConvertPointToRadiusInDropView:dropView point:assisDropLater_LeftAssisPointMain canvansView:self];
+                    
+                    PointMath *pointMath1 = [[PointMath alloc] initWithPoint:assisDropNow_RightAssisPointMain inView:self];
+                    [_assisArray addObject:pointMath1];
+                    
+                    PointMath *pointMath2 = [[PointMath alloc] initWithPoint:assisDropLater_LeftAssisPointMain inView:self];
+                    pointMath2.radius = [NSNumber numberWithFloat:3.0f];
+                    [_assisArray addObject:pointMath2];
+                    
+                    PointMath *pointMath3 = [[PointMath alloc] initWithPoint:assisDropNow_RightAssisPoint inView:self];
+                    [_assisArray addObject:pointMath3];
+                    
+                    PointMath *pointMath4 = [[PointMath alloc] initWithPoint:assisDropNow_LeftAssisPoint inView:self];
+                    pointMath2.radius = [NSNumber numberWithFloat:3.0f];
+                    [_assisArray addObject:pointMath4];
                     
                     //  绘制大圆半圆弧
                     [dropView.bezierPath addArcWithCenter:mainDrop_center radius:dropView.circleMath.radius startAngle:radius_startMain endAngle:radius_endMain clockwise:YES];
