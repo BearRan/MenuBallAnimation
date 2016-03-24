@@ -15,7 +15,6 @@
 		091380D71C9ADEDA0091E305 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 091380D51C9ADEDA0091E305 /* LaunchScreen.storyboard */; };
 		091380E21C9ADEDA0091E305 /* MenuBallAnimationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 091380E11C9ADEDA0091E305 /* MenuBallAnimationTests.m */; };
 		091380ED1C9ADEDA0091E305 /* MenuBallAnimationUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 091380EC1C9ADEDA0091E305 /* MenuBallAnimationUITests.m */; };
-		091380FF1C9AE0F80091E305 /* MenuBallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 091380FE1C9AE0F80091E305 /* MenuBallView.m */; };
 		091381051C9AEF890091E305 /* LineMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 091381021C9AEF890091E305 /* LineMath.m */; };
 		091381061C9AEF890091E305 /* CircleMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 091381041C9AEF890091E305 /* CircleMath.m */; };
 		0913810D1C9AF0380091E305 /* DropCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 091381081C9AF0380091E305 /* DropCanvasView.m */; };
@@ -58,8 +57,6 @@
 		091380E81C9ADEDA0091E305 /* MenuBallAnimationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MenuBallAnimationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		091380EC1C9ADEDA0091E305 /* MenuBallAnimationUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MenuBallAnimationUITests.m; sourceTree = "<group>"; };
 		091380EE1C9ADEDA0091E305 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		091380FD1C9AE0F80091E305 /* MenuBallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuBallView.h; sourceTree = "<group>"; };
-		091380FE1C9AE0F80091E305 /* MenuBallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuBallView.m; sourceTree = "<group>"; };
 		091381001C9AEA940091E305 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		091381011C9AEF890091E305 /* LineMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineMath.h; sourceTree = "<group>"; };
 		091381021C9AEF890091E305 /* LineMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineMath.m; sourceTree = "<group>"; };
@@ -131,8 +128,6 @@
 				091380CB1C9ADEDA0091E305 /* AppDelegate.m */,
 				091380CD1C9ADEDA0091E305 /* ViewController.h */,
 				091380CE1C9ADEDA0091E305 /* ViewController.m */,
-				091380FD1C9AE0F80091E305 /* MenuBallView.h */,
-				091380FE1C9AE0F80091E305 /* MenuBallView.m */,
 				091381071C9AF0380091E305 /* DropCanvasView.h */,
 				091381081C9AF0380091E305 /* DropCanvasView.m */,
 				091381091C9AF0380091E305 /* DropView.h */,
@@ -380,7 +375,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				091380FF1C9AE0F80091E305 /* MenuBallView.m in Sources */,
 				091380CF1C9ADEDA0091E305 /* ViewController.m in Sources */,
 				091380CC1C9ADEDA0091E305 /* AppDelegate.m in Sources */,
 				091381121C9AF7500091E305 /* PointMath.m in Sources */,

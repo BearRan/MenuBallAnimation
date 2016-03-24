@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "MenuBallView.h"
 #import "DropCanvasView.h"
 
 @interface ViewController ()
@@ -19,18 +18,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    MenuBallView *menuBalllView = [[MenuBallView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
-//    [self.view addSubview:menuBalllView];
+    UIImageView *bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+    bgImageView.image = [UIImage imageNamed:@"BackGroundImg"];
+    [self.view addSubview:bgImageView];
     
     DropCanvasView *dropCanvasView = [[DropCanvasView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:dropCanvasView];
     
-    // Do any additional setup after loading the view, typically from a nib.
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
 
 @end
