@@ -184,7 +184,6 @@ static CGFloat faultTolerantValue_SmallToMain = 5.0f;
     CGFloat dis_SmallToSmall = [LineMath calucateDistanceBetweenPoint1:assisDrop1_PreLayer.position withPoint2:assisDrop2_PreLayer.position];
     
     //小圆和大圆相离
-    NSLog(@"dis_SmallToMain:%f", dis_SmallToMain);
     if (dis_SmallToMain + faultTolerantValue_SmallToMain >= radius_SmallAddMain) {
         NSLog(@"小圆和大圆相离");
         _relation = kSeparated_SmallToMain;
@@ -831,7 +830,7 @@ static CGFloat faultTolerantValue_SmallToMain = 5.0f;
                 ratio = 1 - ratio;
                 CGFloat assisRadius_Main = [LineMath calucateValueBetweenMin:10 Max:30 Ratio:ratio];
                 CGFloat assisRadius_Small = [LineMath calucateValueBetweenMin:10 Max:30 Ratio:ratio];
-                NSLog(@"ratio5555:%f", ratio);
+//                NSLog(@"ratio5555:%f", ratio);
                 
                 
                 //  在小圆上的两个辅助点
@@ -917,11 +916,21 @@ static CGFloat faultTolerantValue_SmallToMain = 5.0f;
             CGFloat ratio = [LineMath calucateRatioBetweenMin:dis_SmallToMainThreshold Max:radius_SmallAddMain Now:dis_SmallToMain];
             CGFloat assis_radius = [LineMath calucateValueBetweenMin:30 Max:50 Ratio:1 - ratio];
             
-            NSLog(@"ratio:%f", 1 - ratio);
-            NSLog(@"assis_radius:%f", assis_radius);
+//            NSLog(@"ratio:%f", 1 - ratio);
+//            NSLog(@"assis_radius:%f", assis_radius);
             
             NSNumber *assisRadius_Small = [NSNumber numberWithFloat:assis_radius];
             NSNumber *assisRadius_Main = [NSNumber numberWithFloat:assis_radius];
+            
+//            LineMath *lineMath1 = [[LineMath alloc] initWithPoint1:dropView1.center point2:verLine.point1 inView:self];
+//            [_dropSuperView.assisArray addObject:lineMath1];
+            
+//            PointMath *pointMath = [[PointMath alloc] initWithPoint:verLine.point1 inView:self];
+//            [_dropSuperView.assisArray addObject:pointMath];
+            
+//            PointMath *pointMath = [[PointMath alloc] initWithPoint:verLine.point2 inView:self];
+//            [_dropSuperView.assisArray addObject:pointMath];
+            
             
             //  在小圆上的两个辅助点
             TwoPointStruct sideAssisPointRight = [self calucateSideAssisBezierPointWithOriginPoint:verLine.point1 withDropView:dropView1 deltaDegree:assisRadius_Small];
@@ -1070,43 +1079,24 @@ static CGFloat faultTolerantValue_SmallToMain = 5.0f;
     LineMath *lineMathOrigin = [[LineMath alloc] initWithPoint1:dropViewCenter point2:originPoint inView:self];
 //    [_dropSuperView.assisArray addObject:lineMathOrigin];
     
+    CGFloat angleOrigin;
+    
     switch (lineMathOrigin.lineStatus) {
         case kLineNormal:
         {
-            CGFloat angleOrigin = atan(lineMathOrigin.k);
-            CGFloat deltaAngle = degreesToRadian(deltaDegrees);
-            
-            LineMath *line1 = [[LineMath alloc] init];
-            line1.k = tan(angleOrigin + deltaAngle);
-            line1.b = dropViewCenter.y - line1.k * dropViewCenter.x;
-            AcrossPointStruct acrossPointStruct1 = [self calucateCircleAndLineAcrossPoint_withCircle:dropView.circleMath withLine:line1];
-            
-            LineMath *line2 = [[LineMath alloc] init];
-            line2.k = tan(angleOrigin - deltaAngle);
-            line2.b = dropViewCenter.y - line2.k * dropViewCenter.x;
-            AcrossPointStruct acrossPointStruct2 = [self calucateCircleAndLineAcrossPoint_withCircle:dropView.circleMath withLine:line2];
-            
-            twoPointStruct.point1 = [LineMath calucatePointWithOriginPoint:originPoint point1:acrossPointStruct1.point1 point2:acrossPointStruct1.point2 condition:kNear];
-            twoPointStruct.point2 = [LineMath calucatePointWithOriginPoint:originPoint point1:acrossPointStruct2.point1 point2:acrossPointStruct2.point2 condition:kNear];
-            
-            //  小圆相交时，只获取外侧的点
-            if (_relation == kCross_SmallToSmall) {
-                twoPointStruct.point1 = [LineMath calucatePointWithOriginPoint:_mainCenter point1:twoPointStruct.point1 point2:twoPointStruct.point2 condition:kFar];
-                twoPointStruct.point2 = twoPointStruct.point1;
-            }
-            
+            angleOrigin = atan(lineMathOrigin.k);
         }
             break;
             
         case kLineHorizontal:
         {
-            
+            angleOrigin = 0;
         }
             break;
             
         case kLineVertical:
         {
-            
+            angleOrigin = M_PI / 2.0f;
         }
             break;
             
@@ -1114,7 +1104,26 @@ static CGFloat faultTolerantValue_SmallToMain = 5.0f;
             break;
     }
     
+    CGFloat deltaAngle = degreesToRadian(deltaDegrees);
     
+    LineMath *line1 = [[LineMath alloc] init];
+    line1.k = tan(angleOrigin + deltaAngle);
+    line1.b = dropViewCenter.y - line1.k * dropViewCenter.x;
+    AcrossPointStruct acrossPointStruct1 = [self calucateCircleAndLineAcrossPoint_withCircle:dropView.circleMath withLine:line1];
+    
+    LineMath *line2 = [[LineMath alloc] init];
+    line2.k = tan(angleOrigin - deltaAngle);
+    line2.b = dropViewCenter.y - line2.k * dropViewCenter.x;
+    AcrossPointStruct acrossPointStruct2 = [self calucateCircleAndLineAcrossPoint_withCircle:dropView.circleMath withLine:line2];
+    
+    twoPointStruct.point1 = [LineMath calucatePointWithOriginPoint:originPoint point1:acrossPointStruct1.point1 point2:acrossPointStruct1.point2 condition:kNear];
+    twoPointStruct.point2 = [LineMath calucatePointWithOriginPoint:originPoint point1:acrossPointStruct2.point1 point2:acrossPointStruct2.point2 condition:kNear];
+    
+    //  小圆相交时，只获取外侧的点
+    if (_relation == kCross_SmallToSmall) {
+        twoPointStruct.point1 = [LineMath calucatePointWithOriginPoint:_mainCenter point1:twoPointStruct.point1 point2:twoPointStruct.point2 condition:kFar];
+        twoPointStruct.point2 = twoPointStruct.point1;
+    }
     
     return twoPointStruct;
 }

@@ -294,6 +294,7 @@
         case kCross_SmallToMain:
         {
 //            NSLog(@"kCross_SmallToMain-0");
+//            NSArray *smallDropViewArray = [[NSArray alloc] initWithObjects:dropView.assisDrop1, dropView.assisDrop2, nil];
             NSArray *smallDropViewArray = [[NSArray alloc] initWithObjects:dropView.assisDrop1, dropView.assisDrop2, dropView.assisDrop3, dropView.assisDrop4, nil];
             for (int i = 0; i < [smallDropViewArray count]; i++) {
 //                NSLog(@"kCross_SmallToMain-1");
@@ -348,11 +349,11 @@
                 if (true) {
                     CGFloat ratio = [LineMath calucateRatioBetweenMin:dis_dropNowCenterToMainCenterThreshold_Min Max:dis_dropNowCenterToMainCenterThreshold_Max Now:dis_dropNowCenterToMainCenterThreshold_Now];
                     ratio = 1 - ratio;
-                    NSLog(@"ratio111:%f", ratio);
+//                    NSLog(@"ratio111:%f", ratio);
                     
                     CGPoint centerPoint1 = [LineMath calucateCenterPointBetweenPoint1:assisDropNow_RightAssisPoint withPoint2:assisDropLater_LeftAssisPoint];
                     CGPoint centerPoint2 = [LineMath calucateCenterPointBetweenPoint1:assisDropNow_RightAssisPointS withPoint2:assisDropLater_LeftAssisPointS];
-                    CGPoint centerPoint = [LineMath calucateCenterPointBetweenPoint1:centerPoint1 withPoint2:centerPoint2];
+                    
                     TwoPointStruct assisControlPointStruct = [DropView PointBetweenPoint1:centerPoint1 point2:centerPoint2 ToPointRatio:ratio];
                     
                     TwoPointStruct assisControlPointStructLeft = [DropView PointBetweenPoint1:assisControlPointStruct.point2 point2:assisDropNow_RightAssisPointMain ToPointRatio:0.5];//1-ratio
@@ -367,12 +368,18 @@
                     [_assisArray addObject:pointMath1];
                     
                     PointMath *pointMath2 = [[PointMath alloc] initWithPoint:centerPoint2 inView:self];
-                    pointMath2.radius = [NSNumber numberWithFloat:2.0f];
+                    pointMath2.radius = [NSNumber numberWithFloat:4.0f];
                     [_assisArray addObject:pointMath2];
                     
-                    PointMath *pointMath3 = [[PointMath alloc] initWithPoint:assisControlPointStruct.point2 inView:self];
-                    pointMath3.radius = [NSNumber numberWithFloat:2.0f];
-                    [_assisArray addObject:pointMath3];
+//                    PointMath *pointMath3 = [[PointMath alloc] initWithPoint:assisControlPointStruct.point2 inView:self];
+//                    pointMath3.radius = [NSNumber numberWithFloat:6.0f];
+//                    [_assisArray addObject:pointMath3];
+                    
+                    
+                    
+                    PointMath *pointMath4 = [[PointMath alloc] initWithPoint:assisDropNow_RightAssisPointS inView:self];
+                    pointMath4.radius = [NSNumber numberWithFloat:6.0f];
+                    [_assisArray addObject:pointMath4];
                 }
                 
                 //  小圆和小圆没有相交部分
