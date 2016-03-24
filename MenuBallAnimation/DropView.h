@@ -53,6 +53,7 @@ typedef enum {
 }kCirlceRelation;
 
 typedef enum {
+    kInitional,                     //初始状态
     kSeparated_SmallToMain,         //小圆和大圆相离
     kCross_SmallToMain,             //小圆和大圆相交
     kCross_SmallToSmall,            //小圆和小圆相交

@@ -35,6 +35,7 @@
 
 
 //  提前／延后交叉状态
+static CGFloat faultTolerantValue_Inintional = 2.0f;
 static CGFloat faultTolerantValue_SmallToSmall = 2.0f;
 static CGFloat faultTolerantValue_SmallToMain = 5.0f;
 
@@ -183,6 +184,7 @@ static CGFloat faultTolerantValue_SmallToMain = 5.0f;
     CGFloat dis_SmallToSmall = [LineMath calucateDistanceBetweenPoint1:assisDrop1_PreLayer.position withPoint2:assisDrop2_PreLayer.position];
     
     //小圆和大圆相离
+    NSLog(@"dis_SmallToMain:%f", dis_SmallToMain);
     if (dis_SmallToMain + faultTolerantValue_SmallToMain >= radius_SmallAddMain) {
         NSLog(@"小圆和大圆相离");
         _relation = kSeparated_SmallToMain;
@@ -205,7 +207,7 @@ static CGFloat faultTolerantValue_SmallToMain = 5.0f;
         
     }
     //小圆和小圆相交
-    else if (dis_SmallToMain + faultTolerantValue_SmallToMain < radius_SmallAddMain && dis_SmallToSmall + faultTolerantValue_SmallToSmall < radius_SmallAddSmall){
+    else if (dis_SmallToMain + faultTolerantValue_SmallToMain < radius_SmallAddMain && dis_SmallToSmall + faultTolerantValue_SmallToSmall < radius_SmallAddSmall && abs((int)dis_SmallToMain) > faultTolerantValue_Inintional){
         NSLog(@"小圆和小圆相交");
         _relation = kCross_SmallToSmall;
         
@@ -218,6 +220,10 @@ static CGFloat faultTolerantValue_SmallToMain = 5.0f;
         [self calucateCrossPointDropView1:_assisDrop3 dropView2:_assisDrop2 setCondition:kSetLeftPoint];
         [self calucateCrossPointDropView1:_assisDrop2 dropView2:_assisDrop1 setCondition:kSetLeftPoint];
         [self calucateCrossPointDropView1:_assisDrop1 dropView2:_assisDrop4 setCondition:kSetLeftPoint];
+    }
+    //初始位置
+    else if (abs((int)dis_SmallToMain) < faultTolerantValue_Inintional){
+        _relation = kInitional;
     }else{
         NSLog(@"都不是");
     }

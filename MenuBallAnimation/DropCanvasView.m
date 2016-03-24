@@ -68,6 +68,12 @@
     dropView.bezierPath.lineJoinStyle = kCGLineJoinRound;
     
     switch (dropView.relation) {
+            
+        case kInitional:{
+        
+        }
+            break;
+            
         case kSeparated_SmallToMain:
         {
 //            NSArray *smallDropViewArray = [[NSArray alloc] initWithObjects:dropView.assisDrop1, dropView.assisDrop2, nil];
