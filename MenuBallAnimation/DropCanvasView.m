@@ -12,7 +12,14 @@
 #import "PointMath.h"
 
 @interface DropCanvasView()
-@property (strong, nonatomic) DropView          *mainDrop;
+{
+    CGFloat     _btnWidth;
+    CGFloat     _btnOffY_start;
+    CGFloat     _btnOffY_end;
+    CGFloat     _btnGapDistance;
+    
+    DropView    *_mainDrop;
+}
 
 @end
 
@@ -25,24 +32,88 @@
     if (!self) {
         self = nil;
     }
-    
-    _assisArray = [[NSMutableArray alloc] init];
+
     self.backgroundColor = [UIColor clearColor];
+    
+    [self setParameter];
+    
+    [self createAllButton];
     [self createMainDrop];
+    
     
     return self;
 }
 
+- (void)setParameter
+{
+    _assisArray = [[NSMutableArray alloc] init];
+    
+    _btnWidth       = 0.13 * WIDTH;
+    _btnOffY_start  = 42 / 1337.0 * HEIGHT;
+    _btnOffY_end    = 183 / 1337.0 * HEIGHT;
+    _btnGapDistance = ( 275 / 752.0 ) * WIDTH / 2;
+}
+
 - (void)createMainDrop
 {
-    CGFloat mainDrop_width = 0.13 * WIDTH;
-    _mainDrop = [[DropView alloc] initWithFrame:CGRectMake(mainDrop_width, mainDrop_width, mainDrop_width, mainDrop_width) createSmallDrop:YES];
+    _mainDrop = [[DropView alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth) createSmallDrop:YES];
     _mainDrop.dropSuperView = self;
     _mainDrop.fillColor = [UIColor whiteColor];
     [self.layer addSublayer:_mainDrop.dropShapLayer];
     [self addSubview:_mainDrop];
     [_mainDrop BearSetCenterToParentViewWithAxis:kAXIS_X_Y];
 }
+
+- (void)createAllButton
+{
+    //  _bottom_Btn
+    _bottom_Btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
+    _bottom_Btn.backgroundColor = [UIColor whiteColor];
+    _bottom_Btn.layer.cornerRadius = _btnWidth/2.0f;
+    [self addSubview:_bottom_Btn];
+    [_bottom_Btn BearSetRelativeLayoutWithDirection:kDIR_DOWN destinationView:nil parentRelation:YES distance:_btnOffY_start center:YES];
+    
+    
+    //  _MenuCenter_Btn
+    _MenuCenter_Btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
+    _MenuCenter_Btn.backgroundColor = [UIColor blueColor];
+    _MenuCenter_Btn.layer.cornerRadius = _btnWidth/2.0f;
+    [self addSubview:_MenuCenter_Btn];
+    [_MenuCenter_Btn BearSetCenterToParentViewWithAxis:kAXIS_X_Y];
+    
+    //  _Menu1_btn
+    _Menu1_Btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
+    _Menu1_Btn.backgroundColor = [UIColor blueColor];
+    _Menu1_Btn.layer.cornerRadius = _btnWidth/2.0f;
+    [self addSubview:_Menu1_Btn];
+    [_Menu1_Btn setMaxX:_MenuCenter_Btn.x - _btnGapDistance];
+    [_Menu1_Btn setMaxY:_MenuCenter_Btn.y - _btnGapDistance];
+    
+    //  _Menu2_btn
+    _Menu2_Btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
+    _Menu2_Btn.backgroundColor = [UIColor blueColor];
+    _Menu2_Btn.layer.cornerRadius = _btnWidth/2.0f;
+    [self addSubview:_Menu2_Btn];
+    [_Menu2_Btn setX:_MenuCenter_Btn.maxX + _btnGapDistance];
+    [_Menu2_Btn setMaxY:_MenuCenter_Btn.y - _btnGapDistance];
+    
+    //  _Menu3_btn
+    _Menu3_Btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
+    _Menu3_Btn.backgroundColor = [UIColor blueColor];
+    _Menu3_Btn.layer.cornerRadius = _btnWidth/2.0f;
+    [self addSubview:_Menu3_Btn];
+    [_Menu3_Btn setMaxX:_MenuCenter_Btn.x - _btnGapDistance];
+    [_Menu3_Btn setY:_MenuCenter_Btn.maxY + _btnGapDistance];
+    
+    //  _Menu4_btn
+    _Menu4_Btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
+    _Menu4_Btn.backgroundColor = [UIColor blueColor];
+    _Menu4_Btn.layer.cornerRadius = _btnWidth/2.0f;
+    [self addSubview:_Menu4_Btn];
+    [_Menu4_Btn setX:_MenuCenter_Btn.maxX + _btnGapDistance];
+    [_Menu4_Btn setY:_MenuCenter_Btn.maxY + _btnGapDistance];
+}
+
 
 - (void)drawRect:(CGRect)rect
 {
