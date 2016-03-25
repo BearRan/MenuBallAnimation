@@ -24,10 +24,10 @@ typedef enum {
 @property (strong, nonatomic) NSMutableArray    *assisArray;
 
 @property (strong, nonatomic) AddButton *bottom_Btn;
-@property (strong, nonatomic) UIButton  *Menu1_Btn;
-@property (strong, nonatomic) UIButton  *Menu2_Btn;
-@property (strong, nonatomic) UIButton  *Menu3_Btn;
-@property (strong, nonatomic) UIButton  *Menu4_Btn;
-@property (strong, nonatomic) UIButton  *MenuCenter_Btn;
+@property (strong, nonatomic) UIButton  *menu1_Btn;
+@property (strong, nonatomic) UIButton  *menu2_Btn;
+@property (strong, nonatomic) UIButton  *menu3_Btn;
+@property (strong, nonatomic) UIButton  *menu4_Btn;
+@property (strong, nonatomic) UIButton  *menuCenter_Btn;
 
 @end

@@ -48,7 +48,8 @@
 
 - (void)setParameter
 {
-    _assisArray = [[NSMutableArray alloc] init];
+    _assisArray         = [[NSMutableArray alloc] init];
+    _animationStatus    = animationClose;
     
     _btnWidth       = 0.13 * WIDTH;
     _btnOffY_start  = 42 / 1337.0 * HEIGHT;
@@ -120,45 +121,45 @@
     [_bottom_Btn BearSetRelativeLayoutWithDirection:kDIR_DOWN destinationView:nil parentRelation:YES distance:_btnOffY_start center:YES];
     
     
-    //  _MenuCenter_Btn
-    _MenuCenter_Btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
-    _MenuCenter_Btn.backgroundColor = btnBackgroundColor;
-    _MenuCenter_Btn.layer.cornerRadius = _btnWidth/2.0f;
-    [_MenuCenter_Btn setImage:[UIImage imageNamed:@"BtnIcon_Note"] forState:UIControlStateNormal];
-    [self addSubview:_MenuCenter_Btn];
-    [_MenuCenter_Btn BearSetCenterToParentViewWithAxis:kAXIS_X_Y];
+    //  _menuCenter_Btn
+    _menuCenter_Btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
+    _menuCenter_Btn.backgroundColor = btnBackgroundColor;
+    _menuCenter_Btn.layer.cornerRadius = _btnWidth/2.0f;
+    [_menuCenter_Btn setImage:[UIImage imageNamed:@"BtnIcon_Note"] forState:UIControlStateNormal];
+    [self addSubview:_menuCenter_Btn];
+    [_menuCenter_Btn BearSetCenterToParentViewWithAxis:kAXIS_X_Y];
     
-    //  _Menu1_btn
-    _Menu1_Btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
-    _Menu1_Btn.backgroundColor = btnBackgroundColor;
-    _Menu1_Btn.layer.cornerRadius = _btnWidth/2.0f;
-    [_Menu1_Btn setImage:[UIImage imageNamed:@"BtnIcon_Users"] forState:UIControlStateNormal];
-    [self addSubview:_Menu1_Btn];
-    [_Menu1_Btn setCenter:CGPointMake(_MenuCenter_Btn.centerX - deltaGap, _MenuCenter_Btn.centerY - deltaGap)];
+    //  _menu1_btn
+    _menu1_Btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
+    _menu1_Btn.backgroundColor = btnBackgroundColor;
+    _menu1_Btn.layer.cornerRadius = _btnWidth/2.0f;
+    [_menu1_Btn setImage:[UIImage imageNamed:@"BtnIcon_Users"] forState:UIControlStateNormal];
+    [self addSubview:_menu1_Btn];
+    [_menu1_Btn setCenter:CGPointMake(_menuCenter_Btn.centerX - deltaGap, _menuCenter_Btn.centerY - deltaGap)];
     
-    //  _Menu2_btn
-    _Menu2_Btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
-    _Menu2_Btn.backgroundColor = btnBackgroundColor;
-    _Menu2_Btn.layer.cornerRadius = _btnWidth/2.0f;
-    [_Menu2_Btn setImage:[UIImage imageNamed:@"BtnIcon_ShoppingBag"] forState:UIControlStateNormal];
-    [self addSubview:_Menu2_Btn];
-    [_Menu2_Btn setCenter:CGPointMake(_MenuCenter_Btn.centerX + deltaGap, _MenuCenter_Btn.centerY - deltaGap)];
+    //  _menu2_btn
+    _menu2_Btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
+    _menu2_Btn.backgroundColor = btnBackgroundColor;
+    _menu2_Btn.layer.cornerRadius = _btnWidth/2.0f;
+    [_menu2_Btn setImage:[UIImage imageNamed:@"BtnIcon_ShoppingBag"] forState:UIControlStateNormal];
+    [self addSubview:_menu2_Btn];
+    [_menu2_Btn setCenter:CGPointMake(_menuCenter_Btn.centerX + deltaGap, _menuCenter_Btn.centerY - deltaGap)];
     
-    //  _Menu3_btn
-    _Menu3_Btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
-    _Menu3_Btn.backgroundColor = btnBackgroundColor;
-    _Menu3_Btn.layer.cornerRadius = _btnWidth/2.0f;
-    [_Menu3_Btn setImage:[UIImage imageNamed:@"BtnIcon_Write"] forState:UIControlStateNormal];
-    [self addSubview:_Menu3_Btn];
-    [_Menu3_Btn setCenter:CGPointMake(_MenuCenter_Btn.centerX - deltaGap, _MenuCenter_Btn.centerY + deltaGap)];
+    //  _menu3_btn
+    _menu3_Btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
+    _menu3_Btn.backgroundColor = btnBackgroundColor;
+    _menu3_Btn.layer.cornerRadius = _btnWidth/2.0f;
+    [_menu3_Btn setImage:[UIImage imageNamed:@"BtnIcon_Write"] forState:UIControlStateNormal];
+    [self addSubview:_menu3_Btn];
+    [_menu3_Btn setCenter:CGPointMake(_menuCenter_Btn.centerX - deltaGap, _menuCenter_Btn.centerY + deltaGap)];
     
-    //  _Menu4_btn
-    _Menu4_Btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
-    _Menu4_Btn.backgroundColor = btnBackgroundColor;
-    _Menu4_Btn.layer.cornerRadius = _btnWidth/2.0f;
-    [_Menu4_Btn setImage:[UIImage imageNamed:@"BtnIcon_UserSingle"] forState:UIControlStateNormal];
-    [self addSubview:_Menu4_Btn];
-    [_Menu4_Btn setCenter:CGPointMake(_MenuCenter_Btn.centerX + deltaGap, _MenuCenter_Btn.centerY + deltaGap)];
+    //  _menu4_btn
+    _menu4_Btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
+    _menu4_Btn.backgroundColor = btnBackgroundColor;
+    _menu4_Btn.layer.cornerRadius = _btnWidth/2.0f;
+    [_menu4_Btn setImage:[UIImage imageNamed:@"BtnIcon_UserSingle"] forState:UIControlStateNormal];
+    [self addSubview:_menu4_Btn];
+    [_menu4_Btn setCenter:CGPointMake(_menuCenter_Btn.centerX + deltaGap, _menuCenter_Btn.centerY + deltaGap)];
 }
 
 
@@ -1060,14 +1061,19 @@
 {
     _animationStatus = animationStatus;
     
+    //  开始动画
     if (_animationStatus == animationOpen) {
         [UIView animateWithDuration:1.0 animations:^{
-            [_bottom_Btn setMaxY:self.height - _btnOffY_end];
+            [_bottom_Btn setCenterY:self.height - _btnOffY_end - _btnWidth/2];
+            _bottom_Btn.transform = CGAffineTransformMakeRotation(M_PI / 4);
         }];
     }
+    
+    //  结束动画
     else if (_animationStatus == animationClose){
         [UIView animateWithDuration:1.0 animations:^{
-            [_bottom_Btn setMaxY:self.height - _btnOffY_start];
+            [_bottom_Btn setCenterY:self.height - _btnOffY_start - _btnWidth/2];
+            _bottom_Btn.transform = CGAffineTransformMakeRotation(0);
         }];
     }
 }
