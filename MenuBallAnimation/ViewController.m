@@ -26,6 +26,7 @@
     
     dropCanvasView = [[DropCanvasView alloc] initWithFrame:self.view.bounds];
     [dropCanvasView.bottom_Btn addTarget:self action:@selector(bottomBtnEvent) forControlEvents:UIControlEventTouchUpInside];
+    [dropCanvasView.menuCenter_Btn addTarget:self action:@selector(menuCenterBtnEvent) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:dropCanvasView];
     
     
@@ -38,7 +39,15 @@
     }else{
         dropCanvasView.animationStatus = animationOpen;
     }
-    
+}
+
+- (void)menuCenterBtnEvent
+{
+    if (dropCanvasView.animationStatus == animationOpen) {
+        dropCanvasView.animationStatus = animationClose;
+    }else{
+        dropCanvasView.animationStatus = animationOpen;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

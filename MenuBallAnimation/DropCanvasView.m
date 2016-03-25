@@ -437,8 +437,8 @@
                 //  绘制半圆弧
                 [dropView.bezierPath addArcWithCenter:assisDropNow_center radius:assisDrop_now.circleMath.radius startAngle:radius_start endAngle:radius_end clockwise:YES];
                 
-                CGFloat dis_dropNowCenterToDropLaterLeft = [LineMath calucateDistanceBetweenPoint1:assisDropNow_center withPoint2:assisDropLater_LeftAssisPointS];
-                CGFloat dis_dropNowCenterToDropNowRight = [LineMath calucateDistanceBetweenPoint1:assisDropNow_center withPoint2:assisDropNow_RightAssisPointS];
+//                CGFloat dis_dropNowCenterToDropLaterLeft = [LineMath calucateDistanceBetweenPoint1:assisDropNow_center withPoint2:assisDropLater_LeftAssisPointS];
+//                CGFloat dis_dropNowCenterToDropNowRight = [LineMath calucateDistanceBetweenPoint1:assisDropNow_center withPoint2:assisDropNow_RightAssisPointS];
                 CGFloat dis_dropNowCenterToMainCenterThreshold_Min = sqrt(assisDrop_now.circleMath.radius * assisDrop_now.circleMath.radius * 2);
                 CGFloat dis_dropNowCenterToMainCenterThreshold_Max = dropView.circleMath.radius + assisDrop_now.circleMath.radius;
                 CGFloat dis_dropNowCenterToMainCenterThreshold_Now = [LineMath calucateDistanceBetweenPoint1:assisDropNow_center withPoint2:mainDrop_center];
@@ -598,6 +598,7 @@
         [self delayBlockTime:0.9 event:^{
             
             _menuCenter_Btn.hidden = NO;
+            _menuCenter_Btn.alpha = 1;
             
             CAKeyframeAnimation *bounceAnimation = [CAKeyframeAnimation animation];
             bounceAnimation.keyPath = @"transform.scale";
@@ -668,7 +669,7 @@
 
         [self delayBlockTime:0.7 event:^{
             
-            _mainDropBgView.hidden = NO;
+            _mainDropBgView.hidden = YES;
         }];
 
         
