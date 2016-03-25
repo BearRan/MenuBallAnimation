@@ -21,10 +21,12 @@
     CGFloat     _btnGapDistance_Origin;
     
     DropView        *_mainDrop;
+    UIView          *_mainDropBgView;
     UIView          *_ringBgView;
     CAShapeLayer    *_ringStrokeLayer;
     CAShapeLayer    *_ringFillingLayer;
     UIColor         *_ringColor;
+    UIColor         *_centerBtnColor;
 }
 
 @end
@@ -61,19 +63,24 @@
     _btnGapDistance_Origin = 252/752.0 * WIDTH;
     _btnGapDistance = sqrt(_btnGapDistance_Origin * _btnGapDistance_Origin / 2.0);
     _ringColor      = RGB(88, 91, 104);
+    _centerBtnColor = RGB(116, 196, 203);
 }
 
 - (void)createMainDrop
 {
     _mainDrop = [[DropView alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth) createSmallDrop:YES];
     _mainDrop.dropSuperView = self;
-    _mainDrop.fillColor = [UIColor whiteColor];
+    _mainDrop.fillColor = _centerBtnColor;
     [self addSubview:_mainDrop];
     [_mainDrop BearSetCenterToParentViewWithAxis:kAXIS_X_Y];
     
     [self createRingUI];
     
-    [self.layer addSublayer:_mainDrop.dropShapLayer];
+    _mainDropBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height)];
+    _mainDropBgView.backgroundColor = [UIColor clearColor];
+    _mainDropBgView.hidden = YES;
+    [_mainDropBgView.layer addSublayer:_mainDrop.dropShapLayer];
+    [self addSubview:_mainDropBgView];
 }
 
 - (void)createRingUI
@@ -118,7 +125,8 @@
 - (void)createAllWidget
 {
     CGFloat deltaGap = _btnGapDistance;
-    UIColor *btnBackgroundColor = [UIColor whiteColor];
+    UIColor *btnBackgroundColor_white = [UIColor whiteColor];
+    UIColor *btnBackgroundColor_clear = [UIColor clearColor];
     
     //  _bottomText_Img
 //    _bottomText_Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"vidaHouse_Text"]];
@@ -128,7 +136,7 @@
     
     //  _bottom_Btn
     _bottom_Btn = [[AddButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
-    _bottom_Btn.backgroundColor = btnBackgroundColor;
+    _bottom_Btn.backgroundColor = btnBackgroundColor_white;
     _bottom_Btn.layer.cornerRadius = _btnWidth/2.0f;
     _bottom_Btn.layer.masksToBounds = YES;
     [self addSubview:_bottom_Btn];
@@ -136,16 +144,22 @@
     
     
     //  _menuCenter_Btn
-    _menuCenter_Btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
-    _menuCenter_Btn.backgroundColor = btnBackgroundColor;
+    _menuCenter_Btn = [[MenuCenterBtn alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
+    _menuCenter_Btn.backgroundColor = _centerBtnColor;
     _menuCenter_Btn.layer.cornerRadius = _btnWidth/2.0f;
-    [_menuCenter_Btn setImage:[UIImage imageNamed:@"BtnIcon_Note"] forState:UIControlStateNormal];
+    _menuCenter_Btn.hidden = YES;
     [self addSubview:_menuCenter_Btn];
     [_menuCenter_Btn BearSetCenterToParentViewWithAxis:kAXIS_X_Y];
     
+    _menuCenter_Btn.btnImage.alpha = 0;
+    _menuCenter_Btn.btnImage.image = [UIImage imageNamed:@"BtnIcon_Note"];
+    [_menuCenter_Btn.btnImage sizeToFit];
+    [_menuCenter_Btn.btnImage BearSetCenterToParentViewWithAxis:kAXIS_X_Y];
+    
+    
     //  _menu1_btn
     _menu1_Btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
-    _menu1_Btn.backgroundColor = btnBackgroundColor;
+    _menu1_Btn.backgroundColor = btnBackgroundColor_clear;
     _menu1_Btn.layer.cornerRadius = _btnWidth/2.0f;
     [_menu1_Btn setImage:[UIImage imageNamed:@"BtnIcon_Users"] forState:UIControlStateNormal];
     [self addSubview:_menu1_Btn];
@@ -153,7 +167,7 @@
     
     //  _menu2_btn
     _menu2_Btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
-    _menu2_Btn.backgroundColor = btnBackgroundColor;
+    _menu2_Btn.backgroundColor = btnBackgroundColor_clear;
     _menu2_Btn.layer.cornerRadius = _btnWidth/2.0f;
     [_menu2_Btn setImage:[UIImage imageNamed:@"BtnIcon_ShoppingBag"] forState:UIControlStateNormal];
     [self addSubview:_menu2_Btn];
@@ -161,7 +175,7 @@
     
     //  _menu3_btn
     _menu3_Btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
-    _menu3_Btn.backgroundColor = btnBackgroundColor;
+    _menu3_Btn.backgroundColor = btnBackgroundColor_clear;
     _menu3_Btn.layer.cornerRadius = _btnWidth/2.0f;
     [_menu3_Btn setImage:[UIImage imageNamed:@"BtnIcon_Write"] forState:UIControlStateNormal];
     [self addSubview:_menu3_Btn];
@@ -169,7 +183,7 @@
     
     //  _menu4_btn
     _menu4_Btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
-    _menu4_Btn.backgroundColor = btnBackgroundColor;
+    _menu4_Btn.backgroundColor = btnBackgroundColor_clear;
     _menu4_Btn.layer.cornerRadius = _btnWidth/2.0f;
     [_menu4_Btn setImage:[UIImage imageNamed:@"BtnIcon_UserSingle"] forState:UIControlStateNormal];
     [self addSubview:_menu4_Btn];
@@ -544,6 +558,21 @@
     CGContextFillPath(context);
 }
 
+
+- (void)delayBlockTime:(CGFloat)delay event:(void (^) ())event
+{
+    //  中间按钮
+    CGFloat delayTime = delay;   //延时时间
+    dispatch_time_t timer = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayTime *NSEC_PER_SEC));
+    dispatch_after(timer, dispatch_get_main_queue(), ^{
+        
+        if (event) {
+            event();
+        }
+    });
+}
+
+
 @synthesize animationStatus = _animationStatus;
 - (void)setAnimationStatus:(AnimationStatus)animationStatus
 {
@@ -565,42 +594,46 @@
                                 
                             }];
         
+        //  中间按钮
+        [self delayBlockTime:0.9 event:^{
+            
+            _menuCenter_Btn.hidden = NO;
+            
+            CAKeyframeAnimation *bounceAnimation = [CAKeyframeAnimation animation];
+            bounceAnimation.keyPath = @"transform.scale";
+            bounceAnimation.duration = 0.6f;
+            bounceAnimation.values = @[@0.0, @0.6, @0.8, @1.0, @1.1, @1.2, @1.1, @1.0, @0.9, @1.0];
+            [_menuCenter_Btn.layer addAnimation:bounceAnimation forKey:@"transform.scale"];
+        }];
+        
+        //  中间按钮的icon
+        [UIView animateWithDuration:0.5
+                              delay:1.3
+                            options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                                
+                                _menuCenter_Btn.btnImage.alpha = 1;
+                            }completion:^(BOOL finished) {
+                             
+                            }];
+        
+
         //  圆环
         [UIView animateWithDuration:0.4
-                              delay:0.8
+                              delay:1.8
                             options:UIViewAnimationOptionCurveEaseInOut animations:^{
                                 
                                 _ringBgView.alpha = 1;
-                                
                             } completion:^(BOOL finished) {
                                 
                             }];
+        
         
         //  AssisDrop
-        [UIView animateWithDuration:1.4
-                              delay:0.8 + 0.4
-                            options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                                
-//                                [self assisDropShow];
-                                
-                            } completion:^(BOOL finished) {
-                                
-                            }];
-        
-        //  Menu四周按钮
-        [UIView animateWithDuration:0.6
-                              delay:0.8 + 0.4 + 0.4
-                            options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                                
-                                [self menuFourBtnAlpha1];
-        } completion:^(BOOL finished) {
+        [self delayBlockTime:1.8 + 0.4 + 0.4 event:^{
             
-//                                _mainDrop.displayLink.paused = YES;
+            _mainDropBgView.hidden = NO;
+            [self assisDropShow_1];
         }];
-        
-        
-//        [_mainDrop assisDropShow];
-        [self assisDropShow_1];
 
     }
     
@@ -642,7 +675,7 @@
                             }];
         
         
-        [self assisDropHide_1];
+//        [self assisDropHide_1];
 //        [_mainDrop assisDropHidden];
         
     }

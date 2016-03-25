@@ -102,7 +102,7 @@
 {
     CGFloat assisDrop_width = self.width;
     
-    assisDrop.backgroundColor = [UIColor orangeColor];
+//    assisDrop.backgroundColor = [UIColor orangeColor];
     assisDrop.layer.cornerRadius = assisDrop_width/2;
     assisDrop.fillColor = _fillColor;
     
