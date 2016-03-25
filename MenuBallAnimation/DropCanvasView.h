@@ -23,7 +23,9 @@ typedef enum {
 @property (assign, nonatomic) AnimationStatus   animationStatus;
 @property (strong, nonatomic) NSMutableArray    *assisArray;
 
-@property (strong, nonatomic) AddButton *bottom_Btn;
+@property (strong, nonatomic) UIImageView   *bottomText_Img;
+@property (strong, nonatomic) AddButton     *bottom_Btn;
+
 @property (strong, nonatomic) UIButton  *menu1_Btn;
 @property (strong, nonatomic) UIButton  *menu2_Btn;
 @property (strong, nonatomic) UIButton  *menu3_Btn;

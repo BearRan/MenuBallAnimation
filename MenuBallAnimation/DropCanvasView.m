@@ -16,6 +16,7 @@
     CGFloat     _btnWidth;
     CGFloat     _btnOffY_start;
     CGFloat     _btnOffY_end;
+    CGFloat     _textImg_offY;
     CGFloat     _btnGapDistance;
     CGFloat     _btnGapDistance_Origin;
     
@@ -41,7 +42,7 @@
     [self setParameter];
     
     [self createMainDrop];
-    [self createAllButton];
+    [self createAllWidget];
     
     return self;
 }
@@ -54,6 +55,7 @@
     _btnWidth       = 0.13 * WIDTH;
     _btnOffY_start  = 42 / 1337.0 * HEIGHT;
     _btnOffY_end    = 183 / 1337.0 * HEIGHT;
+    _textImg_offY   = 91 / 1337.0 * HEIGHT;
     _btnGapDistance_Origin = 252/752.0 * WIDTH;
     _btnGapDistance = sqrt(_btnGapDistance_Origin * _btnGapDistance_Origin / 2.0);
 }
@@ -107,10 +109,16 @@
     [self.layer addSublayer:_mainDrop.dropShapLayer];
 }
 
-- (void)createAllButton
+- (void)createAllWidget
 {
     CGFloat deltaGap = _btnGapDistance;
     UIColor *btnBackgroundColor = [UIColor whiteColor];
+    
+    //  _bottomText_Img
+    _bottomText_Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"vidaHouse_Text"]];
+    _bottomText_Img.alpha = 0;
+    [self addSubview:_bottomText_Img];
+    [_bottomText_Img BearSetRelativeLayoutWithDirection:kDIR_DOWN destinationView:nil parentRelation:YES distance:_textImg_offY center:YES];
     
     //  _bottom_Btn
     _bottom_Btn = [[AddButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
@@ -1063,17 +1071,19 @@
     
     //  开始动画
     if (_animationStatus == animationOpen) {
-        [UIView animateWithDuration:1.0 animations:^{
+        [UIView animateWithDuration:0.7 animations:^{
             [_bottom_Btn setCenterY:self.height - _btnOffY_end - _btnWidth/2];
             _bottom_Btn.transform = CGAffineTransformMakeRotation(M_PI / 4);
+            _bottomText_Img.alpha = 1;
         }];
     }
     
     //  结束动画
     else if (_animationStatus == animationClose){
-        [UIView animateWithDuration:1.0 animations:^{
+        [UIView animateWithDuration:0.7 animations:^{
             [_bottom_Btn setCenterY:self.height - _btnOffY_start - _btnWidth/2];
             _bottom_Btn.transform = CGAffineTransformMakeRotation(0);
+            _bottomText_Img.alpha = 0;
         }];
     }
 }
