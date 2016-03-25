@@ -9,7 +9,9 @@
 #import "ViewController.h"
 #import "DropCanvasView.h"
 
-@interface ViewController ()
+@interface ViewController (){
+    DropCanvasView *dropCanvasView;
+}
 
 @end
 
@@ -22,9 +24,20 @@
     bgImageView.image = [UIImage imageNamed:@"BackGroundImg"];
     [self.view addSubview:bgImageView];
     
-    DropCanvasView *dropCanvasView = [[DropCanvasView alloc] initWithFrame:self.view.bounds];
+    dropCanvasView = [[DropCanvasView alloc] initWithFrame:self.view.bounds];
+    [dropCanvasView.bottom_Btn addTarget:self action:@selector(bottomBtnEvent) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:dropCanvasView];
     
+    
+}
+
+- (void)bottomBtnEvent
+{
+    if (dropCanvasView.animationStatus == animationOpen) {
+        dropCanvasView.animationStatus = animationClose;
+    }else{
+        dropCanvasView.animationStatus = animationOpen;
+    }
     
 }
 

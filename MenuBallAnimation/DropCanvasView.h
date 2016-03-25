@@ -19,6 +19,7 @@ typedef enum {
 
 @interface DropCanvasView : UIView
 
+@property (assign, nonatomic) int kkk;
 @property (assign, nonatomic) AnimationStatus   animationStatus;
 @property (strong, nonatomic) NSMutableArray    *assisArray;
 

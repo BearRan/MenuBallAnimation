@@ -1055,6 +1055,23 @@
     CGContextFillPath(context);
 }
 
+@synthesize animationStatus = _animationStatus;
+- (void)setAnimationStatus:(AnimationStatus)animationStatus
+{
+    _animationStatus = animationStatus;
+    
+    if (_animationStatus == animationOpen) {
+        [UIView animateWithDuration:1.0 animations:^{
+            [_bottom_Btn setMaxY:self.height - _btnOffY_end];
+        }];
+    }
+    else if (_animationStatus == animationClose){
+        [UIView animateWithDuration:1.0 animations:^{
+            [_bottom_Btn setMaxY:self.height - _btnOffY_start];
+        }];
+    }
+}
+
 @end
 
 
