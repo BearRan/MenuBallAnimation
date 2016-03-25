@@ -176,7 +176,7 @@
     
     //小圆和大圆相离
     if (dis_SmallToMain + faultTolerantValue_SmallToMain >= radius_SmallAddMain) {
-        NSLog(@"小圆和大圆相离");
+//        NSLog(@"小圆和大圆相离");
         _relation = kSeparated_SmallToMain;
         
         [self calucateCrossPointDropView1:_assisDrop1 dropView2:self setCondition:kSetNull];
@@ -187,7 +187,7 @@
     }
     //小圆和大圆相交
     else if (dis_SmallToMain + faultTolerantValue_SmallToMain < radius_SmallAddMain && dis_SmallToSmall + faultTolerantValue_SmallToSmall >= radius_SmallAddSmall){
-        NSLog(@"小圆和大圆相交");
+//        NSLog(@"小圆和大圆相交");
         _relation = kCross_SmallToMain;
         
         [self calucateCrossPointDropView1:_assisDrop1 dropView2:self setCondition:kSetNull];
@@ -198,7 +198,7 @@
     }
     //小圆和小圆相交
     else if (dis_SmallToMain + faultTolerantValue_SmallToMain < radius_SmallAddMain && dis_SmallToSmall + faultTolerantValue_SmallToSmall < radius_SmallAddSmall && abs((int)dis_SmallToMain) > faultTolerantValue_Inintional){
-        NSLog(@"小圆和小圆相交");
+//        NSLog(@"小圆和小圆相交");
         _relation = kCross_SmallToSmall;
         
         [self calucateCrossPointDropView1:_assisDrop1 dropView2:_assisDrop2 setCondition:kSetRightPoint];
@@ -215,7 +215,7 @@
     else if (abs((int)dis_SmallToMain) < faultTolerantValue_Inintional){
         _relation = kInitional;
     }else{
-        NSLog(@"都不是");
+//        NSLog(@"都不是");
     }
     
     [_dropSuperView setNeedsDisplay];
@@ -815,7 +815,7 @@
             
             //  开始减小
             if (dis_SmallToMain > reduceThreshold && dis_SmallToMain < normalThreshold){
-                NSLog(@"开始减小");
+//                NSLog(@"开始减小");
                 
                 CGFloat ratio = [LineMath calucateRatioBetweenMin:reduceThreshold Max:normalThreshold Now:dis_SmallToMain];
                 ratio = 1 - ratio;
@@ -856,7 +856,7 @@
             }
             //  粘滞状态
             else if (dis_SmallToMain < reduceThreshold){
-                NSLog(@"粘滞状态");
+//                NSLog(@"粘滞状态");
                 
                 CGFloat ratio = [LineMath calucateRatioBetweenMin:radius_SmallAddMain Max:reduceThreshold Now:dis_SmallToMain];
                 ratio = 1 - ratio;
