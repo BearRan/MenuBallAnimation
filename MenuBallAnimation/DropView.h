@@ -73,18 +73,10 @@ typedef enum {
 @property (strong, nonatomic) CircleMath    *circleMath;        //圆的方程
 
 @property (assign, nonatomic) CGPoint       edge_point1;        //圆心连线的垂线与圆的交点1
-@property (assign, nonatomic) CGPoint       edge_point1_left;   //圆心连线的垂线与圆的交点1,贝塞尔绘制点左侧
-@property (assign, nonatomic) CGPoint       edge_point1_right;  //圆心连线的垂线与圆的交点1,贝塞尔绘制点右侧
 @property (assign, nonatomic) CGPoint       edge_point2;        //圆心连线的垂线与圆的交点2
-@property (assign, nonatomic) CGPoint       edge_point2_left;   //圆心连线的垂线与圆的交点2,贝塞尔绘制点左侧
-@property (assign, nonatomic) CGPoint       edge_point2_right;  //圆心连线的垂线与圆的交点2,贝塞尔绘制点右侧
 
 @property (assign, nonatomic) CGPoint       bezierControlPoint1;    //贝赛尔曲线控制点1（P3，P4中间）/相交时控制点
-@property (assign, nonatomic) CGPoint       bezierControlPoint1_1;  //贝赛尔曲线控制点1（P3，P4中间）
-@property (assign, nonatomic) CGPoint       bezierControlPoint1_1C; //贝赛尔曲线控制点1（P3，P4中间,平滑作用）
 @property (assign, nonatomic) CGPoint       bezierControlPoint2;    //贝赛尔曲线控制点2（P1，P2中间）/相交时控制点
-@property (assign, nonatomic) CGPoint       bezierControlPoint2_1;  //贝赛尔曲线控制点2（P1，P2中间）
-@property (assign, nonatomic) CGPoint       bezierControlPoint2_1C; //贝赛尔曲线控制点2（P1，P2中间,平滑作用）
 
 @property (strong, nonatomic) DropView          *smallDrop;
 @property (assign, nonatomic) DropCanvasView    *dropSuperView;
@@ -158,9 +150,5 @@ typedef enum {
  *      反之亦然
  */
 + (TwoPointStruct)PointBetweenPoint1:(CGPoint)point1 point2:(CGPoint)point2 ToPointRatio:(CGFloat)ratio;
-
-- (void)assisDropShow;
-
-- (void)assisDropHidden;
 
 @end
