@@ -21,8 +21,10 @@
     CGFloat     _btnGapDistance_Origin;
     
     DropView        *_mainDrop;
+    UIView          *_ringBgView;
     CAShapeLayer    *_ringStrokeLayer;
     CAShapeLayer    *_ringFillingLayer;
+    UIColor         *_ringColor;
 }
 
 @end
@@ -58,6 +60,7 @@
     _textImg_offY   = 91 / 1337.0 * HEIGHT;
     _btnGapDistance_Origin = 252/752.0 * WIDTH;
     _btnGapDistance = sqrt(_btnGapDistance_Origin * _btnGapDistance_Origin / 2.0);
+    _ringColor      = RGB(88, 91, 104);
 }
 
 - (void)createMainDrop
@@ -68,22 +71,29 @@
     [self addSubview:_mainDrop];
     [_mainDrop BearSetCenterToParentViewWithAxis:kAXIS_X_Y];
     
-    [self createLayer];
+    [self createRingUI];
+    
+    //  _mainDrop.dropShapLayer
+    [self.layer addSublayer:_mainDrop.dropShapLayer];
 }
 
-- (void)createLayer
+- (void)createRingUI
 {
     CGFloat bigRingRadius       = 252/752.0 * WIDTH;
     CGFloat smallRingRadius     = 100/752.0 * WIDTH;
     CGFloat centerRingRadius    = 76/752.0 * WIDTH;
-    UIColor *ringColor          = RGB(88, 91, 104);
+    
+    _ringBgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height)];
+    _ringBgView.alpha = 0;
+    [self addSubview:_ringBgView];
+    
     
     //  _ringStrokeLayer
     _ringStrokeLayer = [CAShapeLayer layer];
     _ringStrokeLayer.lineWidth = 1.5f;
-    _ringStrokeLayer.strokeColor = ringColor.CGColor;
+    _ringStrokeLayer.strokeColor = _ringColor.CGColor;
     _ringStrokeLayer.fillColor = [UIColor clearColor].CGColor;
-    [self.layer addSublayer:_ringStrokeLayer];
+    [_ringBgView.layer addSublayer:_ringStrokeLayer];
     
     UIBezierPath *bezierPath1 = [UIBezierPath bezierPath];
     [bezierPath1 moveToPoint:CGPointMake(_mainDrop.centerX + bigRingRadius, _mainDrop.centerY)];
@@ -96,17 +106,14 @@
     
     //  _ringStrokeLayer
     _ringFillingLayer = [CAShapeLayer layer];
-    _ringFillingLayer.fillColor = ringColor.CGColor;
-    [self.layer addSublayer:_ringFillingLayer];
+    _ringFillingLayer.fillColor = _ringColor.CGColor;
+    [_ringBgView.layer addSublayer:_ringFillingLayer];
     
     UIBezierPath *bezierPath2 = [UIBezierPath bezierPath];
     [bezierPath2 addArcWithCenter:_mainDrop.center radius:centerRingRadius startAngle:0 endAngle:M_PI * 2 clockwise:YES];
     
     _ringFillingLayer.path = bezierPath2.CGPath;
     
-    
-    //  _mainDrop.dropShapLayer
-    [self.layer addSublayer:_mainDrop.dropShapLayer];
 }
 
 - (void)createAllWidget
@@ -1073,6 +1080,8 @@
     
     //  开始动画
     if (_animationStatus == animationOpen) {
+        
+        //  底部按钮
         [UIView animateWithDuration:0.7
                               delay:0
                             options:UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -1084,8 +1093,20 @@
                                 
                             }];
         
-        [UIView animateWithDuration:0.6
+        //  圆环
+        [UIView animateWithDuration:0.4
                               delay:0.8
+                            options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                                
+                                _ringBgView.alpha = 1;
+                                
+                            } completion:^(BOOL finished) {
+                                
+                            }];
+        
+        //  Menu四周按钮
+        [UIView animateWithDuration:0.6
+                              delay:0.8 + 0.4
                             options:UIViewAnimationOptionCurveEaseInOut animations:^{
                                 
                                 [self menuFourBtnAlpha1];
@@ -1096,6 +1117,8 @@
     
     //  结束动画
     else if (_animationStatus == animationClose){
+        
+        //  Menu四周按钮
         [UIView animateWithDuration:0.6
                               delay:0
                             options:UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -1105,8 +1128,20 @@
                                 
                             }];
         
+        //  圆环
+        [UIView animateWithDuration:0.4
+                              delay:0.8
+                            options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                                
+                                _ringBgView.alpha = 0;
+                                
+                            } completion:^(BOOL finished) {
+                                
+                            }];
+        
+        //  底部按钮
         [UIView animateWithDuration:0.7
-                              delay:0.9
+                              delay:0.8 + 0.4
                             options:UIViewAnimationOptionCurveEaseInOut animations:^{
                                 [_bottom_Btn setCenterY:self.height - _btnOffY_start - _btnWidth/2];
                                 _bottom_Btn.transform = CGAffineTransformMakeRotation(0);
