@@ -655,42 +655,56 @@
                             options:UIViewAnimationOptionCurveEaseInOut animations:^{
                                 
                                 [self menuFourBtnAlpha0];
-//                                [self assisDropHidden];
 
                             } completion:^(BOOL finished) {
                                 
                             }];
         
+        //  AssisDrop
+        [self delayBlockTime:0 event:^{
+            
+            [self assisDropHide_1];
+        }];
+
+        [self delayBlockTime:0.7 event:^{
+            
+            _mainDropBgView.hidden = NO;
+        }];
+
+        
         //  圆环
         [UIView animateWithDuration:0.4
-                              delay:0.8
+                              delay:0.7
                             options:UIViewAnimationOptionCurveEaseInOut animations:^{
                                 
                                 _ringBgView.alpha = 0;
-                                
                             } completion:^(BOOL finished) {
                                 
                             }];
         
+        //  中间按钮的icon
+        [UIView animateWithDuration:0.4
+                              delay:0.85
+                            options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                                
+                                _menuCenter_Btn.alpha = 0;
+                            }completion:^(BOOL finished) {
+                                _menuCenter_Btn.hidden = YES;
+                                _menuCenter_Btn.btnImage.alpha = 0;
+                            }];
+        
         //  底部按钮
         [UIView animateWithDuration:0.7
-                              delay:0.8 + 0.4
+                              delay:0.7
                             options:UIViewAnimationOptionCurveEaseInOut animations:^{
                                 [_bottom_Btn setCenterY:self.height - _btnOffY_start - _btnWidth/2];
                                 _bottom_Btn.transform = CGAffineTransformMakeRotation(0);
                                 _bottomText_Img.alpha = 0;
                             } completion:^(BOOL finished) {
-//                                _mainDrop.displayLink.paused = YES;
+
                             }];
         
-        
-//        [self assisDropHide_1];
-//        [_mainDrop assisDropHidden];
-        
     }
-    
-    
-    
 }
 
 - (void)assisDropShow_1
