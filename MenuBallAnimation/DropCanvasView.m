@@ -46,8 +46,6 @@
     [self createMainDrop];
     [self createAllWidget];
     
-    
-    
     return self;
 }
 
@@ -1130,20 +1128,9 @@
         }];
         
         
+//        [_mainDrop assisDropShow];
         [self assisDropShow_1];
-        
-//        [UIView animateWithDuration:20.0
-//                              delay:0
-//             usingSpringWithDamping:0.3
-//              initialSpringVelocity:0
-//                            options:UIViewAnimationOptionCurveEaseInOut
-//                         animations:^{
-//                             [self assisDropShow];
-//                             _mainDrop.displayLink.paused = NO;
-//                         }
-//                         completion:^(BOOL finished) {
-//                             _mainDrop.displayLink.paused = YES;
-//                         }];
+
     }
     
     //  结束动画
@@ -1156,7 +1143,7 @@
                                 
                                 [self menuFourBtnAlpha0];
 //                                [self assisDropHidden];
-                                
+
                             } completion:^(BOOL finished) {
                                 
                             }];
@@ -1185,19 +1172,7 @@
         
         
         [self assisDropHide_1];
-        
-//        [UIView animateWithDuration:20.0
-//                              delay:0
-//             usingSpringWithDamping:0.3
-//              initialSpringVelocity:0
-//                            options:UIViewAnimationOptionCurveEaseInOut
-//                         animations:^{
-//                             [self assisDropHidden];
-//                             _mainDrop.displayLink.paused = NO;
-//                         }
-//                         completion:^(BOOL finished) {
-//                             _mainDrop.displayLink.paused = YES;
-//                         }];
+//        [_mainDrop assisDropHidden];
         
     }
     
@@ -1209,11 +1184,10 @@
 {
     CGFloat centerX = _mainDrop.width/2.0;
     CGFloat centerY = _mainDrop.height/2.0;
-    __block CGFloat deltaDistance = _btnGapDistance;
-    CGFloat during = 10.0f;
+    CGFloat during = 1.0f;
     
     __block int i = 0;
-    CGFloat duration = 0.1f;   //间隔时间
+    CGFloat duration = 0.001f;   //间隔时间
     CGFloat     times = during/duration;
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
@@ -1223,19 +1197,12 @@
         
         i++;
         if (i > times) {
-            dispatch_source_cancel(timer);  //执行5次后停止
-//            NSLog(@"-- end");
-        }else{
-//            NSLog(@"-- Method_C i:%d", i);
-            NSString *tempStr = [NSString stringWithFormat:@"%0.2f", times];
-            NSLog(@"tempStr:%@", tempStr);
-            CGFloat tempTimes = [tempStr floatValue];
-            NSLog(@"tempTimes:%f", tempTimes);
-            CGFloat ratio = deltaDistance / (tempTimes * 1.0);
-            NSLog(@"ratio:%f", ratio);
             
-            deltaDistance = (i / ((float)times * 1.0)) * _btnGapDistance;
-            NSLog(@"show i:%d deltaDistance:%f", i, deltaDistance);
+            dispatch_source_cancel(timer);  //执行5次后停止
+        }else{
+
+            CGFloat deltaDistance = (_btnGapDistance / ((float)times * 1.0)) * i;
+            
             _mainDrop.assisDrop1.center = CGPointMake(centerX - deltaDistance, centerY - deltaDistance);
             _mainDrop.assisDrop2.center = CGPointMake(centerX + deltaDistance, centerY - deltaDistance);
             _mainDrop.assisDrop3.center = CGPointMake(centerX + deltaDistance, centerY + deltaDistance);
@@ -1249,11 +1216,10 @@
 {
     CGFloat centerX = _mainDrop.width/2.0;
     CGFloat centerY = _mainDrop.height/2.0;
-    __block CGFloat deltaDistance = _btnGapDistance;
-    CGFloat during = 10.0f;
+    CGFloat during = 1.0f;
     
     __block int i = 0;
-    CGFloat duration = 0.1f;   //间隔时间
+    CGFloat duration = 0.001f;   //间隔时间
     int     times = during/duration;
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
@@ -1263,13 +1229,13 @@
         
         i++;
         if (i > times) {
+            
             dispatch_source_cancel(timer);  //执行5次后停止
-            //            NSLog(@"-- end");
         }else{
-            //            NSLog(@"-- Method_C i:%d", i);
-            deltaDistance = (_btnGapDistance / ((float)times * 1.0)) * i;
+            
+            CGFloat deltaDistance = (_btnGapDistance / ((float)times * 1.0)) * i;
             deltaDistance = _btnGapDistance - deltaDistance;
-            NSLog(@"hide i:%d deltaDistance:%f", i, deltaDistance);
+            
             _mainDrop.assisDrop1.center = CGPointMake(centerX - deltaDistance, centerY - deltaDistance);
             _mainDrop.assisDrop2.center = CGPointMake(centerX + deltaDistance, centerY - deltaDistance);
             _mainDrop.assisDrop3.center = CGPointMake(centerX + deltaDistance, centerY + deltaDistance);

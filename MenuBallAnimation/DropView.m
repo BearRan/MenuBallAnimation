@@ -40,6 +40,36 @@
 
 @implementation DropView
 
+
+//  AssisDrop动画Detail
+- (void)assisDropShow
+{
+    [UIView animateWithDuration:2.0f animations:^{
+        CGFloat centerX = self.width/2.0;
+        CGFloat centerY = self.height/2.0;
+        CGFloat deltaDistance = 150;
+        
+        _assisDrop1.center = CGPointMake(centerX - deltaDistance, centerY - deltaDistance);
+        _assisDrop2.center = CGPointMake(centerX + deltaDistance, centerY - deltaDistance);
+        _assisDrop3.center = CGPointMake(centerX + deltaDistance, centerY + deltaDistance);
+        _assisDrop4.center = CGPointMake(centerX - deltaDistance, centerY + deltaDistance);
+    }];
+}
+
+- (void)assisDropHidden
+{
+//    [UIView animateWithDuration:2.0f animations:^{
+        CGFloat centerX = self.width/2.0;
+        CGFloat centerY = self.height/2.0;
+        CGFloat deltaDistance = 50;
+        
+        _assisDrop1.center = CGPointMake(centerX - deltaDistance, centerY - deltaDistance);
+        _assisDrop2.center = CGPointMake(centerX + deltaDistance, centerY - deltaDistance);
+        _assisDrop3.center = CGPointMake(centerX + deltaDistance, centerY + deltaDistance);
+        _assisDrop4.center = CGPointMake(centerX - deltaDistance, centerY + deltaDistance);
+//    }];
+}
+
 - (instancetype)initWithFrame:(CGRect)frame createSmallDrop:(BOOL)createSmallDrop
 {
     self = [super initWithFrame:frame];
@@ -76,6 +106,7 @@
     _dropShapLayer.strokeEnd = 1;
     
     _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(calucateCoordinate1)];
+//    _displayLink.frameInterval = 20;
     [_displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
 //    _displayLink.paused = YES;
 }
@@ -138,20 +169,21 @@
         _assisDrop3.center = CGPointMake(centerX + deltaX, centerY + deltaX);
         _assisDrop4.center = CGPointMake(centerX - deltaX, centerY + deltaX);
         
-//        [self calucateCoordinate1];
+        [self calucateCoordinate1];
 //        _smallDrop.center = tempPoint;
 //        [self calucateCoordinate];
     }
     else if(panGesture.state == UIGestureRecognizerStateEnded){
         
-//        [UIView animateWithDuration:1.0
+//        [UIView animateWithDuration:20.0
 //                              delay:0
 //             usingSpringWithDamping:0.3
 //              initialSpringVelocity:0
 //                            options:UIViewAnimationOptionCurveEaseInOut
 //                         animations:^{
-//                             [_smallDrop BearSetCenterToParentViewWithAxis:kAXIS_X_Y];
-//                             _displayLink.paused = NO;
+//                             [self assisDropHidden];
+////                             [_smallDrop BearSetCenterToParentViewWithAxis:kAXIS_X_Y];
+////                             _displayLink.paused = NO;
 //                         }
 //                         completion:^(BOOL finished) {
 //                             _displayLink.paused = YES;

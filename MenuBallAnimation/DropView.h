@@ -159,4 +159,8 @@ typedef enum {
  */
 + (TwoPointStruct)PointBetweenPoint1:(CGPoint)point1 point2:(CGPoint)point2 ToPointRatio:(CGFloat)ratio;
 
+- (void)assisDropShow;
+
+- (void)assisDropHidden;
+
 @end
