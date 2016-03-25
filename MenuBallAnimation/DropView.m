@@ -34,8 +34,6 @@
 
 @interface DropView()
 
-@property (strong, nonatomic) CADisplayLink *displayLink;
-
 @end
 
 
@@ -61,7 +59,7 @@
 
 - (void)createDropView
 {
-//    self.backgroundColor = [[UIColor orangeColor] colorWithAlphaComponent:0.5];
+    self.backgroundColor = [UIColor clearColor];//[[UIColor orangeColor] colorWithAlphaComponent:0.5];
     self.layer.cornerRadius = self.width/2;
     self.layer.masksToBounds = NO;
     self.clipsToBounds = NO;
@@ -77,9 +75,9 @@
     _dropShapLayer.strokeStart = 0;
     _dropShapLayer.strokeEnd = 1;
     
-    _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(calucateCoordinate)];
+    _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(calucateCoordinate1)];
     [_displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
-    _displayLink.paused = YES;
+//    _displayLink.paused = YES;
 }
 
 - (void)createSmallDropView
@@ -110,6 +108,7 @@
 {
     CGFloat assisDrop_width = self.width;
     
+    assisDrop.backgroundColor = [UIColor orangeColor];
     assisDrop.layer.cornerRadius = assisDrop_width/2;
     assisDrop.fillColor = _fillColor;
     
@@ -139,7 +138,7 @@
         _assisDrop3.center = CGPointMake(centerX + deltaX, centerY + deltaX);
         _assisDrop4.center = CGPointMake(centerX - deltaX, centerY + deltaX);
         
-        [self calucateCoordinate1];
+//        [self calucateCoordinate1];
 //        _smallDrop.center = tempPoint;
 //        [self calucateCoordinate];
     }

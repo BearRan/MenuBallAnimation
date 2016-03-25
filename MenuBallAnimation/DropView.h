@@ -94,7 +94,7 @@ typedef enum {
 @property (strong, nonatomic) UIBezierPath      *bezierPath;
 @property (assign, nonatomic) kCirlceRelation   circleRelation;
 @property (strong, nonatomic) UIColor           *fillColor;
-
+@property (strong, nonatomic) CADisplayLink     *displayLink;
 
 
 @property (assign, nonatomic) kRelation         relation;

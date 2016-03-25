@@ -46,6 +46,8 @@
     [self createMainDrop];
     [self createAllWidget];
     
+    
+    
     return self;
 }
 
@@ -1077,6 +1079,7 @@
 - (void)setAnimationStatus:(AnimationStatus)animationStatus
 {
     _animationStatus = animationStatus;
+    _mainDrop.displayLink.paused = NO;
     
     //  开始动画
     if (_animationStatus == animationOpen) {
@@ -1104,14 +1107,26 @@
                                 
                             }];
         
+        //  AssisDrop
+        [UIView animateWithDuration:1.4
+                              delay:0.8 + 0.4
+                            options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                                
+                                [self assisDropShow];
+                                
+                            } completion:^(BOOL finished) {
+                                
+                            }];
+        
         //  Menu四周按钮
         [UIView animateWithDuration:0.6
-                              delay:0.8 + 0.4
+                              delay:0.8 + 0.4 + 0.4
                             options:UIViewAnimationOptionCurveEaseInOut animations:^{
                                 
                                 [self menuFourBtnAlpha1];
         } completion:^(BOOL finished) {
             
+//                                _mainDrop.displayLink.paused = YES;
         }];
     }
     
@@ -1119,11 +1134,13 @@
     else if (_animationStatus == animationClose){
         
         //  Menu四周按钮
-        [UIView animateWithDuration:0.6
+        [UIView animateWithDuration:1.6
                               delay:0
                             options:UIViewAnimationOptionCurveEaseInOut animations:^{
                                 
                                 [self menuFourBtnAlpha0];
+                                [self assisDropHidden];
+                                
                             } completion:^(BOOL finished) {
                                 
                             }];
@@ -1147,12 +1164,43 @@
                                 _bottom_Btn.transform = CGAffineTransformMakeRotation(0);
                                 _bottomText_Img.alpha = 0;
                             } completion:^(BOOL finished) {
-                                
+//                                _mainDrop.displayLink.paused = YES;
                             }];
         
     }
+    
+    
+    
 }
 
+//  AssisDrop动画Detail
+- (void)assisDropShow
+{
+    CGFloat centerX = _mainDrop.width/2.0;
+    CGFloat centerY = _mainDrop.height/2.0;
+//    CGFloat deltaDistance = _btnGapDistance;
+    CGFloat deltaDistance = 50;
+    
+    _mainDrop.assisDrop1.center = CGPointMake(centerX - deltaDistance, centerY - deltaDistance);
+    _mainDrop.assisDrop2.center = CGPointMake(centerX + deltaDistance, centerY - deltaDistance);
+    _mainDrop.assisDrop3.center = CGPointMake(centerX + deltaDistance, centerY + deltaDistance);
+    _mainDrop.assisDrop4.center = CGPointMake(centerX - deltaDistance, centerY + deltaDistance);
+}
+
+- (void)assisDropHidden
+{
+    CGFloat centerX = _mainDrop.width/2.0;
+    CGFloat centerY = _mainDrop.height/2.0;
+    CGFloat deltaDistance = 0;
+    
+    _mainDrop.assisDrop1.center = CGPointMake(centerX - deltaDistance, centerY - deltaDistance);
+    _mainDrop.assisDrop2.center = CGPointMake(centerX + deltaDistance, centerY - deltaDistance);
+    _mainDrop.assisDrop3.center = CGPointMake(centerX + deltaDistance, centerY + deltaDistance);
+    _mainDrop.assisDrop4.center = CGPointMake(centerX - deltaDistance, centerY + deltaDistance);
+}
+
+
+//  MenuBtn动画Detail
 - (void)menuFourBtnAlpha0
 {
     _menu1_Btn.alpha = 0;
