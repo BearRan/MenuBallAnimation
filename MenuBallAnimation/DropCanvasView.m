@@ -128,15 +128,15 @@
     UIColor *btnBackgroundColor_white = [UIColor whiteColor];
     UIColor *btnBackgroundColor_clear = [UIColor clearColor];
     
-    //  TextField
-    _textField = [[UITextField alloc] init];
-    _textField.text = @"iOS动效特工队";
-    _textField.font = [UIFont systemFontOfSize:20];
-    _textField.textColor = [UIColor whiteColor];
-    _textField.alpha = 0;
-    [_textField sizeToFit];
-    [self addSubview:_textField];
-    [_textField BearSetRelativeLayoutWithDirection:kDIR_DOWN destinationView:nil parentRelation:YES distance:_textImg_offY center:YES];
+    //  teamLabel
+    _teamLabel = [[UILabel alloc] init];
+    _teamLabel.text = @"iOS动效特工队";
+    _teamLabel.font = [UIFont systemFontOfSize:20];
+    _teamLabel.textColor = [UIColor whiteColor];
+    _teamLabel.alpha = 0;
+    [_teamLabel sizeToFit];
+    [self addSubview:_teamLabel];
+    [_teamLabel BearSetRelativeLayoutWithDirection:kDIR_DOWN destinationView:nil parentRelation:YES distance:_textImg_offY center:YES];
     
     //  _bottomText_Img
 //    _bottomText_Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"vidaHouse_Text"]];
@@ -600,7 +600,7 @@
                                 [_bottom_Btn setCenterY:self.height - _btnOffY_end - _btnWidth/2];
                                 _bottom_Btn.transform = CGAffineTransformMakeRotation(M_PI / 4);
                                 _bottomText_Img.alpha = 1;
-                                _textField.alpha = 1;
+                                _teamLabel.alpha = 1;
                             } completion:^(BOOL finished) {
                                 
                             }];
@@ -712,7 +712,7 @@
                                 [_bottom_Btn setCenterY:self.height - _btnOffY_start - _btnWidth/2];
                                 _bottom_Btn.transform = CGAffineTransformMakeRotation(0);
                                 _bottomText_Img.alpha = 0;
-                                _textField.alpha = 0;
+                                _teamLabel.alpha = 0;
                             } completion:^(BOOL finished) {
 
                             }];

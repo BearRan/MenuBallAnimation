@@ -25,7 +25,7 @@ typedef enum {
 @property (strong, nonatomic) NSMutableArray    *assisArray;
 
 @property (strong, nonatomic) UIImageView   *bottomText_Img;
-@property (strong, nonatomic) UITextField   *textField;
+@property (strong, nonatomic) UILabel       *teamLabel;
 @property (strong, nonatomic) AddButton     *bottom_Btn;
 
 @property (strong, nonatomic) UIButton      *menu1_Btn;
