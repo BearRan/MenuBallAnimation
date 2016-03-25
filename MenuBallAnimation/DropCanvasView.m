@@ -168,6 +168,8 @@
     [_menu4_Btn setImage:[UIImage imageNamed:@"BtnIcon_UserSingle"] forState:UIControlStateNormal];
     [self addSubview:_menu4_Btn];
     [_menu4_Btn setCenter:CGPointMake(_menuCenter_Btn.centerX + deltaGap, _menuCenter_Btn.centerY + deltaGap)];
+    
+    [self menuFourBtnAlpha0];
 }
 
 
@@ -1071,21 +1073,65 @@
     
     //  开始动画
     if (_animationStatus == animationOpen) {
-        [UIView animateWithDuration:0.7 animations:^{
-            [_bottom_Btn setCenterY:self.height - _btnOffY_end - _btnWidth/2];
-            _bottom_Btn.transform = CGAffineTransformMakeRotation(M_PI / 4);
-            _bottomText_Img.alpha = 1;
+        [UIView animateWithDuration:0.7
+                              delay:0
+                            options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                                
+                                [_bottom_Btn setCenterY:self.height - _btnOffY_end - _btnWidth/2];
+                                _bottom_Btn.transform = CGAffineTransformMakeRotation(M_PI / 4);
+                                _bottomText_Img.alpha = 1;
+                            } completion:^(BOOL finished) {
+                                
+                            }];
+        
+        [UIView animateWithDuration:0.6
+                              delay:0.8
+                            options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                                
+                                [self menuFourBtnAlpha1];
+        } completion:^(BOOL finished) {
+            
         }];
     }
     
     //  结束动画
     else if (_animationStatus == animationClose){
-        [UIView animateWithDuration:0.7 animations:^{
-            [_bottom_Btn setCenterY:self.height - _btnOffY_start - _btnWidth/2];
-            _bottom_Btn.transform = CGAffineTransformMakeRotation(0);
-            _bottomText_Img.alpha = 0;
-        }];
+        [UIView animateWithDuration:0.6
+                              delay:0
+                            options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                                
+                                [self menuFourBtnAlpha0];
+                            } completion:^(BOOL finished) {
+                                
+                            }];
+        
+        [UIView animateWithDuration:0.7
+                              delay:0.9
+                            options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                                [_bottom_Btn setCenterY:self.height - _btnOffY_start - _btnWidth/2];
+                                _bottom_Btn.transform = CGAffineTransformMakeRotation(0);
+                                _bottomText_Img.alpha = 0;
+                            } completion:^(BOOL finished) {
+                                
+                            }];
+        
     }
+}
+
+- (void)menuFourBtnAlpha0
+{
+    _menu1_Btn.alpha = 0;
+    _menu2_Btn.alpha = 0;
+    _menu3_Btn.alpha = 0;
+    _menu4_Btn.alpha = 0;
+}
+
+- (void)menuFourBtnAlpha1
+{
+    _menu1_Btn.alpha = 1;
+    _menu2_Btn.alpha = 1;
+    _menu3_Btn.alpha = 1;
+    _menu4_Btn.alpha = 1;
 }
 
 @end
