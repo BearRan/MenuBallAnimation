@@ -47,14 +47,6 @@ typedef enum {
 }kQuadrantArea;
 
 typedef enum {
-    kCircleSeparateEntire,          //两圆完全相离
-    kCircleSeparateAndConnect,      //两圆相离，但仍然相连
-    kCircleSeparateDeformation,     //两圆相离但变形
-    kCircleCross,                   //两圆相交
-    kCircleContain,                 //两圆内含
-}kCirlceRelation;
-
-typedef enum {
     kInitional,                     //初始状态
     kSeparated_SmallToMain,         //小圆和大圆相离
     kCross_SmallToMain,             //小圆和大圆相交
@@ -69,26 +61,16 @@ typedef enum {
 
 @interface DropView : UIView
 
-@property (strong, nonatomic) LineMath      *lineCenter2Center; //圆心的连线
-@property (strong, nonatomic) CircleMath    *circleMath;        //圆的方程
 
-@property (assign, nonatomic) CGPoint       edge_point1;        //圆心连线的垂线与圆的交点1
-@property (assign, nonatomic) CGPoint       edge_point2;        //圆心连线的垂线与圆的交点2
-
-@property (assign, nonatomic) CGPoint       bezierControlPoint1;    //贝赛尔曲线控制点1（P3，P4中间）/相交时控制点
-@property (assign, nonatomic) CGPoint       bezierControlPoint2;    //贝赛尔曲线控制点2（P1，P2中间）/相交时控制点
-
+@property (strong, nonatomic) CircleMath        *circleMath;        //圆的方程
 @property (strong, nonatomic) DropView          *smallDrop;
 @property (assign, nonatomic) DropCanvasView    *dropSuperView;
 @property (assign, nonatomic) kQuadrantArea     smallDropQuadrant;
 
 @property (strong, nonatomic) CAShapeLayer      *dropShapLayer;
 @property (strong, nonatomic) UIBezierPath      *bezierPath;
-@property (assign, nonatomic) kCirlceRelation   circleRelation;
 @property (strong, nonatomic) UIColor           *fillColor;
 @property (strong, nonatomic) CADisplayLink     *displayLink;
-
-
 @property (assign, nonatomic) kRelation         relation;
 @property (assign, nonatomic) CGPoint           mainCenter;
 
