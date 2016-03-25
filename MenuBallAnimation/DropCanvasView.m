@@ -627,13 +627,22 @@
                                 
                             }];
         
-        
         //  AssisDrop
-        [self delayBlockTime:1.8 + 0.4 + 0.4 event:^{
+        [self delayBlockTime:1.8 event:^{
             
             _mainDropBgView.hidden = NO;
             [self assisDropShow_1];
         }];
+        
+        //  显示四周MenuBtn
+        [UIView animateWithDuration:0.4
+                              delay:1.8 + 0.6 + 0.2
+                            options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                                
+                                [self menuFourBtnAlpha1];
+                            } completion:^(BOOL finished) {
+                                
+                            }];
 
     }
     
@@ -688,7 +697,7 @@
 {
     CGFloat centerX = _mainDrop.width/2.0;
     CGFloat centerY = _mainDrop.height/2.0;
-    CGFloat during = 1.0f;
+    CGFloat during = 0.6f;
     
     __block int i = 0;
     CGFloat duration = 0.001f;   //间隔时间
@@ -720,7 +729,7 @@
 {
     CGFloat centerX = _mainDrop.width/2.0;
     CGFloat centerY = _mainDrop.height/2.0;
-    CGFloat during = 1.0f;
+    CGFloat during = 0.6f;
     
     __block int i = 0;
     CGFloat duration = 0.001f;   //间隔时间
@@ -734,7 +743,7 @@
         i++;
         if (i > times) {
             
-            dispatch_source_cancel(timer);  //执行5次后停止
+            dispatch_source_cancel(timer);  //执行times次后停止
         }else{
             
             CGFloat deltaDistance = (_btnGapDistance / ((float)times * 1.0)) * i;
