@@ -4,4 +4,4 @@ iOS溶球动效，花了三个星期撸出来的。溶球效果主要用的是Be
 iOS动效特攻队-->QQ群：547897182
 iOS动效特攻队-->熊熊：648070256
 
-![MenuBallAnimation.gif](quiver-image-url/FC349ACF490D999D2877D31AE243C1F3.gif)
+![MenuBallAnimation.gif](resources/FC349ACF490D999D2877D31AE243C1F3.gif)
