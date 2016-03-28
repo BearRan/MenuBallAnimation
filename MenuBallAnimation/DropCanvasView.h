@@ -14,9 +14,9 @@ static CGFloat  normalThreshold = 170 / 80.0 * 50;
 static CGFloat  reduceThreshold = 140 / 80.0 * 50;
 
 //  调试参数
-static BOOL     showAssistantLine   = YES;  //是否显示辅助线
-static CGFloat  mainFillAlpha       = 0.5;  //显示辅助线：0.5，不显示辅助线1.0
-static BOOL     showDropViewOnly    = YES;  //只显示DropView
+static BOOL     showAssistantLine   = NO;  //是否显示辅助线
+static CGFloat  mainFillAlpha       = 1.0;  //显示辅助线：0.5，不显示辅助线1.0
+static BOOL     showDropViewOnly    = NO;  //只显示DropView
 
 typedef enum {
     animationOpen,
@@ -29,7 +29,6 @@ typedef enum {
 @property (assign, nonatomic) AnimationStatus   animationStatus;
 @property (strong, nonatomic) NSMutableArray    *assisArray;
 
-@property (strong, nonatomic) UIImageView   *bottomText_Img;
 @property (strong, nonatomic) UILabel       *teamLabel;
 @property (strong, nonatomic) AddButton     *bottom_Btn;
 

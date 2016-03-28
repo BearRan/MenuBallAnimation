@@ -148,11 +148,6 @@
     [self addSubview:_teamLabel];
     [_teamLabel BearSetRelativeLayoutWithDirection:kDIR_DOWN destinationView:nil parentRelation:YES distance:_textImg_offY center:YES];
     
-    //  _bottomText_Img
-//    _bottomText_Img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"vidaHouse_Text"]];
-    _bottomText_Img.alpha = 0;
-    [self addSubview:_bottomText_Img];
-    [_bottomText_Img BearSetRelativeLayoutWithDirection:kDIR_DOWN destinationView:nil parentRelation:YES distance:_textImg_offY center:YES];
     
     //  _bottom_Btn
     _bottom_Btn = [[AddButton alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth)];
@@ -612,7 +607,6 @@
                                 
                                 [_bottom_Btn setCenterY:self.height - _btnOffY_end - _btnWidth/2];
                                 _bottom_Btn.transform = CGAffineTransformMakeRotation(M_PI / 4);
-                                _bottomText_Img.alpha = 1;
                                 _teamLabel.alpha = 1;
                             } completion:^(BOOL finished) {
                                 
@@ -724,7 +718,6 @@
                             options:UIViewAnimationOptionCurveEaseInOut animations:^{
                                 [_bottom_Btn setCenterY:self.height - _btnOffY_start - _btnWidth/2];
                                 _bottom_Btn.transform = CGAffineTransformMakeRotation(0);
-                                _bottomText_Img.alpha = 0;
                                 _teamLabel.alpha = 0;
                             } completion:^(BOOL finished) {
 
