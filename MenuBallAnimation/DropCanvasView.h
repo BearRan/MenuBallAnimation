@@ -10,8 +10,13 @@
 #import "AddButton.h"
 #import "MenuCenterBtn.h"
 
-static CGFloat normalThreshold = 170 / 80.0 * 50;
-static CGFloat reduceThreshold = 140 / 80.0 * 50;
+static CGFloat  normalThreshold = 170 / 80.0 * 50;
+static CGFloat  reduceThreshold = 140 / 80.0 * 50;
+
+//  调试参数
+static BOOL     showAssistantLine   = YES;  //是否显示辅助线
+static CGFloat  mainFillAlpha       = 0.5;  //显示辅助线：0.5，不显示辅助线1.0
+static BOOL     showDropViewOnly    = YES;  //只显示DropView
 
 typedef enum {
     animationOpen,

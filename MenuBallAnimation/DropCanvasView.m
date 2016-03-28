@@ -45,8 +45,14 @@
     
     [self setParameter];
     
-    [self createMainDrop];
-    [self createAllWidget];
+    if (showDropViewOnly) {
+        
+        [self createMainDrop];
+    }else{
+        
+        [self createMainDrop];
+        [self createAllWidget];
+    }
     
     return self;
 }
@@ -70,7 +76,7 @@
 {
     _mainDrop = [[DropView alloc] initWithFrame:CGRectMake(0, 0, _btnWidth, _btnWidth) createSmallDrop:YES];
     _mainDrop.dropSuperView = self;
-    _mainDrop.fillColor = _centerBtnColor;
+    _mainDrop.fillColor = [_centerBtnColor colorWithAlphaComponent:mainFillAlpha];
     [self addSubview:_mainDrop];
     [_mainDrop BearSetCenterToParentViewWithAxis:kAXIS_X_Y];
     
@@ -81,6 +87,10 @@
     _mainDropBgView.hidden = YES;
     [_mainDropBgView.layer addSublayer:_mainDrop.dropShapLayer];
     [self addSubview:_mainDropBgView];
+    
+    if (showDropViewOnly) {
+        [self.layer addSublayer:_mainDrop.dropShapLayer];
+    }
 }
 
 - (void)createRingUI
@@ -208,7 +218,10 @@
     [super drawRect:rect];
     
     [self drawDropView:_mainDrop];
-//    [self drawAssistantLine];
+    
+    if (showAssistantLine) {
+        [self drawAssistantLine];
+    }
 }
 
 
