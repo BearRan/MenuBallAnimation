@@ -208,6 +208,7 @@
 }
 
 
+#pragma mark DrawRect
 - (void)drawRect:(CGRect)rect
 {
     [super drawRect:rect];
@@ -215,7 +216,7 @@
     [self drawDropView:_mainDrop];
     
     if (showAssistantLine) {
-        [self drawAssistantLine];
+        [self drawAssistantUI];
     }
 }
 
@@ -223,6 +224,7 @@
 - (void)drawDropView:(DropView *)dropView
 {
     [dropView.bezierPath removeAllPoints];
+    
     dropView.bezierPath.lineCapStyle = kCGLineCapRound;
     dropView.bezierPath.lineJoinStyle = kCGLineJoinRound;
     
@@ -455,8 +457,6 @@
                 //  绘制半圆弧
                 [dropView.bezierPath addArcWithCenter:assisDropNow_center radius:assisDrop_now.circleMath.radius startAngle:radius_start endAngle:radius_end clockwise:YES];
                 
-//                CGFloat dis_dropNowCenterToDropLaterLeft = [LineMath calucateDistanceBetweenPoint1:assisDropNow_center withPoint2:assisDropLater_LeftAssisPointS];
-//                CGFloat dis_dropNowCenterToDropNowRight = [LineMath calucateDistanceBetweenPoint1:assisDropNow_center withPoint2:assisDropNow_RightAssisPointS];
                 CGFloat dis_dropNowCenterToMainCenterThreshold_Min = sqrt(assisDrop_now.circleMath.radius * assisDrop_now.circleMath.radius * 2);
                 CGFloat dis_dropNowCenterToMainCenterThreshold_Max = dropView.circleMath.radius + assisDrop_now.circleMath.radius;
                 CGFloat dis_dropNowCenterToMainCenterThreshold_Now = [LineMath calucateDistanceBetweenPoint1:assisDropNow_center withPoint2:mainDrop_center];
@@ -532,9 +532,10 @@
 }
 
 
-- (void)drawAssistantLine
+//  绘制辅助线
+- (void)drawAssistantUI
 {
-    //  绘制辅助线
+    
     for (id tempAssis in _assisArray) {
 
         if ([tempAssis isKindOfClass:[LineMath class]]) {
@@ -551,7 +552,8 @@
     }
 }
 
-//  画点
+
+//  绘制辅助点
 - (void)drawPoint:(PointMath *)pointMath
 {
     CGPoint point = [pointMath.InView convertPoint:pointMath.point toView:self];
@@ -591,11 +593,11 @@
 }
 
 
+#pragma mark 动画开关
 @synthesize animationStatus = _animationStatus;
 - (void)setAnimationStatus:(AnimationStatus)animationStatus
 {
     _animationStatus = animationStatus;
-//    _mainDrop.displayLink.paused = NO;
     
     //  开始动画
     if (_animationStatus == animationOpen) {
