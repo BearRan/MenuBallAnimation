@@ -69,6 +69,8 @@
     
     _bezierPath = [UIBezierPath bezierPath];
     
+    _assisDropArray = [[NSMutableArray alloc] init];
+    
     _dropShapLayer = [CAShapeLayer layer];
 //    _dropShapLayer.lineWidth = 2.0f;
 //    _dropShapLayer.strokeColor = [[UIColor blackColor] colorWithAlphaComponent:0.7].CGColor;
@@ -83,19 +85,15 @@
 
 - (void)createSmallDropView
 {
-    CGFloat assisDrop_width = self.width;
-    
-    _assisDrop1 = [[DropView alloc] initWithFrame:CGRectMake(0, 0, assisDrop_width, assisDrop_width) createSmallDrop:NO];
-    [self initSetAssisDrop:_assisDrop1];
-    
-    _assisDrop2 = [[DropView alloc] initWithFrame:CGRectMake(0, 0, assisDrop_width, assisDrop_width) createSmallDrop:NO];
-    [self initSetAssisDrop:_assisDrop2];
-    
-    _assisDrop3 = [[DropView alloc] initWithFrame:CGRectMake(0, 0, assisDrop_width, assisDrop_width) createSmallDrop:NO];
-    [self initSetAssisDrop:_assisDrop3];
-    
-    _assisDrop4 = [[DropView alloc] initWithFrame:CGRectMake(0, 0, assisDrop_width, assisDrop_width) createSmallDrop:NO];
-    [self initSetAssisDrop:_assisDrop4];
+    for (int i = 0; i < 4; i++) {
+        
+        CGFloat assisDrop_width = self.width;
+        
+        DropView *assisDrop = [[DropView alloc] initWithFrame:CGRectMake(0, 0, assisDrop_width, assisDrop_width) createSmallDrop:NO];
+        [self initSetAssisDrop:assisDrop];
+        
+        [_assisDropArray addObject:assisDrop];
+    }
 }
 
 - (void)initSetAssisDrop:(DropView *)assisDrop
@@ -126,10 +124,10 @@
         CGFloat centerY = self.height/2;
         CGFloat deltaX = abs((int)centerX - (int)tempPoint.x);
         
-        _assisDrop1.center = CGPointMake(centerX - deltaX, centerY - deltaX);
-        _assisDrop2.center = CGPointMake(centerX + deltaX, centerY - deltaX);
-        _assisDrop3.center = CGPointMake(centerX + deltaX, centerY + deltaX);
-        _assisDrop4.center = CGPointMake(centerX - deltaX, centerY + deltaX);
+//        _assisDrop1.center = CGPointMake(centerX - deltaX, centerY - deltaX);
+//        _assisDrop2.center = CGPointMake(centerX + deltaX, centerY - deltaX);
+//        _assisDrop3.center = CGPointMake(centerX + deltaX, centerY + deltaX);
+//        _assisDrop4.center = CGPointMake(centerX - deltaX, centerY + deltaX);
         
         [self calucateCoordinate1];
     }
@@ -156,11 +154,22 @@
 {
     [_dropSuperView.assisArray removeAllObjects];
 
-    CGFloat radius_SmallAddMain = self.circleMath.radius + _assisDrop1.circleMath.radius;
-    CGFloat radius_SmallAddSmall = _assisDrop1.circleMath.radius + _assisDrop2.circleMath.radius;
+    DropView *tempAssisDrop0;
+    DropView *tempAssisDrop1;
+    if ([_assisDropArray count] > 1) {
+        tempAssisDrop0 = _assisDropArray[0];
+        tempAssisDrop1 = _assisDropArray[1];
+    }
     
-    CALayer *assisDrop1_PreLayer = _assisDrop1.layer.presentationLayer;
-    CALayer *assisDrop2_PreLayer = _assisDrop2.layer.presentationLayer;
+    if (!tempAssisDrop0 || !tempAssisDrop1) {
+        return;
+    }
+    
+    CGFloat radius_SmallAddMain = self.circleMath.radius + tempAssisDrop0.circleMath.radius;
+    CGFloat radius_SmallAddSmall = tempAssisDrop0.circleMath.radius + tempAssisDrop1.circleMath.radius;
+    
+    CALayer *assisDrop1_PreLayer = tempAssisDrop0.layer.presentationLayer;
+    CALayer *assisDrop2_PreLayer = tempAssisDrop1.layer.presentationLayer;
     
     CGFloat dis_SmallToMain = [LineMath calucateDistanceBetweenPoint1:assisDrop1_PreLayer.position withPoint2:_mainCenter];
     CGFloat dis_SmallToSmall = [LineMath calucateDistanceBetweenPoint1:assisDrop1_PreLayer.position withPoint2:assisDrop2_PreLayer.position];
@@ -170,10 +179,9 @@
 //        NSLog(@"小圆和大圆相离");
         _relation = kSeparated_SmallToMain;
         
-        [self calucateCrossPointDropView1:_assisDrop1 dropView2:self setCondition:kSetNull];
-        [self calucateCrossPointDropView1:_assisDrop2 dropView2:self setCondition:kSetNull];
-        [self calucateCrossPointDropView1:_assisDrop3 dropView2:self setCondition:kSetNull];
-        [self calucateCrossPointDropView1:_assisDrop4 dropView2:self setCondition:kSetNull];
+        for (DropView *assisDropView in _assisDropArray) {
+            [self calucateCrossPointDropView1:assisDropView dropView2:self setCondition:kSetNull];
+        }
         
     }
     //小圆和大圆相交
@@ -181,10 +189,9 @@
 //        NSLog(@"小圆和大圆相交");
         _relation = kCross_SmallToMain;
         
-        [self calucateCrossPointDropView1:_assisDrop1 dropView2:self setCondition:kSetNull];
-        [self calucateCrossPointDropView1:_assisDrop2 dropView2:self setCondition:kSetNull];
-        [self calucateCrossPointDropView1:_assisDrop3 dropView2:self setCondition:kSetNull];
-        [self calucateCrossPointDropView1:_assisDrop4 dropView2:self setCondition:kSetNull];
+        for (DropView *assisDropView in _assisDropArray) {
+            [self calucateCrossPointDropView1:assisDropView dropView2:self setCondition:kSetNull];
+        }
         
     }
     //小圆和小圆相交
@@ -192,15 +199,23 @@
 //        NSLog(@"小圆和小圆相交");
         _relation = kCross_SmallToSmall;
         
-        [self calucateCrossPointDropView1:_assisDrop1 dropView2:_assisDrop2 setCondition:kSetRightPoint];
-        [self calucateCrossPointDropView1:_assisDrop2 dropView2:_assisDrop3 setCondition:kSetRightPoint];
-        [self calucateCrossPointDropView1:_assisDrop3 dropView2:_assisDrop4 setCondition:kSetRightPoint];
-        [self calucateCrossPointDropView1:_assisDrop4 dropView2:_assisDrop1 setCondition:kSetRightPoint];
-
-        [self calucateCrossPointDropView1:_assisDrop4 dropView2:_assisDrop3 setCondition:kSetLeftPoint];
-        [self calucateCrossPointDropView1:_assisDrop3 dropView2:_assisDrop2 setCondition:kSetLeftPoint];
-        [self calucateCrossPointDropView1:_assisDrop2 dropView2:_assisDrop1 setCondition:kSetLeftPoint];
-        [self calucateCrossPointDropView1:_assisDrop1 dropView2:_assisDrop4 setCondition:kSetLeftPoint];
+        for (DropView *assisDropView in _assisDropArray) {
+            [self calucateCrossPointDropView1:assisDropView dropView2:self setCondition:kSetNull];
+        }
+        
+        for (int i = 0; i < [_assisDropArray count]; i++) {
+            DropView *assisDropView_now = _assisDropArray[i];
+            
+            DropView *assisDropView_later;
+            if (i == [_assisDropArray count] - 1) {
+                assisDropView_later = _assisDropArray[0];
+            }else{
+                assisDropView_later = _assisDropArray[i + 1];
+            }
+            
+            [self calucateCrossPointDropView1:assisDropView_now dropView2:assisDropView_later setCondition:kSetRightPoint];
+            [self calucateCrossPointDropView1:assisDropView_later dropView2:assisDropView_now setCondition:kSetLeftPoint];
+        }
     }
     //初始位置
     else if (abs((int)dis_SmallToMain) < faultTolerantValue_Inintional){
@@ -270,15 +285,27 @@
  */
 - (AcrossPointStruct)calucateCrossPointDropView1:(DropView *)dropView1 dropView2:(DropView *)dropView2 setCondition:(kSetCondition)setCondition
 {
-    CGFloat radius_SmallAddMain = self.circleMath.radius + _assisDrop1.circleMath.radius;
-    CGFloat radius_SmallAddSmall = _assisDrop1.circleMath.radius + _assisDrop2.circleMath.radius;
+    DropView *tempAssisDrop0;
+    DropView *tempAssisDrop1;
+    if ([_assisDropArray count] > 1) {
+        tempAssisDrop0 = _assisDropArray[0];
+        tempAssisDrop1 = _assisDropArray[1];
+    }
     
-    CALayer *assisDrop1_PreLayer = _assisDrop1.layer.presentationLayer;
-    CALayer *assisDrop2_PreLayer = _assisDrop2.layer.presentationLayer;
+    if (!tempAssisDrop0 || !tempAssisDrop1) {
+        
+        AcrossPointStruct acrossPointstruct;
+        return acrossPointstruct;
+    }
+    
+    CGFloat radius_SmallAddMain = self.circleMath.radius + tempAssisDrop0.circleMath.radius;
+    CGFloat radius_SmallAddSmall = tempAssisDrop0.circleMath.radius + tempAssisDrop1.circleMath.radius;
+    
+    CALayer *assisDrop1_PreLayer = tempAssisDrop0.layer.presentationLayer;
+    CALayer *assisDrop2_PreLayer = tempAssisDrop1.layer.presentationLayer;
     
     CGFloat dis_SmallToMain = [LineMath calucateDistanceBetweenPoint1:assisDrop1_PreLayer.position withPoint2:_mainCenter];
     CGFloat dis_SmallToSmall = [LineMath calucateDistanceBetweenPoint1:assisDrop1_PreLayer.position withPoint2:assisDrop2_PreLayer.position];
-    
     
     
     

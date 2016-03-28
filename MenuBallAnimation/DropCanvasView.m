@@ -240,7 +240,7 @@
             
         case kSeparated_SmallToMain:
         {
-            NSArray *smallDropViewArray = [[NSArray alloc] initWithObjects:dropView.assisDrop1, dropView.assisDrop2, dropView.assisDrop3, dropView.assisDrop4, nil];
+            NSArray *smallDropViewArray = (NSArray *)_mainDrop.assisDropArray;
             for (int i = 0; i < [smallDropViewArray count]; i++) {
                 
                 DropView *assisDrop_now = (DropView *)smallDropViewArray[i];
@@ -433,7 +433,7 @@
             
         case kCross_SmallToMain:
         {
-            NSArray *smallDropViewArray = [[NSArray alloc] initWithObjects:dropView.assisDrop1, dropView.assisDrop2, dropView.assisDrop3, dropView.assisDrop4, nil];
+            NSArray *smallDropViewArray = (NSArray *)_mainDrop.assisDropArray;
             for (int i = 0; i < [smallDropViewArray count]; i++) {
                 DropView *assisDrop_now = (DropView *)smallDropViewArray[i];
                 DropView *assisDrop_later = (i+1) >= [smallDropViewArray count] ? (DropView *)smallDropViewArray[0] : (DropView *)smallDropViewArray[i+1];
@@ -497,7 +497,7 @@
             
         case kCross_SmallToSmall:
         {
-            NSArray *smallDropViewArray = [[NSArray alloc] initWithObjects:dropView.assisDrop1, dropView.assisDrop2, dropView.assisDrop3, dropView.assisDrop4, nil];
+            NSArray *smallDropViewArray = (NSArray *)_mainDrop.assisDropArray;
             for (int i = 0; i < [smallDropViewArray count]; i++) {
                 
                 DropView *assisDrop_now = (DropView *)smallDropViewArray[i];
@@ -751,10 +751,23 @@
 
             CGFloat deltaDistance = (_btnGapDistance / ((float)times * 1.0)) * i;
             
-            _mainDrop.assisDrop1.center = CGPointMake(centerX - deltaDistance, centerY - deltaDistance);
-            _mainDrop.assisDrop2.center = CGPointMake(centerX + deltaDistance, centerY - deltaDistance);
-            _mainDrop.assisDrop3.center = CGPointMake(centerX + deltaDistance, centerY + deltaDistance);
-            _mainDrop.assisDrop4.center = CGPointMake(centerX - deltaDistance, centerY + deltaDistance);
+            CGFloat radius = sqrt(deltaDistance * deltaDistance * 2);
+            CGFloat radians = M_PI * 2 / (float)[_mainDrop.assisDropArray count];
+            CGFloat startRadians = M_PI / 4.0f;
+            
+            for (int i = 0; i < [_mainDrop.assisDropArray count]; i++) {
+                
+                CGFloat deltaX = cos(i * radians + startRadians) * radius;
+                CGFloat deltaY = sin(i * radians + startRadians) * radius;
+                
+                DropView *assisDrop = _mainDrop.assisDropArray[i];
+                assisDrop.center = CGPointMake(centerX - deltaX, centerY - deltaY);
+            }
+            
+//            _mainDrop.assisDrop1.center = CGPointMake(centerX - deltaDistance, centerY - deltaDistance);
+//            _mainDrop.assisDrop2.center = CGPointMake(centerX + deltaDistance, centerY - deltaDistance);
+//            _mainDrop.assisDrop3.center = CGPointMake(centerX + deltaDistance, centerY + deltaDistance);
+//            _mainDrop.assisDrop4.center = CGPointMake(centerX - deltaDistance, centerY + deltaDistance);
         }
     });
     dispatch_resume(timer);
@@ -784,10 +797,24 @@
             CGFloat deltaDistance = (_btnGapDistance / ((float)times * 1.0)) * i;
             deltaDistance = _btnGapDistance - deltaDistance;
             
-            _mainDrop.assisDrop1.center = CGPointMake(centerX - deltaDistance, centerY - deltaDistance);
-            _mainDrop.assisDrop2.center = CGPointMake(centerX + deltaDistance, centerY - deltaDistance);
-            _mainDrop.assisDrop3.center = CGPointMake(centerX + deltaDistance, centerY + deltaDistance);
-            _mainDrop.assisDrop4.center = CGPointMake(centerX - deltaDistance, centerY + deltaDistance);
+            
+            CGFloat radius = sqrt(deltaDistance * deltaDistance * 2);
+            CGFloat radians = M_PI * 2 / (float)[_mainDrop.assisDropArray count];
+            CGFloat startRadians = M_PI / 4.0f;
+            
+            for (int i = 0; i < [_mainDrop.assisDropArray count]; i++) {
+                
+                CGFloat deltaX = cos(i * radians + startRadians) * radius;
+                CGFloat deltaY = sin(i * radians + startRadians) * radius;
+                
+                DropView *assisDrop = _mainDrop.assisDropArray[i];
+                 assisDrop.center = CGPointMake(centerX - deltaX, centerY - deltaY);
+            }
+            
+//            _mainDrop.assisDrop1.center = CGPointMake(centerX - deltaDistance, centerY - deltaDistance);
+//            _mainDrop.assisDrop2.center = CGPointMake(centerX + deltaDistance, centerY - deltaDistance);
+//            _mainDrop.assisDrop3.center = CGPointMake(centerX + deltaDistance, centerY + deltaDistance);
+//            _mainDrop.assisDrop4.center = CGPointMake(centerX - deltaDistance, centerY + deltaDistance);
         }
     });
     dispatch_resume(timer);
@@ -801,10 +828,24 @@
     CGFloat deltaDistance = _btnGapDistance;
 //    CGFloat deltaDistance = 50;
     
-    _mainDrop.assisDrop1.center = CGPointMake(centerX - deltaDistance, centerY - deltaDistance);
-    _mainDrop.assisDrop2.center = CGPointMake(centerX + deltaDistance, centerY - deltaDistance);
-    _mainDrop.assisDrop3.center = CGPointMake(centerX + deltaDistance, centerY + deltaDistance);
-    _mainDrop.assisDrop4.center = CGPointMake(centerX - deltaDistance, centerY + deltaDistance);
+    
+    CGFloat radius = sqrt(deltaDistance * deltaDistance * 2);
+    CGFloat radians = M_PI * 2 / (float)[_mainDrop.assisDropArray count];
+    CGFloat startRadians = M_PI / 4.0f;
+    
+    for (int i = 0; i < [_mainDrop.assisDropArray count]; i++) {
+        
+        CGFloat deltaX = cos(i * radians + startRadians) * radius;
+        CGFloat deltaY = sin(i * radians + startRadians) * radius;
+        
+        DropView *assisDrop = _mainDrop.assisDropArray[i];
+        assisDrop.center = CGPointMake(centerX - deltaX, centerY - deltaY);
+    }
+    
+//    _mainDrop.assisDrop1.center = CGPointMake(centerX - deltaDistance, centerY - deltaDistance);
+//    _mainDrop.assisDrop2.center = CGPointMake(centerX + deltaDistance, centerY - deltaDistance);
+//    _mainDrop.assisDrop3.center = CGPointMake(centerX + deltaDistance, centerY + deltaDistance);
+//    _mainDrop.assisDrop4.center = CGPointMake(centerX - deltaDistance, centerY + deltaDistance);
 }
 
 - (void)assisDropHidden
@@ -813,10 +854,23 @@
     CGFloat centerY = _mainDrop.height/2.0;
     CGFloat deltaDistance = 0;
     
-    _mainDrop.assisDrop1.center = CGPointMake(centerX - deltaDistance, centerY - deltaDistance);
-    _mainDrop.assisDrop2.center = CGPointMake(centerX + deltaDistance, centerY - deltaDistance);
-    _mainDrop.assisDrop3.center = CGPointMake(centerX + deltaDistance, centerY + deltaDistance);
-    _mainDrop.assisDrop4.center = CGPointMake(centerX - deltaDistance, centerY + deltaDistance);
+    CGFloat radius = sqrt(deltaDistance * deltaDistance * 2);
+    CGFloat radians = M_PI * 2 / (float)[_mainDrop.assisDropArray count];
+    CGFloat startRadians = M_PI / 4.0f;
+    
+    for (int i = 0; i < [_mainDrop.assisDropArray count]; i++) {
+        
+        CGFloat deltaX = cos(i * radians + startRadians) * radius;
+        CGFloat deltaY = sin(i * radians + startRadians) * radius;
+        
+        DropView *assisDrop = _mainDrop.assisDropArray[i];
+        assisDrop.center = CGPointMake(centerX - deltaX, centerY - deltaY);
+    }
+    
+//    _mainDrop.assisDrop1.center = CGPointMake(centerX - deltaDistance, centerY - deltaDistance);
+//    _mainDrop.assisDrop2.center = CGPointMake(centerX + deltaDistance, centerY - deltaDistance);
+//    _mainDrop.assisDrop3.center = CGPointMake(centerX + deltaDistance, centerY + deltaDistance);
+//    _mainDrop.assisDrop4.center = CGPointMake(centerX - deltaDistance, centerY + deltaDistance);
 }
 
 
